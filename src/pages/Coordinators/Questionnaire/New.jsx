@@ -44,21 +44,24 @@
 
 
 
-
+import Axios from 'axios'
 import React, { useRef } from 'react';
 //bracha, each time useState change- the component re-render. if you don't want it- use useRef
 
-function New() {
+const New = () => {
   const dateRef = useRef('');
   const termRef = useRef('');
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
     const formData = {
       date: dateRef.current.value,
       term: termRef.current.value
     };
     console.log(formData);
+    const data = await Axios.get('http://localhost:3600/api/course/');
+    const d = await data.data;
+    console.log(d);
   };
 
   return (
