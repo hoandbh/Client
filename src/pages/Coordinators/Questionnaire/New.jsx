@@ -63,7 +63,12 @@ function New() {
     const d = await data.data;
     console.log(d);
   };
-
+  const showQuestionnaires = async event=>{
+    event.preventDefault();
+    const data = await Axios.get('http://localhost:3600/api/questionnaire');
+    const d = await data.data;
+    console.log(d);
+  }
   return (
     <form onSubmit={handleSubmit}>
       <label>
@@ -79,9 +84,10 @@ function New() {
           <option value={'C'}>מועד ג</option>
           <option value={'D'}>מועד ד</option>
           <option value={'E'}>מועד מיוחד</option>
-        </select>
+        </select> <br/>
       </label>
       <button type="submit">Submit</button>
+      <button onClick={showQuestionnaires}>See Test</button>
     </form>
   );
 }
