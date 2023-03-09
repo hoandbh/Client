@@ -47,7 +47,7 @@
 
 import React, { useRef } from 'react';
 //bracha, each time useState change- the component re-render. if you don't want it- use useRef
-
+//I dont really understand what you mean, but I can try to learn about it. Thank you!
 function New() {
   const dateRef = useRef('');
   const termRef = useRef('');
