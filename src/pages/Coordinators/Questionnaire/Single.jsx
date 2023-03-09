@@ -22,18 +22,19 @@ const Single = () => {
   //{data.map((qst, index) => <h4 key={index}>{qst}</h4>)}
 
   //how to render an object?? ->
+  //<ul>
+  //{
   //Object.entries(theObject).map(([key, value]) => (
   //<li key={key}>
   //<strong>{key}: </strong>
   //{value}
   // </li>
   //))
+  //}
+  //</ul>
 
   return <>
-    <ul>
-      {
-      }
-    </ul>
+    
     <h1>single component {id}</h1>
   </>
 }
