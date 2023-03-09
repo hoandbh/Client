@@ -46,7 +46,6 @@
 
 import Axios from 'axios'
 import React, { useRef } from 'react';
-//bracha, each time useState change- the component re-render. if you don't want it- use useRef
 
 const New = () => {
   const dateRef = useRef('');
@@ -59,9 +58,18 @@ const New = () => {
       term: termRef.current.value
     };
     console.log(formData);
-    const data = await Axios.get('http://localhost:3600/api/course/');
-    const d = await data.data;
-    console.log(d);
+    // axios get example
+    // const data = await Axios.get('http://localhost:3600/api/course/');
+    // const d = await data.data;
+    // console.log(d);
+
+    const {data:newQst}= await Axios.post('http://localhost:3600/api/questionnaire/',
+      {
+        "owner":1,
+        "date":dateRef.current.value
+      }
+    );
+    console.log(newQst);
   };
 
   return (
