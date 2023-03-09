@@ -20,16 +20,17 @@ const New = () => {
     // const d = await data.data;
     // console.log(d);
 
-    const {data:newQst}= await Axios.post('http://localhost:3600/api/questionnaire/',
+    const {data:newQuestionnaire}= await Axios.post('http://localhost:3600/api/questionnaire/',
       {
         "owner":1,
         "date":dateRef.current.value
       }
     );
-    console.log(newQst);
-    navigate('/single');
+    const id = newQuestionnaire.id_questionnaire;
+    console.log(newQuestionnaire);
+    navigate('/single?id='+id);
   };
-  
+
   const showQuestionnaires = async event=>{
     event.preventDefault();
     const data = await Axios.get('http://localhost:3600/api/questionnaire');
