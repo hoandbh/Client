@@ -1,4 +1,3 @@
-
 import Home from "./pages/Home";
 import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom"
 import Single from './pages/Coordinators/Questionnaire/Single';
@@ -8,7 +7,7 @@ function App() {
   return <>
     <Router>
       <nav>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/">Home   </NavLink>
         <NavLink to="/questionnaire/new">new questionnaire</NavLink>
       </nav>
       <Routes>

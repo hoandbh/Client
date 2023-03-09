@@ -27,7 +27,7 @@ const New = () => {
       }
     );
     console.log(newQst);
-    // navigate('/single');
+    navigate('/single');
   };
   
   const showQuestionnaires = async event=>{
