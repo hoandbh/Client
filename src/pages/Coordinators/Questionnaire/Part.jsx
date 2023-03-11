@@ -6,14 +6,14 @@ const Part = (props) => {
     const part = props.part;
 
     const addQuestion = async () => {
-        //nested url?? 
-        const res = await Axios.post('http://localhost:3600/api/question',
-            {
-                "part_in_questionnaire": 1,
-                "content": "WWWWWWWWWWWWWWWWWWWW"
-            }
-        )
-        props.toDelete()//just for re-render the parent
+      //nested url?? 
+      const res = await Axios.post('http://localhost:3600/api/question',
+        {
+            "part_in_questionnaire": 1,
+            "content": "WWWWWWWWWWWWWWWWWWWW"
+        }
+      )
+      props.toDelete()//just for re-render the parent
     }
 
 

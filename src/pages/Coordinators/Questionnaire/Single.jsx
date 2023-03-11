@@ -18,7 +18,7 @@ const Single = () => {
     const questionnaire = data[0]
     setData(questionnaire);
     setPartsNum(questionnaire.parts_in_questionnaire.length);
-    console.log(questionnaire)
+    console.log(questionnaire);
   }
 
   useEffect(() => {
@@ -44,17 +44,17 @@ const Single = () => {
     setDelete(1);
     alert('good');
 
-  }
+  }       
+
   const addPart = async () => {
     const res = await Axios.post(`http://localhost:3600/api/questionnaire/${id}/parts`,
+      //to take the info from the user
       {
-        //to take the info from the user
-        "headline": "if you see it - you added a part!!!!",
-        "serial_number": partsNum,
-        "mix": true
+        "headline":"the headline of the part B",
+        "serial_number":partsNum,
+        "mix":true
       }
     )
-    setPartsNum(prevPartsNum => prevPartsNum + 1);//is it the way??
     fetchData();
   }
 

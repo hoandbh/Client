@@ -4,23 +4,21 @@ import Axios from "axios";
 
 const Many = () => {
 
-    const [data, setData] = useState([{}]);
+    const [data, setData] = useState([]);
     const location = useLocation();
 
 
     const showQuestionnaires = async event => {
-        event.preventDefault();
-        const data = await Axios.get('http://localhost:3600/api/questionnaire');
-        const d = await data.data;
+        const {data:d} = await Axios.get('http://localhost:3600/api/questionnaire');
         console.log(d);
         const qstrsItems = d.map((qstr) =>
             <li key={qstr.toString()}>
-                {qstr}
+                {qstr.date}
             </li>
             );
 
-            return <ul>{qstrsItems}</ul>
-
+            // return <ul>{qstrsItems}</ul>
+        setData(qstrsItems);
         // const qstnrLi = d.map((qstr)=>)
         // return (
         //     <ul>
@@ -42,7 +40,7 @@ const Many = () => {
     }
     return <>
         many component
-
+        {data}
         <button onClick={showQuestionnaires}>See Test</button><br /><br />
 
     </>
