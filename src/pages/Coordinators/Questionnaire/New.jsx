@@ -37,28 +37,28 @@ const New = () => {
     const d = await data.data;
     console.log(d);
     }
-    return <>
+  return <>
   
-      <form onSubmit={handleSubmit}>
-        <label>
-          date:
+    <form onSubmit={handleSubmit}>
+      <label>
+        date:
           <input type="date" ref={dateRef} required />
-        </label>
-        <label>
-          term:
-          <select ref={termRef} required >
-            <option> מועד המבחן</option>
-            <option value={'A'}>מועד א</option>
-            <option value={'B'}>מועד ב</option>
-            <option value={'C'}>מועד ג</option>
-            <option value={'D'}>מועד ד</option>
-            <option value={'E'}>מועד מיוחד</option>
+      </label>
+      <label>
+        term:
+        <select ref={termRef} required >
+          <option> מועד המבחן</option>
+          <option value={'A'}>מועד א</option>
+          <option value={'B'}>מועד ב</option>
+          <option value={'C'}>מועד ג</option>
+          <option value={'D'}>מועד ד</option>
+          <option value={'E'}>מועד מיוחד</option>
           </select> <br/>
-        </label>
+      </label>
         <button type="submit">Submit</button>
         <button onClick={showQuestionnaires}>See Test</button>
-      </form>
-    </> 
-  }
+    </form>
+  </>
+}
 
 export default New;
