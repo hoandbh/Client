@@ -1,28 +1,30 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
+import Part from './Part';
 
 const Single = () => {
 
-  const [data, setData] = useState({});
-  const [partsNum, setPartsNum] = useState(0);
-
-  //
-  const location = useLocation();
+  const location = useLocation();//maybe to get the id through props
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
 
-  useEffect( () => { 
-    const fetchData = async () => { 
-      const {data} = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`)
-      const questionnaire = data[0]
-      setData(questionnaire);
-      setPartsNum(questionnaire.parts_in_questionnaire.length);
-      console.log(questionnaire)
-    }
+  const [data, setData] = useState({});
+  const [partsNum, setPartsNum] = useState(0);
+  const [delete_, setDelete] = useState(0);
+
+  const fetchData = async () => {
+    const { data } = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`)
+    const questionnaire = data[0]
+    setData(questionnaire);
+    setPartsNum(questionnaire.parts_in_questionnaire.length);
+    console.log(questionnaire)
+  }
+
+  useEffect(() => {
     fetchData();
-  },[])
-  
+  }, [])
+
   //how to render an array??  ->
   //{data.map((qst, index) => <h4 key={index}>{qst}</h4>)}
 
@@ -38,32 +40,35 @@ const Single = () => {
   //}
   //</ul>
 
-  const viewQst = (qst) => {
-    return <p>{qst.content}</p>
-  }
+  const toDelete = () => {
+    setDelete(1);
+    alert('good');
 
-  const viewPart = (part) => {
-    return <>
-      <p>headline: {part.headline}</p>
-      <p>number: {part.number_in_questionnaire}</p>
-      {part.questions_in_part && <ul>
-        {part.questions_in_part.map((qst) => <li>{viewQst(qst)}</li>)}
-      </ul>}
-    </>
+  }
+  const addPart = async () => {
+    const res = await Axios.post(`http://localhost:3600/api/questionnaire/${id}/parts`,
+      {
+        //to take the info from the user
+        "headline": "if you see it - you added a part!!!!",
+        "serial_number": partsNum,
+        "mix": true
+      }
+    )
+    setPartsNum(prevPartsNum => prevPartsNum + 1);//is it the way??
+    fetchData();
   }
 
 
   return <>
     <h1>single component {id}</h1>
-    {data && <h4>date: {data.date}</h4>}
+    {data && <h4>date: {new Date(data.date).toLocaleDateString()}</h4>}
     {data && <h4>owner: {data.owner}</h4>}
     {data && data.parts_in_questionnaire && <ul>
-      {data.parts_in_questionnaire.map((part) => <li>{viewPart(part)}</li>)}
+      {data.parts_in_questionnaire.map((part) => <li><Part part={part} toDelete={toDelete} /></li>)}
     </ul>}
-    <button>add part</button>
+    <button onClick={addPart}>add part</button>
   </>
 }
-
 
 export default Single;
 
