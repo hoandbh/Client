@@ -20,7 +20,8 @@ const New = () => {
     const {data:newQuestionnaire}= await Axios.post('http://localhost:3600/api/questionnaire/',
       {
         "owner":1,
-        "date":dateRef.current.value
+        "date":dateRef.current.value,
+        "term":termRef.current.value
       }
     );
     const id = newQuestionnaire.id_questionnaire;

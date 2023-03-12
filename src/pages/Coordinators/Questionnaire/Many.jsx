@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
 
+
 const Many = () => {
 
+    const [qstnrs, setQstnrs] = useState({});
     const [data, setData] = useState([]);
     const location = useLocation();
 
@@ -16,6 +18,11 @@ const Many = () => {
                 {qstr.date}
             </li>
             );
+        setQstnrs(d);
+        console.log("afger");
+        console.log(qstnrs)
+
+            // const q = <ul>{qstrsItems}</ul>;
 
             // return <ul>{qstrsItems}</ul>
         setData(qstrsItems);
@@ -27,21 +34,20 @@ const Many = () => {
         //     </ul>
         // )
     }
-    function NumberList(props) {
-        const numbers = props.numbers;
-        const listItems = numbers.map((number) =>
-            <li key={number.toString()}>
-                {number}
-            </li>
-        );
-        return (
-            <ul>{listItems}</ul>
-        );
+
+
+    const viewQuestionnaires = (qst) =>{
+        return <>
+            <p>Questionnaire Id: {qst.id_questionnaire}</p> 
+            <p>Owner: {qst.owner}</p>
+            
+        </>
     }
+ 
     return <>
         many component
-        {data}
         <button onClick={showQuestionnaires}>See Test</button><br /><br />
+        {qstnrs && <ul> {qstnrs.map((qstn) => <li>{viewQuestionnaires(qstn)}</li>)}</ul>}
 
     </>
 }

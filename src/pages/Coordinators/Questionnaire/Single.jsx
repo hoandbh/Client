@@ -57,6 +57,7 @@ const Single = () => {
     <h1>single component {id}</h1>
     {data && <h4>date: {new Date(data.date).toLocaleDateString()}</h4>}
     {data && <h4>owner: {data.owner}</h4>}
+    {data && <h4>Term: {data.term}</h4>}
     {data && data.parts_in_questionnaire && <ul>
       {data.parts_in_questionnaire.map((part) => <li><Part part={part} /></li>)}
     </ul>}
