@@ -1,6 +1,12 @@
 import Axios from 'axios'
 import React, { useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
+// import { TextField } from "@material-ui/core";
+// import Box from '@mui/material/Box';
+// import TextField from '@mui/material/TextField';
+
+import { Button, Box, TextField } from '@mui/material';
+// import { styled } from '@mui/material/styles';
 
 const New = () => {
   const dateRef = useRef('');
@@ -30,7 +36,23 @@ const New = () => {
   };
 
   return <>
-  
+  <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+    <div>
+      <TextField
+          id="outlined-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+        />
+      </div>
+    </Box>
     <form onSubmit={handleSubmit}>
       <label>
         date:
@@ -48,7 +70,7 @@ const New = () => {
           <option value={'E'}>מועד מיוחד</option>
           </select> <br/>
       </label>
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
     </form>
   </>
 }

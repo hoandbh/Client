@@ -1,6 +1,7 @@
 import Question from "./Question";
 import Axios from 'axios';
 import { useState } from "react";
+import { Button } from '@mui/material';
 
 const Part = (props) => {
 
@@ -32,7 +33,7 @@ return <>
     {questions && <ul>
         {questions.map((qst) => <li><Question question={qst} /></li>)}
     </ul>}
-    <button onClick={addQuestion}>add question to part {part.serial_number}</button>
+    <Button onClick={addQuestion}>add question to part {part.serial_number}</Button>
 </>
 }
 
