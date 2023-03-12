@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import Part from './Part';
-import { Button, Typography} from '@mui/material';// , List, ListItem, Divider 
+import { Button, Typography} from '@mui/material';
 
 const Single = () => {
 
-  const location = useLocation();//maybe to get the id through props
+  const location = useLocation();//maybe to get the id through props??
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id');
 
@@ -24,22 +24,6 @@ const Single = () => {
     console.log(questionnaire.parts_in_questionnaire)
     fetchData();
   }, [])
-
-  //how to render an array??  ->
-  //{data.map((qst, index) => <h4 key={index}>{qst}</h4>)}
-
-  //how to render an object?? ->
-  //<ul>
-  //{
-  //Object.entries(theObject).map(([key, value]) => (
-  //<li key={key}>
-  //<strong>{key}: </strong>
-  //{value}
-  // </li>
-  //))
-  //}
-  //</ul>
- 
 
   const addPart = async () => {
     const res = await Axios.post(`http://localhost:3600/api/questionnaire/${id}/parts`,
@@ -67,17 +51,6 @@ const Single = () => {
     </Typography>
 
 
-    {/* {questionnaire && questionnaire.parts_in_questionnaire && 
-      <>
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {questionnaire.parts_in_questionnaire.map((part) => {
-            return <><ListItem alignItems="center"><Part part={part} /></ListItem><Divider variant="inset" component="li" /></>
-            })}
-          </List>
-      </>
-    } */}
-
-
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
           {questionnaire.parts_in_questionnaire.map(part => <li> <Part part={part} /></li>)}
@@ -90,6 +63,31 @@ const Single = () => {
 
 export default Single;
 
+    {/* {questionnaire && questionnaire.parts_in_questionnaire && 
+      <>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+          {questionnaire.parts_in_questionnaire.map((part) => {
+            return <><ListItem alignItems="center"><Part part={part} /></ListItem><Divider variant="inset" component="li" /></>
+            })}
+          </List>
+      </>
+    } */}
+
+  //how to render an array??  ->
+  //{data.map((qst, index) => <h4 key={index}>{qst}</h4>)}
+
+  //how to render an object?? ->
+  //<ul>
+  //{
+  //Object.entries(theObject).map(([key, value]) => (
+  //<li key={key}>
+  //<strong>{key}: </strong>
+  //{value}
+  // </li>
+  //))
+  //}
+  //</ul>
+ 
 
 
 
