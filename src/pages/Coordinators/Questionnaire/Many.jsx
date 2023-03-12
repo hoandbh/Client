@@ -6,19 +6,16 @@ import Axios from "axios";
 const Many = () => {
 
     const [qstnrs, setQstnrs] = useState({});
+    const [data, setData] = useState([]);
     const location = useLocation();
 
 
     const showQuestionnaires = async event => {
-        event.preventDefault();
-        console.log("before")
-        console.log(qstnrs)
-        const data = await Axios.get('http://localhost:3600/api/questionnaire');
-        const d = await data.data;
-        // console.log(d);
+        const {data:d} = await Axios.get('http://localhost:3600/api/questionnaire');
+        console.log(d);
         const qstrsItems = d.map((qstr) =>
-            <li key={qstr.id_questionnaire}>
-                {qstr}
+            <li key={qstr.toString()}>
+                {qstr.date}
             </li>
             );
         setQstnrs(d);
@@ -27,7 +24,8 @@ const Many = () => {
 
             // const q = <ul>{qstrsItems}</ul>;
 
-
+            // return <ul>{qstrsItems}</ul>
+        setData(qstrsItems);
         // const qstnrLi = d.map((qstr)=>)
         // return (
         //     <ul>
@@ -48,6 +46,7 @@ const Many = () => {
  
     return <>
         many component
+        {data}
         <button onClick={showQuestionnaires}>See Test</button><br /><br />
         {qstnrs && <ul> {qstnrs.map((qstn) => <li>{viewQuestionnaires(qstn)}</li>)}</ul>}
 

@@ -1,7 +1,8 @@
 import Axios from 'axios'
 import React, { useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-import Single from './Single'
+import Single from './Single';
+
 const New = () => {
   const dateRef = useRef('');
   const termRef = useRef('');
@@ -31,12 +32,6 @@ const New = () => {
     navigate('/single?id='+id);
   };
 
-  const showQuestionnaires = async event=>{
-    event.preventDefault();
-    const data = await Axios.get('http://localhost:3600/api/questionnaire');
-    const d = await data.data;
-    console.log(d);
-    }
   return <>
   
     <form onSubmit={handleSubmit}>
@@ -56,7 +51,6 @@ const New = () => {
           </select> <br/>
       </label>
         <button type="submit">Submit</button>
-        <button onClick={showQuestionnaires}>See Test</button>
     </form>
   </>
 }
