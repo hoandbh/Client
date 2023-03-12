@@ -46,7 +46,6 @@ const Many = () => {
  
     return <>
         many component
-        {data}
         <button onClick={showQuestionnaires}>See Test</button><br /><br />
         {qstnrs && <ul> {qstnrs.map((qstn) => <li>{viewQuestionnaires(qstn)}</li>)}</ul>}
 
