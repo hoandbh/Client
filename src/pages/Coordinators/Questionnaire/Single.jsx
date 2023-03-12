@@ -11,7 +11,6 @@ const Single = () => {
 
   const [data, setData] = useState({});
   const [partsNum, setPartsNum] = useState(0);
-  const [delete_, setDelete] = useState(0);
 
   const fetchData = async () => {
     const { data } = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`)
@@ -39,12 +38,7 @@ const Single = () => {
   //))
   //}
   //</ul>
-
-  const toDelete = () => {
-    setDelete(1);
-    alert('good');
-
-  }       
+ 
 
   const addPart = async () => {
     const res = await Axios.post(`http://localhost:3600/api/questionnaire/${id}/parts`,
@@ -64,7 +58,7 @@ const Single = () => {
     {data && <h4>date: {new Date(data.date).toLocaleDateString()}</h4>}
     {data && <h4>owner: {data.owner}</h4>}
     {data && data.parts_in_questionnaire && <ul>
-      {data.parts_in_questionnaire.map((part) => <li><Part part={part} toDelete={toDelete} /></li>)}
+      {data.parts_in_questionnaire.map((part) => <li><Part part={part} /></li>)}
     </ul>}
     <button onClick={addPart}>add part</button>
   </>

@@ -1,7 +1,6 @@
 import Axios from 'axios'
 import React, { useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-import Single from './Single';
 
 const New = () => {
   const dateRef = useRef('');
@@ -16,10 +15,7 @@ const New = () => {
       term: termRef.current.value
     };
     console.log(formData);
-    // axios get example
-    // const data = await Axios.get('http://localhost:3600/api/course/');
-    // const d = await data.data;
-    // console.log(d);
+
 
     const {data:newQuestionnaire}= await Axios.post('http://localhost:3600/api/questionnaire/',
       {
@@ -28,7 +24,7 @@ const New = () => {
       }
     );
     const id = newQuestionnaire.id_questionnaire;
-    console.log(newQuestionnaire);
+    console.log(dateRef.current.value);
     navigate('/single?id='+id);
   };
 
@@ -37,11 +33,12 @@ const New = () => {
     <form onSubmit={handleSubmit}>
       <label>
         date:
-          <input type="date" ref={dateRef} required />
+          <input defaultValue='0001-01-01' type="date" ref={dateRef} required />
       </label>
       <label>
         term:
         <select ref={termRef} required >
+          {/* <option> {null}</option> => to force the user select term*/}
           <option> מועד המבחן</option>
           <option value={'A'}>מועד א</option>
           <option value={'B'}>מועד ב</option>

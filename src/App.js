@@ -8,9 +8,9 @@ function App() {
   return <>
     <Router>
       <nav>
-        <NavLink to="/">Home   </NavLink><span>    </span>
-        <NavLink to="/questionnaire/new">new questionnaire</NavLink><span>    </span>
-        <NavLink to="/questionnaire/many">many</NavLink><span>    </span>
+        <NavLink to="/">Home   </NavLink><span>----</span>
+        <NavLink to="/questionnaire/new">new questionnaire</NavLink><span>----</span>
+        <NavLink to="/questionnaire/many">many</NavLink>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
