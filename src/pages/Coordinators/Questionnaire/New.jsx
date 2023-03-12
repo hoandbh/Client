@@ -1,12 +1,7 @@
 import Axios from 'axios'
 import React, { useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
-// import { TextField } from "@material-ui/core";
-// import Box from '@mui/material/Box';
-// import TextField from '@mui/material/TextField';
-
-import { Button, Box, TextField } from '@mui/material';
-// import { styled } from '@mui/material/styles';
+import { Button} from '@mui/material';
 
 const New = () => {
   const dateRef = useRef('');
@@ -16,13 +11,6 @@ const New = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const formData = {
-      date: dateRef.current.value,
-      term: termRef.current.value
-    };
-    console.log(formData);
-
-
     const {data:newQuestionnaire}= await Axios.post('http://localhost:3600/api/questionnaire/',
       {
         "owner":1,
@@ -31,28 +19,11 @@ const New = () => {
       }
     );
     const id = newQuestionnaire.id_questionnaire;
-    console.log(dateRef.current.value);
     navigate('/single?id='+id);
   };
 
   return <>
-  <Box
-      component="form"
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-    <div>
-      <TextField
-          id="outlined-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
-          helperText="Some important text"
-        />
-      </div>
-    </Box>
+
     <form onSubmit={handleSubmit}>
       <label>
         date:
@@ -75,4 +46,6 @@ const New = () => {
   </>
 }
 
-export default New;
+export default New; 
+
+
