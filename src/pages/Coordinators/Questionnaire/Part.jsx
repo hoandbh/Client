@@ -10,7 +10,9 @@ const Part = (props) => {
 
 
   const fetchQuestions = async () => {
-    const {data} = await Axios.get(`http://localhost:3600/api/question/ofPart/${part.id_part}`);
+    const questionnaireId = 1;//how to know questionnaireId?
+    // const {data} = await Axios.get(`http://localhost:3600/api/question/ofPart/${part.id_part}`);
+    const {data} = await Axios.get(`http://localhost:3600/api/questionnaire/${questionnaireId}/parts/${part.id_part}/questions`);
     setQuestions(data);
   }
 
@@ -18,6 +20,8 @@ const Part = (props) => {
   //for the dialog
   const [open, setOpen] = useState(false);
   const [qstContent, setQstContent] = useState('');
+  const [numIncorrectAnswers, setNumIncorrectAnswers] = useState(0);
+  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
 
   //dialog funtions
   const handleClickOpen = () => {
@@ -34,9 +38,35 @@ const Part = (props) => {
     setOpen(false);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChangeQst = (event) => {
     setQstContent(event.target.value);
   };
+
+
+  //understand more deep
+  const handleIncorrectAnswerChange = (index, value) => {
+    const answers = [...incorrectAnswers];
+    answers[index] = value;
+    setIncorrectAnswers(answers);
+  };
+
+  const addIncorrectAnswerField = () => {
+    setIncorrectAnswers(prevAnswers => [...prevAnswers, '']);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const addQuestion = async (content) => {
   //nested url?? 
@@ -74,14 +104,14 @@ return <>
       add question to part {part.serial_number}
     </Button>
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>type question content</DialogTitle>
+      <DialogTitle>new quesion</DialogTitle>
       <DialogContent>
         <TextField
           margin="dense"
           label="question"
           type="text"
           fullWidth
-          onChange={handleInputChange}
+          onChange={handleInputChangeQst}
         />
       </DialogContent>
       <DialogContent>
@@ -91,18 +121,28 @@ return <>
           type="text"
           fullWidth
         />
-        <TextField
-          margin="dense"
-          label="incorect answer"
-          type="text"
-          fullWidth
-        />
-        <TextField
-          margin="dense"
-          label="incorect answer"
-          type="text"
-          fullWidth
-        />
+      </DialogContent>
+      <DialogContent>
+        {incorrectAnswers.map((value, index) => (
+          <TextField
+            key={index}
+            margin="dense"
+            label={`incorrect answer ${index + 1}`}
+            type="text"
+            fullWidth
+            value={value}
+            onChange={(e) => handleIncorrectAnswerChange(e, index)}
+          />
+        ))}
+
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={addIncorrectAnswerField}
+        sx={{ mt: 2 }}
+      >
+        Add incorrect answer
+      </Button>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
