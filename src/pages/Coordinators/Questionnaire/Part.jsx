@@ -17,10 +17,37 @@ const Part = (props) => {
   }
 
 
+
+  
+
+  const postQuestion = async () => {
+    //nested url?? 
+    //questionnaire/questionnaireId/part/partId/question
+    await Axios.post('http://localhost:3600/api/question',
+      {
+        "part_in_questionnaire": part.id_part,
+        "content": qstContent
+      }
+    )
+    fetchQuestions();
+  }
+
+  const postAnswers = async () => {
+    
+    // await Axios.post('http://localhost:3600/api/question',
+    //   {
+    //     "part_in_questionnaire": part.id_part,
+    //     "content": qstContent
+    //   }
+    // )
+    // fetchAnswers();
+  }
+
+
   //for the dialog
   const [open, setOpen] = useState(false);
   const [qstContent, setQstContent] = useState('');
-  const [numIncorrectAnswers, setNumIncorrectAnswers] = useState(0);
+  // const [numIncorrectAnswers, setNumIncorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
 
   //dialog funtions
@@ -29,12 +56,14 @@ const Part = (props) => {
   };
 
   const handleSave = () => {
-    addQuestion(qstContent);
-    setQstContent('');
+    postQuestion();
+    postAnswers();
+    setIncorrectAnswers([]);
     setOpen(false);
   };
 
   const handleClose = () => {
+    setIncorrectAnswers([]);
     setOpen(false);
   };
 
@@ -44,7 +73,8 @@ const Part = (props) => {
 
 
   //understand more deep
-  const handleIncorrectAnswerChange = (index, value) => {
+  const handleIncorrectAnswerChange = (index, event) => {
+    const value = event.target.value;
     const answers = [...incorrectAnswers];
     answers[index] = value;
     setIncorrectAnswers(answers);
@@ -67,18 +97,6 @@ const Part = (props) => {
 
 
 
-
-  const addQuestion = async (content) => {
-  //nested url?? 
-  //questionnaire/questionnaireId/part/partId/question
-    const res = await Axios.post('http://localhost:3600/api/question',
-      {
-        "part_in_questionnaire": part.id_part,
-        "content": content
-      }
-    )
-    fetchQuestions();
-  }
 
 return <>
   <Divider sx={{ mt: 2, mb: 2}} />
@@ -113,16 +131,16 @@ return <>
           fullWidth
           onChange={handleInputChangeQst}
         />
-      </DialogContent>
-      <DialogContent>
+  <Divider sx={{ mt: 2, mb: 2}} />
+
         <TextField
           margin="dense"
           label="corect answer"
           type="text"
           fullWidth
         />
-      </DialogContent>
-      <DialogContent>
+
+  <Divider sx={{ mt: 2, mb: 2}} />
         {incorrectAnswers.map((value, index) => (
           <TextField
             key={index}
@@ -130,8 +148,7 @@ return <>
             label={`incorrect answer ${index + 1}`}
             type="text"
             fullWidth
-            value={value}
-            onChange={(e) => handleIncorrectAnswerChange(e, index)}
+            onChange={(event) => handleIncorrectAnswerChange(index, event)}
           />
         ))}
 
