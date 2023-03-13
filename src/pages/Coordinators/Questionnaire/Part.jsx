@@ -7,18 +7,14 @@ const Part = (props) => {
 
   const part = props.part;
   const [questions,setQuestions] = useState(part.questions_in_part);
+  const questionnaireId = 1;//how to know questionnaireId?
 
 
   const fetchQuestions = async () => {
-    const questionnaireId = 1;//how to know questionnaireId?
     // const {data} = await Axios.get(`http://localhost:3600/api/question/ofPart/${part.id_part}`);
     const {data} = await Axios.get(`http://localhost:3600/api/questionnaire/${questionnaireId}/parts/${part.id_part}/questions`);
     setQuestions(data);
   }
-
-
-
-  
 
   const postQuestion = async () => {
     //nested url?? 
@@ -33,8 +29,7 @@ const Part = (props) => {
   }
 
   const postAnswers = async () => {
-    
-    // await Axios.post('http://localhost:3600/api/question',
+    // await Axios.post(`http://localhost:3600/api/questionnaire/${questionnaireId}/part/${part.id_part}/question/1/answer`,
     //   {
     //     "part_in_questionnaire": part.id_part,
     //     "content": qstContent
