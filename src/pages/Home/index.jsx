@@ -1,7 +1,12 @@
+import { Button, Box, TextField , ListItem, List} from '@mui/material';
+import Coordinator from '../Coordinators';
+
+
 const Home = () => {
   return <>
-    <p>home component</p>
+  <Coordinator></Coordinator>
+  {/*Or:  <Teacher></Teacher> */}
   </>
 }
 
-export default Home
+export default Home;

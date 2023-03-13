@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import Axios from "axios";
-import { Button, Box, TextField } from '@mui/material';
+import { Button, Box, TextField , ListItem, List} from '@mui/material';
 
 
 const showQstnrDetails = (props) => {
 
     // const qstnr = props.qstnr;
+    var dateOnly = props.date.split('T')[0];
     console.log(props)
     return <>
-        <p>id: {props.id_questionnaire}</p>
-        <p>owner: {props.owner}</p>
-        <p>date: {props.date}</p>
-        <p>term: {props.term}</p>
+        <p>Questionnaire number {props.id_questionnaire},  </p>
+        <p>Teacher: {props.owner}  </p>
+        <p>date: {dateOnly}  </p>
+        <p>term: {props.term}  </p>
 
     </>
 }
@@ -48,9 +49,9 @@ const Many = () => {
             </ul>
         } */}
         {qst &&
-            <ul>
-                {qst.map(q => <li>{q}</li>)}
-            </ul>}
+            <List>
+                {qst.map(q => <ListItem >{q}</ListItem>)}
+            </List>}
     </>
 }
 
