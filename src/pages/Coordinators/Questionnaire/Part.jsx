@@ -1,6 +1,6 @@
 import Question from "./Question";
 import Axios from 'axios';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, List, ListItem, Divider, Typography } from '@mui/material';
 
 const Part = (props) => {
@@ -16,6 +16,12 @@ const Part = (props) => {
     setQuestions(data);
   }
 
+  const [something, setSomething] = useState(0);
+
+  useEffect(()=>{fetchQuestions()}
+  ,[something])
+
+  // flag=!flag
   const postQuestion = async () => {
     //this url 
     //localhost:3600/api/questionnaire/1/part/2/question
@@ -124,7 +130,7 @@ const Part = (props) => {
       <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
           {questions.map((qst) => {
-            return <><ListItem alignItems="flex-start"><Question question={qst} /> </ListItem><Divider variant="inset" component="li" /></>
+            return <><ListItem alignItems="flex-start"><Question question={qst} func={setSomething}/></ListItem></>
           })}
         </List>
       </>
