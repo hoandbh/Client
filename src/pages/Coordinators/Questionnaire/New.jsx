@@ -19,7 +19,8 @@ const New = () => {
       }
     );
     const id = newQuestionnaire.id_questionnaire;
-    navigate('/single?id='+id);
+    // navigate('/single?id='+id);
+    navigate(`/questionnaire/${id}`);
   };
 
   return <>

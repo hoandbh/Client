@@ -3,12 +3,11 @@ import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import Part from './Part';
 import { Button, Typography} from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 const Single = () => {
 
-  const location = useLocation();//maybe to get the id through props??
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get('id');
+  const { id } = useParams();
 
   const [questionnaire, setQuestionnaire] = useState({});
   const [partsNum, setPartsNum] = useState(1);
@@ -40,7 +39,7 @@ const Single = () => {
   return <>
     <br/>
     <Typography variant="h4" gutterBottom>
-      question id {id}
+      questionnaire id {id}
     </Typography>
     <Typography variant="h5" gutterBottom>
       {questionnaire && <p>date:{new Date(questionnaire.date).toLocaleDateString()}</p>}
@@ -48,7 +47,6 @@ const Single = () => {
     <Typography variant="h5" gutterBottom>
       {questionnaire && <p>owner: {questionnaire.owner}</p>}
     </Typography>
-
 
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
