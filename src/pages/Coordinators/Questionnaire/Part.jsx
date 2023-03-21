@@ -9,9 +9,10 @@ const Part = ({part}) => {
   const [questions, setQuestions] = useState(part.questions_in_part);
   const [open, setOpen] = useState(false);
   const [qstContent, setQstContent] = useState('');
-  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState('');
+  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
 
+  //const apiUrl = process.env.REACT_APP_API_URL;
 
   const fetchQuestions = async () => {
     const { data } = await Axios.get(`http://localhost:3600/api/part/${part.id_part}/question`);
@@ -21,8 +22,8 @@ const Part = ({part}) => {
   const postQuestion = async () => {
     const { data } = await Axios.post(`http://localhost:3600/api/question`,
       {
-        "content": qstContent,
-        part_in_questionnaire:part.id_part
+        "content" : qstContent,
+        part_in_questionnaire : part.id_part
       }
     )
     fetchQuestions();
@@ -46,9 +47,7 @@ const Part = ({part}) => {
         }
       );
     }
-    // fetchAnswers();
   }
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -66,16 +65,13 @@ const Part = ({part}) => {
     setOpen(false);
   };
 
-
   const handleQuestionChange = (event) => {
     setQstContent(event.target.value);
   };
 
-
   const handleCorrectAnswerChange = (event) => {
     setCorrectAnswer(event.target.value);
   };
-
 
   const handleIncorrectAnswerChange = (index, event) => {
     const value = event.target.value;
@@ -89,12 +85,11 @@ const Part = ({part}) => {
   }
 
   const initialValues = {
-    qstContent: qstContent,
-    correctAnswer: correctAnswer,
-    incorrectAnswers: incorrectAnswers,
+    qstContent,
+    correctAnswer,
+    incorrectAnswers,
   };
 
-  /////////////////////
   return <>
     <Divider sx={{ mt: 2, mb: 2 }} />
     <Typography variant="h6" gutterBottom>

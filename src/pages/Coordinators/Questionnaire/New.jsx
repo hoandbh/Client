@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { Button} from '@mui/material';
 
-const New = () => {
+const NewQuestionnaire = () => {
   const dateRef = useRef('');
   const termRef = useRef('');
 
@@ -19,7 +19,6 @@ const New = () => {
       }
     );
     const id = newQuestionnaire.id_questionnaire;
-    // navigate('/single?id='+id);
     navigate(`/questionnaire/${id}`);
   };
 
@@ -47,6 +46,6 @@ const New = () => {
   </>
 }
 
-export default New; 
+export default NewQuestionnaire; 
 
 
