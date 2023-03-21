@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
 import IconButton from '@mui/material/IconButton';
 
 const QuestionCard = ({question}) => {
@@ -14,7 +13,6 @@ const QuestionCard = ({question}) => {
     await Axios.delete(`http://localhost:3600/api/question/${id_qst}`);
     //to render the part; 
   }
-
 
   const editQst = () => {
     alert('implemnt editQst');
