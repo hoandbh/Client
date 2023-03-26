@@ -2,7 +2,7 @@ import Axios from 'axios';
 import { useState } from "react";
 import { Button, List, ListItem, Divider, Typography } from '@mui/material';
 import QuestionCard from "./Question/Card";
-import QuestiomForm from './Question/Form';
+import QuestionForm from './Question/Form';
 
 const Part = ({part}) => {
 
@@ -13,6 +13,10 @@ const Part = ({part}) => {
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
 
   //const apiUrl = process.env.REACT_APP_API_URL;
+
+  const handleDeleteQuestion = () => {
+    fetchQuestions()
+  }
 
   const fetchQuestions = async () => {
     const { data } = await Axios.get(`http://localhost:3600/api/part/${part.id_part}/question`);
@@ -102,8 +106,8 @@ const Part = ({part}) => {
     {questions && questions.length > 0 &&
       <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {questions.map((qst) => {
-            return <><ListItem alignItems="flex-start"><QuestionCard question={qst}/></ListItem></>
+          {questions.map(qst => {
+            return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCard question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
           })}
         </List>
       </>
@@ -113,7 +117,7 @@ const Part = ({part}) => {
     <Button variant="contained" color="primary" onClick={handleClickOpen}>
       add question to part {part.serial_number}
     </Button>
-      <QuestiomForm options={{initialValues,open,handleQuestionChange,handleCorrectAnswerChange,incorrectAnswers,handleIncorrectAnswerChange,addIncorrectAnswerField,handleClose,handleSave}}/>
+      <QuestionForm options={{initialValues,open,handleQuestionChange,handleCorrectAnswerChange,incorrectAnswers,handleIncorrectAnswerChange,addIncorrectAnswerField,handleClose,handleSave}}/>
   </>
 }
 

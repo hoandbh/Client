@@ -48,13 +48,13 @@ const Questionnaire = () => {
     </Typography>
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
-          {questionnaire.parts_in_questionnaire.map(part => <li> <Part part={part} /></li>)}
+          {questionnaire.parts_in_questionnaire.map((part, i) => <li key={i.toString()}> <Part part={part} /></li>)}
         </ul>
     }
     <Button  variant="contained" onClick={addPart} color='error'>add part</Button>
 
   </>
-}
+}  
 
 export default Questionnaire;
 

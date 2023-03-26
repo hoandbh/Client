@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Divider } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
 
-const QuestiomForm = ({ options }) => {
+const QuestionForm = ({ options }) => {
 
   return <>
     <Formik
@@ -63,4 +63,4 @@ const QuestiomForm = ({ options }) => {
   </>
 } 
 
-export default QuestiomForm;
+export default QuestionForm;

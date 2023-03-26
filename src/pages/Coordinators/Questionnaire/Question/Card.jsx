@@ -5,13 +5,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 
-const QuestionCard = ({question}) => {
+const QuestionCard = ({question,onDelete}) => {
   const [answers, setAnswers] = useState([]);
   const id_qst = question.id_qst;
 
   const deleteQst = async() => {
     await Axios.delete(`http://localhost:3600/api/question/${id_qst}`);
-    //to render the part; 
+    onDelete(); 
   }
 
   const editQst = () => {
@@ -47,7 +47,7 @@ const QuestionCard = ({question}) => {
                 {question.content}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {answers && answers.length>0 && answers.map(a => <p>-{a.content}</p>)}
+                {answers && answers.length>0 && answers.map((a,i) => <p key={i.toString()}>-{a.content}</p>)}
               </Typography>
             </Grid>
             <Grid item sx>
