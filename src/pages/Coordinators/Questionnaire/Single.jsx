@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import Axios from "axios";
 import Part from './Part';
 import { Button, Typography} from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-const Single = () => {
+const Questionnaire = () => {
 
-  const location = useLocation();//maybe to get the id through props??
-  const searchParams = new URLSearchParams(location.search);
-  const id = searchParams.get('id');
+  const { id } = useParams();
 
   const [questionnaire, setQuestionnaire] = useState({});
   const [partsNum, setPartsNum] = useState(1);
 
   const fetchData = async () => {
-    const { data } = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`)
-    const questionnaire = data[0]
+    //do request to questionnaire full or just parts?
+    const { data:questionnaire } = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
     setQuestionnaire(questionnaire);
-    setPartsNum(questionnaire.parts_in_questionnaire.length+1);
+    setPartsNum(questionnaire.parts_in_questionnaire.length + 1);
   }
 
   useEffect(() => {
@@ -33,14 +31,14 @@ const Single = () => {
         "mix":true
       }
     )
-    fetchData();//do request to questionnaire full or just parts?
+    fetchData();
   }
 
 
   return <>
     <br/>
     <Typography variant="h4" gutterBottom>
-      question id {id}
+      questionnaire id {id}
     </Typography>
     <Typography variant="h5" gutterBottom>
       {questionnaire && <p>date:{new Date(questionnaire.date).toLocaleDateString()}</p>}
@@ -48,45 +46,17 @@ const Single = () => {
     <Typography variant="h5" gutterBottom>
       {questionnaire && <p>owner: {questionnaire.owner}</p>}
     </Typography>
-
-
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
-          {questionnaire.parts_in_questionnaire.map(part => <li> <Part part={part} /></li>)}
+          {questionnaire.parts_in_questionnaire.map((part, i) => <li key={i.toString()}> <Part part={part} /></li>)}
         </ul>
     }
     <Button  variant="contained" onClick={addPart} color='error'>add part</Button>
 
   </>
-}
+}  
 
-export default Single;
-
-    {/* {questionnaire && questionnaire.parts_in_questionnaire && 
-      <>
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {questionnaire.parts_in_questionnaire.map((part) => {
-            return <><ListItem alignItems="center"><Part part={part} /></ListItem><Divider variant="inset" component="li" /></>
-            })}
-          </List>
-      </>
-    } */}
-
-  //how to render an array??  ->
-  //{data.map((qst, index) => <h4 key={index}>{qst}</h4>)}
-
-  //how to render an object?? ->
-  //<ul>
-  //{
-  //Object.entries(theObject).map(([key, value]) => (
-  //<li key={key}>
-  //<strong>{key}: </strong>
-  //{value}
-  // </li>
-  //))
-  //}
-  //</ul>
- 
+export default Questionnaire;
 
 
 

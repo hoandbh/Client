@@ -3,8 +3,8 @@ import Coordinator from '../Coordinators';
 
 const Home = () => {
   return <>
-  <Coordinator></Coordinator>
-  {/*Or:  <Teacher></Teacher> */}
+    <Coordinator></Coordinator>
+    {/*Or:  <Teacher></Teacher> */}
   </>
 }
 

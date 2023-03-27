@@ -1,76 +1,65 @@
-import Question from "./Question";
 import Axios from 'axios';
-import { useEffect, useState } from "react";
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, List, ListItem, Divider, Typography } from '@mui/material';
+import { useState } from "react";
+import { Button, List, ListItem, Divider, Typography } from '@mui/material';
+import QuestionCard from "./Question/Card";
+import QuestionForm from './Question/Form';
 
-const Part = (props) => {
+const Part = ({part}) => {
 
-  const part = props.part;
   const [questions, setQuestions] = useState(part.questions_in_part);
-  const questionnaireId = 1;//how to know questionnaireId?
-  var id_qst;//state or ref??
+  const [open, setOpen] = useState(false);
+  const [qstContent, setQstContent] = useState('');
+  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
+
+  //const apiUrl = process.env.REACT_APP_API_URL;
+
+  const handleDeleteQuestion = () => {
+    fetchQuestions()
+  }
 
   const fetchQuestions = async () => {
-
-    const {data} = await Axios.get(`http://localhost:3600/api/questionnaire/${questionnaireId}/part/${part.id_part}/question`);
+    const { data } = await Axios.get(`http://localhost:3600/api/part/${part.id_part}/question`);
     setQuestions(data);
   }
 
-  const [something, setSomething] = useState(0);
-
-  useEffect(()=>{fetchQuestions()}
-  ,[something])
-
-  // flag=!flag
   const postQuestion = async () => {
-    //this url 
-    //localhost:3600/api/questionnaire/1/part/2/question
-    // const {data} = await Axios.post('http://localhost:3600/api/question',
-    const {data} = await Axios.post(`http://localhost:3600/api/questionnaire/${questionnaireId}/part/${part.id_part}/question`,
+    const { data } = await Axios.post(`http://localhost:3600/api/question`,
       {
-        "content": qstContent
+        "content" : qstContent,
+        part_in_questionnaire : part.id_part
       }
     )
-    id_qst = data.id_qst;
     fetchQuestions();
+    return data.id_qst;
   }
 
-  const postAnswers = async () => {
-
-    await Axios.post(`http://localhost:3600/api/questionnaire/${questionnaireId}/part/${part.id_part}/question/${id_qst}/answer`, 
-        {
-          "content": correctAnswer,
-          "is_correct":true
-        }
-      );
-
+  const postAnswers = async (qstId) => {
+    await Axios.post(`http://localhost:3600/api/answer`,
+      {
+        "content": correctAnswer,
+        "is_correct": true,
+        "qst":qstId
+      }
+    );
     for (const ans of incorrectAnswers) {
-      await Axios.post(`http://localhost:3600/api/questionnaire/${questionnaireId}/part/${part.id_part}/question/${id_qst}/answer`, 
+      await Axios.post(`http://localhost:3600/api/answer`,
         {
           "content": ans,
-          "is_correct":false
+          "is_correct": false,
+          "qst":qstId
         }
       );
     }
-    // fetchAnswers();
   }
 
-  //for the dialog
-  const [open, setOpen] = useState(false);
-  const [qstContent, setQstContent] = useState('');
-  // const [numIncorrectAnswers, setNumIncorrectAnswers] = useState(0);
-  const [incorrectAnswers, setIncorrectAnswers] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState('');
-
-
-  //dialog funtions
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleSave = async () => {
-    await postQuestion();
-    await postAnswers();
+    const qstId = await postQuestion();
+    await postAnswers(qstId);
     setIncorrectAnswers([]);
     setOpen(false);
   };
@@ -80,18 +69,14 @@ const Part = (props) => {
     setOpen(false);
   };
 
-  
   const handleQuestionChange = (event) => {
     setQstContent(event.target.value);
   };
-  
 
   const handleCorrectAnswerChange = (event) => {
     setCorrectAnswer(event.target.value);
   };
 
-
-  //understand more deep
   const handleIncorrectAnswerChange = (index, event) => {
     const value = event.target.value;
     const answers = [...incorrectAnswers];
@@ -103,19 +88,11 @@ const Part = (props) => {
     setIncorrectAnswers(prevAnswers => [...prevAnswers, '']);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  const initialValues = {
+    qstContent,
+    correctAnswer,
+    incorrectAnswers,
+  };
 
   return <>
     <Divider sx={{ mt: 2, mb: 2 }} />
@@ -126,11 +103,11 @@ const Part = (props) => {
       serial_number: {part.serial_number}
     </Typography>
 
-    {questions.length > 0 &&
+    {questions && questions.length > 0 &&
       <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-          {questions.map((qst) => {
-            return <><ListItem alignItems="flex-start"><Question question={qst} func={setSomething}/></ListItem></>
+          {questions.map(qst => {
+            return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCard question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
           })}
         </List>
       </>
@@ -140,57 +117,21 @@ const Part = (props) => {
     <Button variant="contained" color="primary" onClick={handleClickOpen}>
       add question to part {part.serial_number}
     </Button>
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>new quesion</DialogTitle>
-      <DialogContent>
-        <TextField
-          margin="dense"
-          label="question"
-          type="text"
-          fullWidth
-          onChange={handleQuestionChange}
-        />
-        <Divider sx={{ mt: 2, mb: 2 }} />
-
-        <TextField
-          margin="dense"
-          label="correct answer"
-          type="text"
-          fullWidth
-          onChange={handleCorrectAnswerChange}
-
-        />
-
-        <Divider sx={{ mt: 2, mb: 2 }} />
-        {incorrectAnswers.map((value, index) => (
-          <TextField
-            key={index}
-            margin="dense"
-            label={`incorrect answer ${index + 1}`}
-            type="text"
-            fullWidth
-            onChange={(event) => handleIncorrectAnswerChange(index, event)}
-          />
-        ))}
-
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={addIncorrectAnswerField}
-          sx={{ mt: 2 }}
-        >
-          Add incorrect answer
-        </Button>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleSave}>Save</Button>
-      </DialogActions>
-    </Dialog>
+      <QuestionForm options={{initialValues,open,handleQuestionChange,handleCorrectAnswerChange,incorrectAnswers,handleIncorrectAnswerChange,addIncorrectAnswerField,handleClose,handleSave}}/>
   </>
 }
 
 export default Part;
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,42 +1,32 @@
-import {Paper, Typography, Grid, Button } from '@mui/material';
+import {Paper, Typography, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-
 import IconButton from '@mui/material/IconButton';
 
-const Question = (props) => {
-  const question = props.question;
+const QuestionCard = ({question,onDelete}) => {
   const [answers, setAnswers] = useState([]);
   const id_qst = question.id_qst;
 
-  const setSomething = props.func;
-
-  var x = 10
   const deleteQst = async() => {
     await Axios.delete(`http://localhost:3600/api/question/${id_qst}`);
-    x = x + 2;
-    setSomething(x); 
+    onDelete(); 
   }
-
 
   const editQst = () => {
     alert('implemnt editQst');
   }
 
-
   const fetchAnswers = async () => {
-    const { data } = await Axios.get(`http://localhost:3600/api/questionnaire/99/part/99/question/${id_qst}/answer`);
-    // setAnswers(data);
-    console.log(data);
+    //to change the url
+    const { data } = await Axios.get(`http://localhost:3600/api/question/${id_qst}/answer`);
+    setAnswers(data);
   }
 
   useEffect(() => {
     fetchAnswers(); 
   },[])
-
-
 
   return <>
     <Paper
@@ -57,7 +47,7 @@ const Question = (props) => {
                 {question.content}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                the answer?
+                {answers && answers.length>0 && answers.map((a,i) => <p key={i.toString()}>-{a.content}</p>)}
               </Typography>
             </Grid>
             <Grid item sx>
@@ -75,5 +65,4 @@ const Question = (props) => {
   </>
 }
 
-export default Question;
-
+export default QuestionCard;
