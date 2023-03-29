@@ -18,13 +18,14 @@ const NewQuestionnaire = () => {
         "term":termRef.current.value
       }
     );
-    const id = newQuestionnaire.id_questionnaire;
+    const id = newQuestionnaire.id;
     navigate(`/questionnaire/${id}`);
   };
 
   return <>
 
     <form onSubmit={handleSubmit}>
+      {/* force the user to select date */}
       <label>
         date:
           <input defaultValue='0001-01-01' type="date" ref={dateRef} required />

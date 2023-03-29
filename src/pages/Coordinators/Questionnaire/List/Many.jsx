@@ -7,7 +7,6 @@ const showQstnrDetails = (props) => {
 
     // const qstnr = props.qstnr;
     var dateOnly = props.date.split('T')[0];
-    console.log(props)
     return <>
         <p>Questionnaire number {props.id_questionnaire},  </p>
         <p>Teacher: {props.owner}  </p>
@@ -29,7 +28,6 @@ const Many = () => {
     }
     const showAllQuestionnaires = async () => {
         const { data: d } = await Axios.get('http://localhost:3600/api/questionnaire');
-        // console.log(d);
         const qstInfo = d.map(qst => showQstnrDetails(qst));
         setQst(qstInfo);
     }

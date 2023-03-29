@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, List, ListItem, Divider, Typography } from '@mui/material';
 import QuestionCard from "./Question/Card";
 import QuestionForm from './Question/Form';
@@ -8,7 +8,7 @@ const Part = ({part}) => {
 
   const [questions, setQuestions] = useState(part.questions_in_part);
   const [open, setOpen] = useState(false);
-  const [qstContent, setQstContent] = useState('');
+  const [questionContent, setQuestionContent] = useState('');
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [incorrectAnswers, setIncorrectAnswers] = useState([]);
 
@@ -19,58 +19,54 @@ const Part = ({part}) => {
   }
 
   const fetchQuestions = async () => {
-    const { data } = await Axios.get(`http://localhost:3600/api/part/${part.id_part}/question`);
+    const { data } = await Axios.get(`http://localhost:3600/api/part/${part.id}/question`);
     setQuestions(data);
   }
 
-  const postQuestion = async () => {
+  const postQuestionAndAnsawers = async () => {
     const { data } = await Axios.post(`http://localhost:3600/api/question`,
-      {
-        "content" : qstContent,
-        part_in_questionnaire : part.id_part
-      }
-    )
-    fetchQuestions();
-    return data.id_qst;
-  }
-
-  const postAnswers = async (qstId) => {
-    await Axios.post(`http://localhost:3600/api/answer`,
-      {
-        "content": correctAnswer,
-        "is_correct": true,
-        "qst":qstId
-      }
-    );
-    for (const ans of incorrectAnswers) {
-      await Axios.post(`http://localhost:3600/api/answer`,
         {
-          "content": ans,
-          "is_correct": false,
-          "qst":qstId
+          content : questionContent,
+          part_id : part.id
         }
+      )
+      const qstId = data.id;
+      await Axios.post(`http://localhost:3600/api/answer`,
+      {
+        content: correctAnswer,
+        is_correct: true,
+        question_id: qstId
+      }
       );
-    }
+      for (const ans of incorrectAnswers) {
+        await Axios.post(`http://localhost:3600/api/answer`,
+          {
+            content: ans,
+            is_correct: false,
+            question_id: qstId
+          }
+        );
+      }
+      fetchQuestions();
   }
-
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleSave = async () => {
-    const qstId = await postQuestion();
-    await postAnswers(qstId);
+    await postQuestionAndAnsawers()
     setIncorrectAnswers([]);
     setOpen(false);
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setIncorrectAnswers([]);
     setOpen(false);
   };
 
   const handleQuestionChange = (event) => {
-    setQstContent(event.target.value);
+    setQuestionContent(event.target.value);
   };
 
   const handleCorrectAnswerChange = (event) => {
@@ -78,29 +74,40 @@ const Part = ({part}) => {
   };
 
   const handleIncorrectAnswerChange = (index, event) => {
-    const value = event.target.value;
+    const value = event.currentTarget.value;
     const answers = [...incorrectAnswers];
     answers[index] = value;
     setIncorrectAnswers(answers);
   };
 
+  useEffect(() => {
+  },[incorrectAnswers])
+
   const addIncorrectAnswerField = () => {
     setIncorrectAnswers(prevAnswers => [...prevAnswers, '']);
   }
 
+  const removeIncorrectAnswerField = (index) => {
+    // const answers = [...incorrectAnswers]
+    // answers.splice(index, 1);
+    // setIncorrectAnswers(answers);
+    setIncorrectAnswers(prevAnswers => prevAnswers.filter((answer, i) => i !== index));
+  }
+  
+
   const initialValues = {
-    qstContent,
+    question: questionContent,
     correctAnswer,
     incorrectAnswers,
   };
 
   return <>
     <Divider sx={{ mt: 2, mb: 2 }} />
-    <Typography variant="h6" gutterBottom>
-      headline: {part.headline}
+    <Typography sx={{ typography: 'subtitle1' ,fontWeight: 'light', m: 1}}>
+      {part.headline}
     </Typography>
-    <Typography variant="h6" gutterBottom>
-      serial_number: {part.serial_number}
+    <Typography sx={{ typography: 'subtitle2' ,fontWeight: 'light', m: 1}}>
+      serial number: {part.serial_number}
     </Typography>
 
     {questions && questions.length > 0 &&
@@ -112,12 +119,14 @@ const Part = ({part}) => {
         </List>
       </>
     }
-    <br />
+    <br />   
     <br />
     <Button variant="contained" color="primary" onClick={handleClickOpen}>
       add question to part {part.serial_number}
     </Button>
-      <QuestionForm options={{initialValues,open,handleQuestionChange,handleCorrectAnswerChange,incorrectAnswers,handleIncorrectAnswerChange,addIncorrectAnswerField,handleClose,handleSave}}/>
+      <QuestionForm options={{setCorrectAnswer,setQuestionContent,initialValues,open,handleQuestionChange,handleCorrectAnswerChange,
+                              incorrectAnswers,handleIncorrectAnswerChange,addIncorrectAnswerField,removeIncorrectAnswerField
+                              ,handleCancel,handleSave,questionContent,correctAnswer}}/>
   </>
 }
 
