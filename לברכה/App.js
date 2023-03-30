@@ -1,6 +1,6 @@
-import Login from './pages/login';
+import Login from './pages/Login';
 import {BrowserRouter as Router, Routes, Route, Link, NavLink} from 'react-router-dom'
-import Home from './pages/Home page/home'
+import Home from './pages/Home'
 import './App.css';
 import Register from './pages/register/register'
 //import Sitefrom  from './pages/sites/site';

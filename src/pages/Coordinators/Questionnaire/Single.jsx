@@ -9,7 +9,7 @@ const Questionnaire = () => {
   const { id } = useParams();
 
   const [questionnaire, setQuestionnaire] = useState({});
-  const [partsNum, setPartsNum] = useState(1);
+  const [partsNum, setPartsNum] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
   // for the current part
   const [partHeadline, setPartHeadline] = useState('');
@@ -19,7 +19,7 @@ const Questionnaire = () => {
   const fetchData = async () => {
     const { data:questionnaire } = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
     setQuestionnaire(questionnaire);
-    setPartsNum(questionnaire.parts_in_questionnaire.length + 1);
+    setPartsNum(questionnaire.parts_in_questionnaire.length);
   }
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const Questionnaire = () => {
         await Axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
         {
           headline: partHeadline,
-          serial_number:partsNum,
+          serial_number:partsNum + 1,
           mix:true
         }
       )

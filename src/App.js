@@ -5,7 +5,8 @@ import NewQustionnire from './pages/Coordinators/Questionnaire/New';
 import Many from "./pages/Coordinators/Questionnaire/List/Many"
 import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
-
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 function App() {
   return <>
@@ -14,6 +15,9 @@ function App() {
         <Nav/>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/nav" element={<Nav/>} />          
           <Route path="/questionnaire/new" element={<NewQustionnire />} />
           <Route path="/questionnaire/:id" element={<Questionnaire />} />
           <Route path="/questionnaire/many" element={<Many/>}/>

@@ -69,6 +69,12 @@ const QuestionCard = ({question,onDelete}) => {//
     fetchAnswers(); 
   },[])
 
+  // initialValues: {
+  //   question: question?.content || '', 
+  //   correctAnswer: answers.filter(a => a.is_correct)?.[0]?.content || 'no correct answer',
+  //   incorrectAnswers: answers && answers.filter(a => !a.isCorrect)?.map(a => a.content) || [],
+  // },
+
   return <>
     <Paper
     sx={{
