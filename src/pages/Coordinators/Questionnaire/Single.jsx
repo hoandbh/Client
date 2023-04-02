@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import Part from './Part';
 import { Button, Typography, TextField} from '@mui/material';
 import { useParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ const Questionnaire = () => {
 
   
   const fetchData = async () => {
-    const { data:questionnaire } = await Axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
+    const { data:questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
     setQuestionnaire(questionnaire);
     setPartsNum(questionnaire.parts_in_questionnaire.length);
   }
@@ -32,7 +32,7 @@ const Questionnaire = () => {
 
   const handleAddPart = async (e) => {
       if (e.key === 'Enter') {
-        await Axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
+        await axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
         {
           headline: partHeadline,
           serial_number:partsNum + 1,

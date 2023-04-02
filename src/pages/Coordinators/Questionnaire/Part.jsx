@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Button, List, ListItem, Divider, Typography } from '@mui/material';
 import QuestionCard from "./Question/Card";
@@ -19,19 +19,19 @@ const Part = ({part}) => {
   }
 
   const fetchQuestions = async () => {
-    const { data } = await Axios.get(`http://localhost:3600/api/part/${part.id}/question`);
+    const { data } = await axios.get(`http://localhost:3600/api/part/${part.id}/question`);
     setQuestions(data);
   }
 
   const postQuestionAndAnsawers = async () => {
-    const { data } = await Axios.post(`http://localhost:3600/api/question`,
+    const { data } = await axios.post(`http://localhost:3600/api/question`,
         {
           content : questionContent,
           part_id : part.id
         }
       )
       const qstId = data.id;
-      await Axios.post(`http://localhost:3600/api/answer`,
+      await axios.post(`http://localhost:3600/api/answer`,
       {
         content: correctAnswer,
         is_correct: true,
@@ -39,7 +39,7 @@ const Part = ({part}) => {
       }
       );
       for (const ans of incorrectAnswers) {
-        await Axios.post(`http://localhost:3600/api/answer`,
+        await axios.post(`http://localhost:3600/api/answer`,
           {
             content: ans,
             is_correct: false,

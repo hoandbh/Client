@@ -1,21 +1,35 @@
-import Axios from 'axios'
-import React, { useRef } from 'react';
-import {useNavigate} from 'react-router-dom';
-import { Button} from '@mui/material';
+import { React , useRef, useState, useContext } from 'react';
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AuthContext } from '../../../context/authContext'
+import { useEffect } from 'react'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 const NewQuestionnaire = () => {
-  const dateRef = useRef('');
-  const termRef = useRef('');
+
+  const [date, setDate] = useState('0001-01-01');
+  const [term, setTerm] = useState(null);  
 
   const navigate = useNavigate();
 
-  const handleSubmit = async event => {
+  const {currentUser} = useContext(AuthContext);
+  const [currentUserId, setCurrentUserId] = useState(currentUser?.id);
+
+  useEffect(() => {
+    setCurrentUserId(currentUser?.id);
+  },[currentUser])
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const {data:newQuestionnaire}= await Axios.post('http://localhost:3600/api/questionnaire/',
+    const { data: newQuestionnaire }= await axios.post(
+      'http://localhost:3600/api/questionnaire/',
       {
-        "owner":1,
-        "date":dateRef.current.value,
-        "term":termRef.current.value
+        owner:currentUserId,
+        date:date,
+        term:term
       }
     );
     const id = newQuestionnaire.id;
@@ -25,28 +39,43 @@ const NewQuestionnaire = () => {
   return <>
 
     <form onSubmit={handleSubmit}>
-      {/* force the user to select date */}
-      <label>
-        date:
-          <input defaultValue='0001-01-01' type="date" ref={dateRef} required />
-      </label>
-      <label>
-        term:
-        <select ref={termRef} required >
-          {/* <option> {null}</option> => to force the user select term*/}
-          <option> מועד המבחן</option>
-          <option value={'A'}>מועד א</option>
-          <option value={'B'}>מועד ב</option>
-          <option value={'C'}>מועד ג</option>
-          <option value={'D'}>מועד ד</option>
-          <option value={'E'}>מועד מיוחד</option>
-          </select> <br/>
-      </label>
+      <br />
+      <FormControl fullWidth>
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker 
+            label="date" 
+            onChange={(newValue) => setDate(newValue)}
+            format="DD/MM/YYYY"
+          />
+        </LocalizationProvider>
+      </FormControl>
+      <br />
+      <br />
+      <FormControl fullWidth>
+        <InputLabel id="term-select-label">Select Term</InputLabel>
+        <Select
+          labelId="term-select-label"
+          value={term}
+          label="Select Term "
+          onChange={(event) => {
+            setTerm(event.target.value);
+          }}
+        >
+          <MenuItem value={'A'}>term A</MenuItem>
+          <MenuItem value={'B'}>term B</MenuItem>
+          <MenuItem value={'C'}>term C</MenuItem>
+          <MenuItem value={'D'}>term D</MenuItem>
+          <MenuItem value={'E'}>special term</MenuItem>
+        </Select>
+      </FormControl>
+      <br />
+      <br/>
+      <FormControl fullWidth>
         <Button type="submit">Submit</Button>
+      </FormControl>
     </form>
-  </>
+  </>  
 }
 
 export default NewQuestionnaire; 
-
-

@@ -85,7 +85,6 @@ const Nav = () => {
   const [permission, setPermission] = useState(currentUser?.permission || 0);
 
   useEffect(() => {
-    console.log(permission);
   },[permission])
 
   useEffect(() => {

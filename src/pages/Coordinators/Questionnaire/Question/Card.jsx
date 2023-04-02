@@ -1,6 +1,6 @@
 import {Paper, Typography, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
@@ -22,7 +22,7 @@ const QuestionCard = ({question,onDelete}) => {//
   }, [answers])
 
   const fetchQuestion = async () => {
-    // const {data} = await Axios.get('')
+    // const {data} = await axios.get('')
     // console.log(question);
     // console.log(answers);
 
@@ -35,7 +35,7 @@ const QuestionCard = ({question,onDelete}) => {//
   const qstId = question.id;
 
   const handleEdit = async (values) => {
-    await Axios.put(`http://localhost:3600/api/question/${qstId}`,
+    await axios.put(`http://localhost:3600/api/question/${qstId}`,
       {
         content: questionContent,
         correctAnswerContent,
@@ -52,7 +52,7 @@ const QuestionCard = ({question,onDelete}) => {//
   }
   
   const deleteQst = async() => {
-    await Axios.delete(`http://localhost:3600/api/question/${qstId}`);
+    await axios.delete(`http://localhost:3600/api/question/${qstId}`);
     onDelete(); 
   }
 
@@ -61,7 +61,7 @@ const QuestionCard = ({question,onDelete}) => {//
   }
 
   const fetchAnswers = async () => {
-    const { data } = await Axios.get(`http://localhost:3600/api/question/${qstId}/answer`);
+    const { data } = await axios.get(`http://localhost:3600/api/question/${qstId}/answer`);
     setAnswers(data);
   }
 
