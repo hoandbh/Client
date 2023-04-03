@@ -8,6 +8,9 @@ import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -25,21 +28,13 @@ export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
-//   {
-//     "user_name":"new",
-//     "password":"123",
-//     "email":"lkhfu@gmail.com",
-//     "permission":2
-// }
-
   const register = async (userDetails) => {
+    console.log(userDetails)
     const res = await axios.post(
       "http://localhost:3600/api/auth/register",
+        userDetails,
       {
-        userDetails
-      },
-      {
-        withCredentials: true,
+        withCredentials: true
       }
     );
     console.log(res);
@@ -52,8 +47,9 @@ export default function Register() {
     const userDetails = {
       first_name: data.get('firstName'),
       last_name: data.get('lastName'),
-      user_name: data.get('email'),
+      email: data.get('email'),
       password: data.get('password'),
+      permission: data.get('permission')
     };
     try {
       await register(userDetails);
@@ -126,11 +122,25 @@ export default function Register() {
                 />
               </Grid>
               <Grid item xs={12}>
+              <InputLabel id="permission-select-label">Select Permission</InputLabel>
+                <Select
+                  sx={{ width: '100%' }}
+                  labelId="permission-select-label"
+                  id='permission'
+                  name='permission'
+                  label="Select Permission " 
+                >
+                  <MenuItem value={1}>Teacher</MenuItem>
+                  <MenuItem value={2}>Coordinator</MenuItem>
+                  <MenuItem value={3}>Admin</MenuItem>
+                </Select>
+              </Grid>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
-              </Grid>
+              </Grid> */}
             </Grid>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
@@ -141,13 +151,11 @@ export default function Register() {
                   Already have an account? Sign in
                 </Link>
               </Grid>
-              <Grid item >
-                <br />
-                <br />
-                <Typography variant="body2">
-                  {error? `\n ${error}` : ''}
-                </Typography>
-              </Grid>
+            </Grid>
+            <Grid item >
+              <Typography variant="body2" color="textSecondary" align="center">
+                {error? `${error}` : ''}
+              </Typography>
             </Grid>
           </Box>
         </Box>

@@ -13,11 +13,11 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.getItem("token") || null
   );
 
-  const login = async ({ user_name, password }) => {
+  const login = async ({ email, password }) => {
     const res = await axios.post(
       "http://localhost:3600/api/auth/login",
       {
-        user_name, password
+        email, password
       },
       {
         withCredentials: true,

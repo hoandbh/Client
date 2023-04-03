@@ -7,6 +7,7 @@ import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Logout from './pages/Logout';
 
 function App() {
   return <>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/logout" element={<Logout/>} />
           <Route path="/nav" element={<Nav/>} />          
           <Route path="/questionnaire/new" element={<NewQustionnire />} />
           <Route path="/questionnaire/:id" element={<Questionnaire />} />

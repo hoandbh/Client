@@ -5,6 +5,7 @@ import { Button, Box, TextField , ListItem, List} from '@mui/material';
 
 const showQstnrDetails = (props) => {
 
+    // const qstnr = props.qstnr;
     var dateOnly = props.date.split('T')[0];
     return <>
         <p>Questionnaire number {props.id_questionnaire},  </p>
