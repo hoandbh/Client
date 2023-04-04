@@ -53,7 +53,7 @@ export default function Register() {
     };
     try {
       await register(userDetails);
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       setError(error?.response?.data?.message);
     }

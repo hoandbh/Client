@@ -15,8 +15,8 @@ const CoordinateNav = () => {
       <Button component={NavLink} to="/questionnaire/new" startIcon={<AddBoxIcon />}>
         New Questionnaire
       </Button>
-      <Button component={NavLink} to="/questionnaire/many" startIcon={<ListIcon />}>
-        Many
+      <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
+        questionnaires
       </Button>
       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
         Logout
@@ -32,8 +32,8 @@ const CoordinateNav = () => {
 const TeacherNav = () => {
   return <>
       {/* bracha, add the buttons of the techer here */}
-      <Button component={NavLink} to="/questionnaire/many" startIcon={<ListIcon />}>
-        Many
+      <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
+        questionnaires
       </Button>
       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
         Logout
