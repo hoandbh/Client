@@ -6,25 +6,25 @@ import LockIcon from '@mui/icons-material/Lock';
 import PersonAddIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListIcon from '@mui/icons-material/List';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import BarChartIcon from '@mui/icons-material/BarChart';
+
 import { Button} from '@mui/material';
 
 const CoordinateNav = () => {
   return (
     <>
-      <Button component={NavLink} to="/" startIcon={<HomeIcon />}>
-        Home
-      </Button>
-      <Button component={NavLink} to="/login" startIcon={<LockIcon />}>
-        Login
-      </Button>
-      <Button component={NavLink} to="/register" startIcon={<PersonAddIcon />}>
-        Register
-      </Button>
       <Button component={NavLink} to="/questionnaire/new" startIcon={<AddBoxIcon />}>
         New Questionnaire
       </Button>
-      <Button component={NavLink} to="/questionnaire/many" startIcon={<ListIcon />}>
-        Many
+      <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
+        questionnaires
+      </Button>
+      <Button component={NavLink} to="/statistic" startIcon={<BarChartIcon />}>
+        statistic
+      </Button>
+      <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
+        Logout
       </Button>
     </>
   );
@@ -36,19 +36,28 @@ const CoordinateNav = () => {
 
 const TeacherNav = () => {
   return <>
-      {/* bracha, add the <NavLink/> of the techer hare */}
+      {/* bracha, add the buttons of the techer here */}
+      <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
+        questionnaires
+      </Button>
+      <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
+        Logout
+      </Button>
   </>
 }
 
 const AdminNav = () => {
   return <>
+      <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
+        Logout
+      </Button>
       {/**/}
   </>
 }
 
 const UnidentifiedUserNav = () => {
   return <>
-    <Button component={NavLink} to="/login" startIcon={<LockIcon />}>
+      <Button component={NavLink} to="/login" startIcon={<LockIcon />}>
         Login
       </Button>
       <Button component={NavLink} to="/register" startIcon={<PersonAddIcon />}>
@@ -74,6 +83,9 @@ const Nav = () => {
   return (
     <> 
       <nav>
+        <Button component={NavLink} to="/" startIcon={<HomeIcon />}>
+          Home
+        </Button>
         {
           (() => {
             switch (permission) {

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from "react";
 import { Button, List, ListItem, Divider, Typography } from '@mui/material';
 import QuestionCard from "./Question/Card";
+import QuestionCardTry from "./Question/CardTry";
 import QuestionForm from './Question/Form';
 
 const Part = ({part}) => {
@@ -114,7 +115,8 @@ const Part = ({part}) => {
       <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
           {questions.map(qst => {
-            return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCard question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
+            // return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCard question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
+            return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCardTry question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
           })}
         </List>
       </>
