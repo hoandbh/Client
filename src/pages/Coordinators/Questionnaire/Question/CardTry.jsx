@@ -21,26 +21,17 @@ const QuestionCardTry = ({question,onDelete}) => {
     setIncorrectAnswersContent(incorrectAnswersArr?.map(a => a.content) || []);
   }, [answers])
 
-  const fetchQuestion = async () => {
-    // const {data} = await axios.get('')
-    // console.log(question);
-    // console.log(answers);
-  }
-
-  useEffect(() => {
-    fetchQuestion();
-  }, [])
-
   const qstId = question.id;
 
   const handleEdit = async (values) => {
-    await axios.put(`http://localhost:3600/api/question/${qstId}`,
-      {
-        content: questionContent,
-        correctAnswerContent,
-        incorrectAnswers: incorrectAnswersContent
-      }
-    )
+    // await axios.put(`http://localhost:3600/api/question/${qstId}`,
+    //   {
+    //     content: questionContent,
+    //     correctAnswerContent,
+    //     incorrectAnswers: incorrectAnswersContent
+    //   }
+    // )
+    console.log(values);
     setOpen(false);
   }
   
