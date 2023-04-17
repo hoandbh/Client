@@ -7,6 +7,8 @@ import PersonAddIcon from '@mui/icons-material/Person';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListIcon from '@mui/icons-material/List';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import BarChartIcon from '@mui/icons-material/BarChart';
+
 import { Button} from '@mui/material';
 
 const CoordinateNav = () => {
@@ -17,6 +19,9 @@ const CoordinateNav = () => {
       </Button>
       <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
         questionnaires
+      </Button>
+      <Button component={NavLink} to="/statistic" startIcon={<BarChartIcon />}>
+        statistic
       </Button>
       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
         Logout

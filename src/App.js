@@ -8,6 +8,7 @@ import Nav from "./components/Nav";
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
+import Statistic from './pages/Statistic';
 
 function App() {
   return <>
@@ -23,6 +24,7 @@ function App() {
           <Route path="/questionnaire/new" element={<NewQustionnire />} />
           <Route path="/questionnaire/:id" element={<Questionnaire />} />
           <Route path="/questionnaires" element={<QuestionnairesList/>}/>
+          <Route path="/statistic" element={<Statistic/>}/>          
         </Routes>
       </Router>  
     </AuthContextProvider>
