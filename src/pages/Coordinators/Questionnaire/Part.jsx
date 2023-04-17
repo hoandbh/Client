@@ -16,7 +16,8 @@ const Part = ({part}) => {
   //const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleDeleteQuestion = () => {
-    fetchQuestions()
+    fetchQuestions();
+    //render;
   }
 
   const fetchQuestions = async () => {
