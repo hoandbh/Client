@@ -21,12 +21,11 @@ const Single = () => {
   }
 
   useEffect(() => {
-    console.log(questionnaire.parts_in_questionnaire)
     fetchData();
   }, [])
 
   const addPart = async () => {
-    const res = await Axios.post(`http://localhost:3600/api/questionnaire/${id}/parts`,
+    await Axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
       //take the info from the user!!
       {
         "headline": `the headline of the part ${partsNum}`,

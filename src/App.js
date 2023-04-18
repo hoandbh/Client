@@ -3,8 +3,12 @@ import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom"
 import Single from './pages/Coordinators/Questionnaire/Single';
 import New from './pages/Coordinators/Questionnaire/New';
 import Many from "./pages/Coordinators/Questionnaire/Many"
-import Teacher from "./pages/Teachers";
-import MessagesList from "./pages/Teachers/Tasks/Messages/List";
+// import {Card,CardContent} from '@mui/material';
+// <Card sx={{ minWidth: 275 }}>
+//       <CardContent>
+//         Home
+//       </CardContent>
+// </Card>  
 
 function App() {
   return <>
@@ -14,15 +18,6 @@ function App() {
         <NavLink to="/">Home  </NavLink><span>----</span>
         <NavLink to="/questionnaire/new">new questionnaire</NavLink><span>----</span>
         <NavLink to="/questionnaire/many">many</NavLink>
-           <br/><br/>
-         <NavLink to="/teacher">Teacher Element</NavLink>
-
-    
-        {/* Links for teacher */}
-
-        <NavLink to=""></NavLink>
-
-
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -45,3 +40,5 @@ function App() {
 }
 
 export default App;
+
+
