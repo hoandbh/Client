@@ -5,8 +5,8 @@ import NewQustionnire from './pages/Coordinators/Questionnaire/New';
 import QuestionnairesList from "./pages/Coordinators/Questionnaire/List"
 import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
-// import Login from './pages/Login';
-import Login from './Riki';
+import Login from './pages/Login';
+// import Login from './Riki';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Statistic from './pages/Statistic';
