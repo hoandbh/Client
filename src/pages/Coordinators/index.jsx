@@ -1,14 +1,19 @@
-import React from 'react';
-import New from './Questionnaire/New';
-import Navigation from './Navigation';
+import {useContext,React} from 'react';
+import Login from "../Login"; 
+
+import { AuthContext } from '../../context/authContext';
 
 const Coordinator = () => {
+  
+  const {currentUser} = useContext(AuthContext);
+  var name = currentUser?.name || 'default';
 
   return <>
-  <Navigation></Navigation>
-    <New></New>
+    <p>hello {name}</p>
+    <p>דף הבית של מרכזת רשומה</p>
   </>
 };
+
 
 
 export default Coordinator;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Button, Box, TextField , ListItem, List} from '@mui/material';
 
 
@@ -7,7 +7,6 @@ const showQstnrDetails = (props) => {
 
     // const qstnr = props.qstnr;
     var dateOnly = props.date.split('T')[0];
-    console.log(props)
     return <>
         <p>Questionnaire number {props.id_questionnaire},  </p>
         <p>Teacher: {props.owner}  </p>
@@ -23,13 +22,12 @@ const Many = () => {
     // const [qsntrByOwner, setQstnrByOwner] = useState([]);
 
     const showQuestionnaires = async () => {
-        const { data: d } = await Axios.get('http://localhost:3600/api/questionnaire/owner/131');
+        const { data: d } = await axios.get('http://localhost:3600/api/questionnaire/owner/131');
         const qstInfo = d.map(qst => showQstnrDetails(qst));
         setQst(qstInfo);
     }
     const showAllQuestionnaires = async () => {
-        const { data: d } = await Axios.get('http://localhost:3600/api/questionnaire');
-        // console.log(d);
+        const { data: d } = await axios.get('http://localhost:3600/api/questionnaire');
         const qstInfo = d.map(qst => showQstnrDetails(qst));
         setQst(qstInfo);
     }
