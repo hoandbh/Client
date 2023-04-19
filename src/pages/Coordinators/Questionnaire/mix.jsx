@@ -1,16 +1,16 @@
-import { useNavigate } from 'react-router-dom';
-import { React , useRef, useState, useContext } from 'react';
-import { AuthContext } from '../../../context/authContext'
+// import { useNavigate } from 'react-router-dom';
+// import { React , useRef, useState, useContext } from 'react';
+// import { AuthContext } from '../../../context/authContext'
 
-const mixQuestionnaire = () =>{
+// const mixQuestionnaire = () =>{
 
 
-    const navigate = useNavigate();
+//     const navigate = useNavigate();
 
-    return <>
+//     return <>
     
-    </>
-}
+//     </>
+// }
 
 
-export default mixQuestionnaire;
+// export default mixQuestionnaire;

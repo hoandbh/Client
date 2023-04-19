@@ -12,7 +12,8 @@ const QuestionnaireCard = ({questionnaire}) => {
 
   
   const openEdit = () => {
-    navigate(`/questionnaire/${questionnaire.id}`);
+    // navigate(`/questionnaire/${questionnaire.id}`);
+    navigate(`/questionnaire/complete/${questionnaire.id}`); 
   }
 
   useEffect(() => {
