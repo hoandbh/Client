@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom"
 import Questionnaire from './pages/Coordinators/Questionnaire/Single';
 import NewQustionnire from './pages/Coordinators/Questionnaire/New';
 import QuestionnairesList from "./pages/Coordinators/Questionnaire/List"
+import MixQuestionnaire from './pages/Coordinators/Questionnaire/mix'
 import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
 import Login from './pages/Login';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/questionnaire/new" element={<NewQustionnire />} />
           <Route path="/questionnaire/:id" element={<Questionnaire />} />
           <Route path="/questionnaires" element={<QuestionnairesList/>}/>
+          <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
           <Route path="/statistic" element={<Statistic/>}/>          
         </Routes>
       </Router>  
