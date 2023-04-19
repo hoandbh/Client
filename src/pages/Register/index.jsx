@@ -29,7 +29,6 @@ export default function Register() {
   const [error, setError] = useState(null);
 
   const register = async (userDetails) => {
-    console.log(userDetails)
     const res = await axios.post(
       "http://localhost:3600/api/auth/register",
         userDetails,
@@ -37,7 +36,6 @@ export default function Register() {
         withCredentials: true
       }
     );
-    console.log(res);
   };
 
 
