@@ -63,7 +63,6 @@ const Part = ({part}) => {
   };
 
   const handleCancel = () => {
-    setIncorrectAnswers([]);
     setOpen(false);
   };
 
@@ -98,11 +97,11 @@ const Part = ({part}) => {
   
 
   const initialValues = {
-    question: questionContent,
-    correctAnswer,
-    incorrectAnswers,
+    question: '',
+    correctAnswer: '',
+    incorrectAnswers: [],
   };
-
+  
   return <>
     <Divider sx={{ mt: 2, mb: 2 }} />
     <Typography sx={{ typography: 'subtitle1' ,fontWeight: 'light', m: 1}}>
@@ -116,8 +115,15 @@ const Part = ({part}) => {
       <>
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
           {questions.map(qst => {
+            //initialValues={{ questionContent:'questionContent', correctAnswer: 'correctAnswer', incorrectAnswers: [] }}
             // return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCard question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
-            return <><ListItem alignItems="flex-start" key={qst.id}><QuestionCardTry question={qst} onDelete={handleDeleteQuestion}/></ListItem></>
+            return <>
+              <ListItem alignItems="flex-start" key={qst.id}>
+                <QuestionCardTry 
+                  question={qst} 
+                  onDelete={handleDeleteQuestion}
+                />
+              </ListItem></>
           })}
         </List>
       </>
@@ -127,9 +133,22 @@ const Part = ({part}) => {
     <Button variant="contained" color="primary" onClick={handleClickOpen}>
       add question to part {part.serial_number}
     </Button>
-      <QuestionForm options={{setCorrectAnswer,setQuestionContent,initialValues,open,handleQuestionChange,handleCorrectAnswerChange,
-                              incorrectAnswers,handleIncorrectAnswerChange,addIncorrectAnswerField,removeIncorrectAnswerField
-                              ,handleCancel,handleSave,questionContent,correctAnswer}}/>
+      <QuestionForm 
+        options={{setCorrectAnswer,
+                  setQuestionContent,
+                  initialValues,
+                  open,
+                  handleQuestionChange,
+                  handleCorrectAnswerChange,
+                  incorrectAnswers,
+                  handleIncorrectAnswerChange,
+                  addIncorrectAnswerField,
+                  removeIncorrectAnswerField
+                  ,handleCancel,
+                  handleSave,
+                  questionContent,
+                  correctAnswer}}
+      />
   </>
 }
 
