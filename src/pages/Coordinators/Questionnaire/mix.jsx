@@ -6,10 +6,11 @@ import Box from '@mui/material/Box';
 const mixQuestionnaire = () => {
 
 
+    const [questionnaireDetails, setQDetails] = useState();
     return <>
 
         <Box>
-            <p>HI</p>
+            <h1>hi</h1>
         </Box>
 
 
