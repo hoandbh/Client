@@ -17,7 +17,7 @@ const QuestionFormTry = ({ options, onSubmit }) => {
     },
   };
 
-  const { handleSubmit, values, handleReset} = useFormik({
+  const formik = useFormik({
     initialValues:options.initialValues,
     onSubmit: (values) => options.handleSubmit(values),
     onReset: options.handleCancel
@@ -25,7 +25,7 @@ const QuestionFormTry = ({ options, onSubmit }) => {
 
 
   return (
-      <form>
+      <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
         <Dialog open={options.open} onClose={options.handleClose}>
           <DialogTitle>{options.isEditing? 'Edit question' : 'New question'}</DialogTitle>
           <DialogContent>
@@ -37,6 +37,8 @@ const QuestionFormTry = ({ options, onSubmit }) => {
               type="text"
               fullWidth
               name="questionContent"
+              onChange={formik.handleChange}
+              value={formik.values.question}
             />
             {/* correct answer */}
             <Divider sx={{ mt: 2, mb: 2 }} />
@@ -47,10 +49,12 @@ const QuestionFormTry = ({ options, onSubmit }) => {
               type="text"
               fullWidth
               name="correctAnswer"
+              onChange={formik.handleChange}
+              value={formik.values.correctAnswer}
             />
             <Divider sx={{ mt: 2, mb: 2 }} />
             {/* incorrect answers */}
-            <FieldArray name="incorrectAnswers">
+            {/* <FieldArray name="incorrectAnswers">
               {({push, remove}) => (
                 <>
                   {values.incorrectAnswers?.length ? values.incorrectAnswers.map((answer, index) => (
@@ -83,11 +87,11 @@ const QuestionFormTry = ({ options, onSubmit }) => {
                   </Button>
                 </>
               )}
-            </FieldArray>
+            </FieldArray> */}
           </DialogContent>
           <DialogActions>
-            <Button onClick={options.handleClose}>Cancel</Button>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button type='reset' >Cancel</Button>
+            <Button type='submit' >
               {options.isEditing ? 'Save' : 'Add'}
             </Button>
           </DialogActions>
