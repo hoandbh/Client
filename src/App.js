@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom"
 import Questionnaire from './pages/Coordinators/Questionnaire/Single';
 import NewQustionnire from './pages/Coordinators/Questionnaire/New';
 import QuestionnairesList from "./pages/Coordinators/Questionnaire/List"
-import MixQuestionnaire from './pages/Coordinators/Questionnaire/mix'
+import MixQuestionnaire from './pages/Coordinators/Questionnaire/Mix'
 import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
 import Login from './pages/Login';
