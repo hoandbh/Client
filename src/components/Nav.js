@@ -11,9 +11,8 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 
 import { Button} from '@mui/material';
 
-const CoordinateNav = () => {
-  return (
-    <>
+const TeacherNav = () => {
+  return <>
       <Button component={NavLink} to="/questionnaire/new" startIcon={<AddBoxIcon />}>
         New Questionnaire
       </Button>
@@ -22,23 +21,6 @@ const CoordinateNav = () => {
       </Button>
       <Button component={NavLink} to="/statistic" startIcon={<BarChartIcon />}>
         statistic
-      </Button>
-      <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
-        Logout
-      </Button>
-    </>
-  );
-};
-
-
-
-
-
-const TeacherNav = () => {
-  return <>
-      {/* bracha, add the buttons of the techer here */}
-      <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
-        questionnaires
       </Button>
       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
         Logout
@@ -92,8 +74,6 @@ const Nav = () => {
               case 1:
                 return <TeacherNav />
               case 2:
-                return <CoordinateNav />
-              case 3:
                 return <AdminNav />
               default:
                 return <UnidentifiedUserNav />     

@@ -1,13 +1,12 @@
 import Home from "./pages/Home";
 import {BrowserRouter as Router, Routes, Route, NavLink} from "react-router-dom"
-import Questionnaire from './pages/Coordinators/Questionnaire/Single';
-import NewQustionnire from './pages/Coordinators/Questionnaire/New';
-import QuestionnairesList from "./pages/Coordinators/Questionnaire/List"
-import MixQuestionnaire from './pages/Coordinators/Questionnaire/Mix'
+import Questionnaire from './pages/Questionnaire/Single';
+import NewQustionnire from './pages/Questionnaire/New';
+import QuestionnairesList from "./pages/Questionnaire/List"
+import MixQuestionnaire from './pages/Questionnaire/Mix'
 import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
 import Login from './pages/Login';
-// import Login from './Riki';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Statistic from './pages/Statistic';
