@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { ListItem, List, Paper} from '@mui/material';
-import { AuthContext } from '../../../../context/authContext'
+import { AuthContext } from '../../../context/authContext'
 import LinkIcon from '@mui/icons-material/Link';
 import { useNavigate } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';

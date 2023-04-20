@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AuthContext } from '../../../context/authContext'
+import { AuthContext } from '../../context/authContext';
 import { useEffect } from 'react'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Button, FormControl, Input, InputLabel, MenuItem, Select } from '@mui/material';
