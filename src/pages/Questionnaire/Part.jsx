@@ -88,22 +88,25 @@ const Part = ({part}) => {
         </List>
       </>
     }
-    <br />   
-    <br />
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <ListItem>
           <Paper
-          sx={{
-          p: 2,
-          margin: 'auto',
-          maxWidth: 500,
-          flexGrow: 1,
-          backgroundColor: (theme) =>
-              theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-          }}
+            sx={{
+            // p: 2,
+            margin: 'auto',
+            maxWidth: 500,
+            flexGrow: 1,
+            backgroundColor: (theme) =>
+                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+            }}
           > 
-            <Button variant="contained" color="primary" onClick={handleClickOpen}>
-              +
+            <Button       
+              style={{ width: '100%', height: '100%' }}
+              variant="contained"
+              color="primary" 
+              onClick={handleClickOpen}
+            >
+               +   add question
             </Button>    
           </Paper>  
         </ListItem>
