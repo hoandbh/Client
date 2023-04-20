@@ -129,8 +129,7 @@ export default function Register() {
                   label="Select Permission " 
                 >
                   <MenuItem value={1}>Teacher</MenuItem>
-                  <MenuItem value={2}>Coordinator</MenuItem>
-                  <MenuItem value={3}>Admin</MenuItem>
+                  <MenuItem value={2}>Admin</MenuItem>
                 </Select>
               </Grid>
               {/* <Grid item xs={12}>

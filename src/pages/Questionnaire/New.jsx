@@ -31,8 +31,9 @@ const NewQuestionnaire = () => {
       'http://localhost:3600/api/questionnaire/',
       {
         owner:currentUserId,
-        date:date,
-        term:term,
+        date,
+        term,
+        name,
         course_id:course
       }
     );

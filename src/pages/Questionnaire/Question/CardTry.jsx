@@ -46,8 +46,6 @@ const QuestionCardTry = ({question,onDelete}) => {
   
   const handleCancel = async () => {
     setOpen(false);
-    // setQuestionContent(question.content);
-    // setAnswers(question.answers);
   }
   
   const deleteQst = async() => {
@@ -82,13 +80,13 @@ const QuestionCardTry = ({question,onDelete}) => {
           open,
           isEditing: true,
           initialValues,
-          questionContent,
-          setQuestionContent,
-          setCorrectAnswer: setCorrectAnswerContent,
-          correctAnswer: correctAnswerContent,
-          incorrectAnswers: incorrectAnswersContent,            
           handleCancel,
           handleEdit,
+          //questionContent,
+          //setQuestionContent,
+          //setCorrectAnswer: setCorrectAnswerContent,
+          //correctAnswer: correctAnswerContent,
+          //incorrectAnswers: incorrectAnswersContent,  
           // handleClose
         }}
         />
