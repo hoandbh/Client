@@ -49,7 +49,7 @@ const QuestionnaireCard = ({ questionnaire }) => {
       </IconButton> */}
 
       {/* <div style="float:left;"> */}
-      <Fab variant="extended" onClick={openEdit}>
+      <Fab  variant="extended" onClick={openEdit}>
         <EditIcon /> Edit Test
       </Fab>
       <Fab variant="extended" onClick={openFile}>
