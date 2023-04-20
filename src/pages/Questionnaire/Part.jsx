@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import { Button, List, ListItem, Divider, Typography } from '@mui/material';
+import { Button, List, ListItem, Divider, Typography, Paper } from '@mui/material';
 import QuestionCard from "./Question/Card";
 import QuestionCardTry from "./Question/CardTry";
 import QuestionForm from './Question/Form';
@@ -90,17 +90,36 @@ const Part = ({part}) => {
     }
     <br />   
     <br />
-    <Button variant="contained" color="primary" onClick={handleClickOpen}>
-      add question to part {part.serial_number}
-    </Button>
-      {open && <QuestionFormTry 
-        options={{
-          open,
-          initialValues,
-          handleCancel,
-          handleSave,
-        }}
-      />}
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <ListItem>
+          <Paper
+          sx={{
+          p: 2,
+          margin: 'auto',
+          maxWidth: 500,
+          flexGrow: 1,
+          backgroundColor: (theme) =>
+              theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+          }}
+          > 
+            <Button variant="contained" color="primary" onClick={handleClickOpen}>
+              +
+            </Button>    
+          </Paper>  
+        </ListItem>
+        
+      </List>
+    {
+      open && 
+        <QuestionFormTry 
+          options={{
+            open,
+            initialValues,
+            handleCancel,
+            handleSave,
+          }}
+        />
+    }
   </>
 }
 
