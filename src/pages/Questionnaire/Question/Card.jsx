@@ -1,4 +1,4 @@
-import {Paper, Typography, Grid } from '@mui/material';
+import { Paper, Typography, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -6,49 +6,46 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import QuestionForm from './Form';
 
-const QuestionCard = ({question,onDelete}) => {//
+const QuestionCard = ({question,onDelete}) => {
+
   const [answers, setAnswers] = useState(question.answers);
   const [open, setOpen] = useState(false); 
   const [questionContent, setQuestionContent] = useState(question?.content || '');
   const [correctAnswerContent, setCorrectAnswerContent] = useState('')
   const [incorrectAnswersContent, setIncorrectAnswersContent] = useState('')
 
+  const qstId = question.id;
+
   useEffect(() => {
+    console.log(answers)
+
     setCorrectAnswerContent(answers?.length && answers.find(a => a.is_correct)?.content || '');
-  
     const answersArr = [...answers]
     const incorrectAnswersArr =  answersArr?.filter(a => !a.is_correct);
     setIncorrectAnswersContent(incorrectAnswersArr?.map(a => a.content) || []);
   }, [answers])
 
-  const fetchQuestion = async () => {
-    // const {data} = await axios.get('')
-    // console.log(question);
-    // console.log(answers);
-
+  const fetchData = async () => {
+    const { data } = await axios.get(`http://localhost:3600/api/question/${qstId}`);
+    setQuestionContent(data.content);
+    setAnswers(data.answers);
   }
 
-  useEffect(() => {
-    fetchQuestion();
-  }, [])
-
-  const qstId = question.id;
-
   const handleEdit = async (values) => {
+    const arr = values.incorrectAnswers.map(a => a.content);
     await axios.put(`http://localhost:3600/api/question/${qstId}`,
-      {
-        content: questionContent,
-        correctAnswerContent,
-        incorrectAnswers: incorrectAnswersContent
+      { 
+        content: values.questionContent,
+        correctAnswerContent: values.correctAnswer,
+        incorrectAnswers: arr
       }
-    )
+    );
     setOpen(false);
+    fetchData();
   }
   
   const handleCancel = async () => {
     setOpen(false);
-    setQuestionContent(question.content);
-    setAnswers(question.answers);
   }
   
   const deleteQst = async() => {
@@ -60,20 +57,11 @@ const QuestionCard = ({question,onDelete}) => {//
     setOpen(true);
   }
 
-  const fetchAnswers = async () => {
-    const { data } = await axios.get(`http://localhost:3600/api/question/${qstId}/answer`);
-    setAnswers(data);
+  const initialValues = { 
+    questionContent: question?.content , 
+    correctAnswer: answers.filter(a => a.is_correct)?.[0]?.content ,
+    incorrectAnswers: answers && answers.filter(a => !a.is_correct) || [],
   }
-
-  useEffect(() => {
-    fetchAnswers(); 
-  },[])
-
-  // initialValues: {
-  //   question: question?.content || '', 
-  //   correctAnswer: answers.filter(a => a.is_correct)?.[0]?.content || 'no correct answer',
-  //   incorrectAnswers: answers && answers.filter(a => !a.isCorrect)?.map(a => a.content) || [],
-  // },
 
   return <>
     <Paper
@@ -88,18 +76,13 @@ const QuestionCard = ({question,onDelete}) => {//
     > 
       {question && answers && 
         <QuestionForm
-          options={{
-            open,
-            isEditing: true,
-            // initialValues
-            questionContent,
-            setQuestionContent,
-            setCorrectAnswer: setCorrectAnswerContent,
-            correctAnswer: correctAnswerContent,
-            incorrectAnswers: incorrectAnswersContent,            
-            handleCancel,
-            handleEdit
-          }}
+        options={{
+          open,
+          isEditing: true,
+          initialValues,
+          handleCancel,
+          handleEdit,
+        }}
         />
       }
       <Grid container spacing={2}>
@@ -110,8 +93,8 @@ const QuestionCard = ({question,onDelete}) => {//
                 {questionContent}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                <p>{correctAnswerContent && `V:  ${correctAnswerContent}`}</p>
-                <p>{incorrectAnswersContent?.length && incorrectAnswersContent.map((ans,i) => <div>{`X: ${ans}.  `}</div>)}</p>
+                <div>{correctAnswerContent && `V:  ${correctAnswerContent}`}</div>
+                <div>{incorrectAnswersContent?.length && incorrectAnswersContent.map((ans,i) => <div>{`X: ${ans}.  `}</div>)}</div>
               </Typography>
             </Grid>
             <Grid item>
@@ -130,4 +113,3 @@ const QuestionCard = ({question,onDelete}) => {//
 }
 
 export default QuestionCard;
-

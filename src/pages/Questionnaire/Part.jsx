@@ -1,15 +1,14 @@
 import axios from 'axios';
-import { useEffect, useState } from "react";
-import { Button, List, ListItem, Divider, Typography, Paper } from '@mui/material';
+import { useState } from "react";
+import { Button, List, ListItem, Divider, Typography, Paper, TextField, Field } from '@mui/material';
 import QuestionCard from "./Question/Card";
-import QuestionCardTry from "./Question/CardTry";
 import QuestionForm from './Question/Form';
-import QuestionFormTry from './Question/FormTry';
 
 const Part = ({part}) => {
 
   const [questions, setQuestions] = useState(part.questions_in_part);
   const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState(part.headline);
 
   const handleDeleteQuestion = () => {
     fetchQuestions();
@@ -68,9 +67,15 @@ const Part = ({part}) => {
   
   return <>
     <Divider textAlign="left" sx={{ mt: 2, mb: 2 }} >
-      <Typography sx={{ typography: 'subtitle1' ,fontWeight: 'light', m: 1}}>
+      {/* <Typography sx={{ typography: 'subtitle1' ,fontWeight: 'light', m: 1}}>
         {`${part.headline}(${part.serial_number})`}
-      </Typography>
+      </Typography> */}
+      <TextField
+        value={title}
+        color="primary"
+        variant="outlined"
+        onChange={event => setTitle(event.target.value)}
+      /> 
     </Divider>
 
     {questions && questions.length > 0 &&
@@ -79,7 +84,7 @@ const Part = ({part}) => {
           {questions.map(qst => {
             return <>
               <ListItem alignItems="flex-start" key={qst.id}>
-                <QuestionCardTry 
+                <QuestionCard
                   question={qst} 
                   onDelete={handleDeleteQuestion}
                 />
@@ -114,7 +119,7 @@ const Part = ({part}) => {
       </List>
     {
       open && 
-        <QuestionFormTry 
+        <QuestionForm 
           options={{
             open,
             initialValues,
