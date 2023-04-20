@@ -73,7 +73,7 @@ const QuestionForm = ({ options }) => {
                           type="text"
                           fullWidth
                           name={`incorrectAnswers[${index}].content`}
-                          value={formik.values.incorrectAnswers[index]?.content}
+                          value={formik.values.incorrectAnswers[index].content}
                         />
                         <IconButton
                           aria-label="delete"

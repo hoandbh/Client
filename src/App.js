@@ -7,7 +7,7 @@ import MixQuestionnaire from './pages/Coordinators/Questionnaire/Mix'
 import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
 import Login from './pages/Login';
-// import Login from './Riki';
+// import Login from './Riki'; 
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Statistic from './pages/Statistic';

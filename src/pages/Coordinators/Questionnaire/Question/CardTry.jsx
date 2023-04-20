@@ -60,11 +60,10 @@ const QuestionCardTry = ({question,onDelete}) => {
   }
 
   const initialValues = { 
-    questionContent: question?.content || 'no question content', 
-    correctAnswer: answers.filter(a => a.is_correct)?.[0]?.content || 'no correct answer',
-    incorrectAnswers: answers && answers.filter(a => !a.is_correct)?.map(a => a.content) || [],
+    questionContent: question?.content , 
+    correctAnswer: answers.filter(a => a.is_correct)?.[0]?.content ,
+    incorrectAnswers: answers && answers.filter(a => !a.is_correct) || [],
   }
-  
 
   return <>
     <Paper

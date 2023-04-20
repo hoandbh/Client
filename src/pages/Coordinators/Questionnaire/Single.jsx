@@ -11,13 +11,12 @@ const Questionnaire = () => {
   const [questionnaire, setQuestionnaire] = useState({});
   const [partsNum, setPartsNum] = useState(0);
   const [isAdding, setIsAdding] = useState(false);
-  // for the current part
   const [partHeadline, setPartHeadline] = useState('');
-  // const [isAdding, setIsAdding] = useState(false);
-
   
-  const fetchData = async () => {
+  const fetchData = async () => {    
     const { data:questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
+    console.log(questionnaire)
+    
     setQuestionnaire(questionnaire);
     setPartsNum(questionnaire.parts_in_questionnaire.length);
   }
@@ -48,14 +47,15 @@ const Questionnaire = () => {
   return <>
     <br/>
     <Typography variant="h4" gutterBottom>
-      questionnaire id {id}
+      {questionnaire?.name}
+    </Typography>
+    <Typography variant="h4" gutterBottom>
+      questionnaire in {questionnaire?.course?.name}
     </Typography>
     <Typography variant="h5" gutterBottom>
-      {questionnaire && <p>date:{new Date(questionnaire.date).toLocaleDateString()}</p>}
+      {questionnaire && <p>exam date :{new Date(questionnaire.date).toLocaleDateString()}</p>}
     </Typography>
-    <Typography variant="h5" gutterBottom>
-      {questionnaire && <p>owner: {questionnaire.owner}</p>}
-    </Typography>
+
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
           {questionnaire.parts_in_questionnaire.map((part, i) => <li> <Part key={i.toString()} part={part} /></li>)}
