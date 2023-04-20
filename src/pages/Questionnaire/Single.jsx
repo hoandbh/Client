@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Part from './Part';
-import { Button, Typography, TextField} from '@mui/material';
+import { Button, Typography, TextField, Divider } from '@mui/material';
 import { useParams } from 'react-router-dom';
+
+import IconButton from '@mui/material/IconButton';
+import DoneAllIcon from '@mui/icons-material/DoneAll';
+
 
 const Questionnaire = () => {
 
@@ -15,7 +19,8 @@ const Questionnaire = () => {
   
   const fetchData = async () => {    
     const { data:questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
-    console.log(questionnaire)
+    console.log(questionnaire.name);
+    console.log(questionnaire);
     
     setQuestionnaire(questionnaire);
     setPartsNum(questionnaire.parts_in_questionnaire.length);
@@ -29,19 +34,17 @@ const Questionnaire = () => {
     setIsAdding(true);
   }
 
-  const handleAddPart = async (e) => {
-      if (e.key === 'Enter') {
-        await axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
-        {
-          headline: partHeadline,
-          serial_number:partsNum + 1,
-          mix:true
-        }
-      )
-      setIsAdding(false);
-      setPartHeadline('');
-      fetchData();
-      }    
+  const handleAddPart = async () => {
+    await axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
+      {
+        headline: partHeadline,
+        serial_number:partsNum + 1,
+        mix:true
+      }
+    )
+    setIsAdding(false);
+    setPartHeadline('');
+    fetchData();
   }
 
   return <>
@@ -58,22 +61,32 @@ const Questionnaire = () => {
 
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
-          {questionnaire.parts_in_questionnaire.map((part, i) => <li> <Part key={i.toString()} part={part} /></li>)}
+          {questionnaire.parts_in_questionnaire.map((part, i) => <Part key={i.toString()} part={part} />)}
         </ul>
     }
     {isAdding ? 
       (
         <>
-          <TextField
-            label='part head line'
-            onChange={e => setPartHeadline(e.target.value)}
-            onKeyDown={handleAddPart}
-          />
+          <Divider>
+            <TextField
+              label='part head line'
+              onChange={e => setPartHeadline(e.target.value)}
+              onKeyDown={e => {if (e.key === 'Enter') handleAddPart()}}
+              style={{ width: 500 }}
+            />
+            <IconButton onClick={handleAddPart}>
+              <DoneAllIcon/>
+            </IconButton>          
+          </Divider>
         </>
 
       )
       : 
-      <Button  variant="contained" onClick={addPart} color='error'>+  add part</Button>
+      <>
+        <Divider> 
+          <Button  variant="contained" onClick={addPart} color='error'>+  add part</Button>
+        </Divider>
+      </>
     }
 
   </>
