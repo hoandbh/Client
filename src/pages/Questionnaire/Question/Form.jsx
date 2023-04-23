@@ -42,10 +42,10 @@ const QuestionForm = ({ options }) => {
                 fullWidth
                 value={formik.values.questionContent}
                 name="questionContent"
-                onFocus={event => {
-                  const input = event.target;
-                  input.setSelectionRange(0, input.value.length);
-                }}
+                // onFocus={event => {
+                //   const input = event.target;
+                //   input.setSelectionRange(0, input.value.length);
+                // }}
               />
               {/* correct answer */}
               <Divider sx={{ mt: 2, mb: 2 }} />
@@ -57,10 +57,10 @@ const QuestionForm = ({ options }) => {
                 fullWidth
                 value={formik.values.correctAnswer}
                 name="correctAnswer" 
-                onFocus={event => {
-                  const input = event.target;
-                  input.setSelectionRange(0, input.value.length);
-                }}  
+                // onFocus={event => {
+                //   const input = event.target;
+                //   input.setSelectionRange(0, input.value.length);
+                // }}  
               />
               <Divider sx={{ mt: 2, mb: 2 }} />
               {/* incorrect answers */}
@@ -78,10 +78,10 @@ const QuestionForm = ({ options }) => {
                           fullWidth
                           name={`incorrectAnswers[${index}].content`}
                           value={formik.values.incorrectAnswers[index].content}
-                          onFocus={event => {
-                            const input = event.target;
-                            input.setSelectionRange(0, input.value.length);
-                          }}
+                          // onFocus={event => {
+                          //   const input = event.target;
+                          //   input.setSelectionRange(0, input.value.length);
+                          // }}
                         />
                         <IconButton
                           aria-label="delete"
@@ -94,7 +94,8 @@ const QuestionForm = ({ options }) => {
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={() => push({content:`Write the incorrect answer number ${formik.values.incorrectAnswers.length + 1} here...`})}
+                      onClick={() => push('')}
+                      //onClick={() => push({content:`Write the incorrect answer number ${formik.values.incorrectAnswers.length + 1} here...`})}
                       sx={{ mt: 2 }}
                     >
                       Add incorrect answer

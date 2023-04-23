@@ -6,15 +6,16 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AuthContext } from '../../context/authContext';
 import { useEffect } from 'react'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Button, FormControl, Input, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, FormControl, Input, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 
 const NewQuestionnaire = () => {
 
   const [date, setDate] = useState('0001-01-01');
-  const [term, setTerm] = useState(null);  
-  const [course, setCourse] = useState(null);  
-  const [name, setName] = useState(null);  
+  const [term, setTerm] = useState('');  
+  const [course, setCourse] = useState('');  
+  const [name, setName] = useState('');  
+  const [courses, setCourses] = useState([]);
 
   const navigate = useNavigate();
 
@@ -25,6 +26,16 @@ const NewQuestionnaire = () => {
     setCurrentUserId(currentUser?.id);
   },[currentUser])
 
+
+  useEffect(() => {
+    fetchCourses();   
+  },[])
+
+  const fetchCourses = async () => {
+    const { data } = await axios.get(`http://localhost:3600/api/course`)
+    setCourses(data);
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { data: newQuestionnaire }= await axios.post(
@@ -34,7 +45,7 @@ const NewQuestionnaire = () => {
         date,
         term,
         name,
-        course_id:course
+        course_id:course==0? undefined : course
       }
     );
     const id = newQuestionnaire.id;
@@ -73,39 +84,37 @@ const NewQuestionnaire = () => {
           <MenuItem value={'E'}>special term</MenuItem>
         </Select>
       </FormControl>
-      <br />
-      <br/>
-      <FormControl fullWidth>
-        <InputLabel id="course-select-label">Select Course</InputLabel>
-        <Select
-          labelId="course-select-label"
-          value={course}
-          label="Select Course "
-          onChange={(event) => {
-            setCourse(event.target.value);
-          }}
-        >
-          <MenuItem value={1}>Taxes</MenuItem>
-          <MenuItem value={2}>Statistics</MenuItem>
-          <MenuItem value={3}>Accounting</MenuItem>
-          <MenuItem value={4}>Economy</MenuItem>
-          <MenuItem value={5}>Business English</MenuItem>
-        </Select>
-      </FormControl>
+      
+          <br />
+          <br/>
+          <FormControl fullWidth>
+            <InputLabel id="course-select-label">Select Course</InputLabel>
+            <Select
+              labelId="course-select-label"
+              value={course}
+              label="Select Course "
+              onChange={(event) => {
+                setCourse(event.target.value);
+              }}
+            >
+            {courses?.length > 0 ?
+              courses.map(c => (<MenuItem value={c.id}>{c.name}</MenuItem>))
+              :
+              <MenuItem value={0}>no course, contact the technical support center</MenuItem>
+            }
+            </Select>
+          </FormControl>
 
       <br />
       <br />
       <FormControl fullWidth>
-        <InputLabel id="name-label">Questionnaire name</InputLabel>
-        <Input
-          labelId="name-label"
+        <TextField
           value={name}
-          label="Questionnaire name"
+          label="Description"
           onChange={(event) => {
             setName(event.target.value);
           }}
-        >
-        </ Input>
+        />
           
       </FormControl>
 
