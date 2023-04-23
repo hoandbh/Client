@@ -27,10 +27,10 @@ const QuestionForm = ({ options }) => {
   };
   
   return (
-    <Formik initialValues={options.initialValues} sx={{ minWidth: 1200, minHeight: 800 }}>
+    <Formik initialValues={options.initialValues} >
       {formik => (
         <form>
-          <Dialog open={options.open} sx={{ minWidth: 900, minHeight: 800 }}>
+          <Dialog open={options.open} PaperProps={{ style: { minWidth: '80%', minHeight: '80%' } }}>
             <DialogTitle>{options.isEditing? 'Edit question' : 'New question'}</DialogTitle>
             <DialogContent>
               {/* question */}
