@@ -27,7 +27,7 @@ const QuestionForm = ({ options }) => {
   };
   
   return (
-    <Formik initialValues={options.initialValues}>
+    <Formik initialValues={options.initialValues} sx={{ minWidth: 1200, minHeight: 800 }}>
       {formik => (
         <form>
           <Dialog open={options.open} sx={{ minWidth: 900, minHeight: 800 }}>
@@ -42,6 +42,10 @@ const QuestionForm = ({ options }) => {
                 fullWidth
                 value={formik.values.questionContent}
                 name="questionContent"
+                onFocus={event => {
+                  const input = event.target;
+                  input.setSelectionRange(0, input.value.length);
+                }}
               />
               {/* correct answer */}
               <Divider sx={{ mt: 2, mb: 2 }} />
@@ -52,7 +56,11 @@ const QuestionForm = ({ options }) => {
                 type="text"
                 fullWidth
                 value={formik.values.correctAnswer}
-                name="correctAnswer"   
+                name="correctAnswer" 
+                onFocus={event => {
+                  const input = event.target;
+                  input.setSelectionRange(0, input.value.length);
+                }}  
               />
               <Divider sx={{ mt: 2, mb: 2 }} />
               {/* incorrect answers */}
@@ -70,6 +78,10 @@ const QuestionForm = ({ options }) => {
                           fullWidth
                           name={`incorrectAnswers[${index}].content`}
                           value={formik.values.incorrectAnswers[index].content}
+                          onFocus={event => {
+                            const input = event.target;
+                            input.setSelectionRange(0, input.value.length);
+                          }}
                         />
                         <IconButton
                           aria-label="delete"
@@ -82,7 +94,7 @@ const QuestionForm = ({ options }) => {
                     <Button
                       variant="contained"
                       color="secondary"
-                      onClick={() => push('')}
+                      onClick={() => push({content:`Write the incorrect answer number ${formik.values.incorrectAnswers.length + 1} here...`})}
                       sx={{ mt: 2 }}
                     >
                       Add incorrect answer

@@ -60,27 +60,26 @@ const Part = ({part}) => {
   };
   
   const initialValues = {
-    question: '',
-    correctAnswer: '',
+    questionContent: 'Write the question here...',
+    correctAnswer: 'Write the correct answer here...',
     incorrectAnswers: [],
   };
   
   return <>
-    <Divider textAlign="left" sx={{ mt: 2, mb: 2 }} >
-      {/* <Typography sx={{ typography: 'subtitle1' ,fontWeight: 'light', m: 1}}>
-        {`${part.headline}(${part.serial_number})`}
-      </Typography> */}
+    <Divider textAlign="center" sx={{ mt: 2, mb: 2 }} >
       <TextField
         value={title}
         color="primary"
         variant="outlined"
         onChange={event => setTitle(event.target.value)}
+        style={{ width: 400 }}
+        //when to save the tilte in db??
       /> 
     </Divider>
 
     {questions && questions.length > 0 &&
       <>
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', margin: 'auto'  }}>
           {questions.map(qst => {
             return <>
               <ListItem alignItems="flex-start" key={qst.id}>
@@ -93,12 +92,10 @@ const Part = ({part}) => {
         </List>
       </>
     }
-      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', margin: 'auto' }} >
         <ListItem>
           <Paper
             sx={{
-            // p: 2,
-            margin: 'auto',
             maxWidth: 500,
             flexGrow: 1,
             backgroundColor: (theme) =>

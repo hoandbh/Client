@@ -49,15 +49,18 @@ const Questionnaire = () => {
 
   return <>
     <br/>
-    <Typography variant="h4" gutterBottom>
-      {questionnaire?.name}
-    </Typography>
-    <Typography variant="h4" gutterBottom>
-      questionnaire in {questionnaire?.course?.name}
-    </Typography>
-    <Typography variant="h5" gutterBottom>
-      {questionnaire && <p>exam date :{new Date(questionnaire.date).toLocaleDateString()}</p>}
-    </Typography>
+    <div style={{textAlign: "center"}}>
+      <Typography variant="h4" gutterBottom>
+        {questionnaire?.name}
+      </Typography>
+      <Typography variant="h4" gutterBottom>
+        questionnaire in {questionnaire?.course?.name}
+      </Typography>
+      <Typography variant="h5" gutterBottom>
+        {questionnaire && <p>exam date :{new Date(questionnaire.date).toLocaleDateString()}</p>}
+      </Typography>      
+    </div>
+
 
    {questionnaire && questionnaire.parts_in_questionnaire && 
         <ul>
