@@ -76,6 +76,7 @@ const Questionnaire = () => {
               onChange={e => setPartHeadline(e.target.value)}
               onKeyDown={e => {if (e.key === 'Enter') handleAddPart()}}
               style={{ width: 500 }}
+              onBlur={handleAddPart}
             />
             <IconButton onClick={handleAddPart}>
               <DoneAllIcon/>
