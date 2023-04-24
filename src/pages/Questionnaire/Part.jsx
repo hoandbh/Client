@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState } from "react";
-import { Button, List, ListItem, Divider, Typography, Paper, TextField, Field } from '@mui/material';
+import { Button, List, ListItem, Divider,  Paper, TextField, Field } from '@mui/material';
 import QuestionCard from "./Question/Card";
 import QuestionForm from './Question/Form';
 
@@ -135,24 +135,3 @@ const Part = ({part}) => {
 }
 
 export default Part;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

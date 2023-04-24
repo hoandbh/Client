@@ -7,8 +7,7 @@ import axios from 'axios';
 import { Card, Fab, Paper, TextField } from '@mui/material';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import { spacing } from '@mui/system';
-
-
+//FileOpenIcon
 const MixQuestionnaire = () => {
 
 
@@ -25,8 +24,8 @@ const MixQuestionnaire = () => {
     }
 
     const handleMixButton = async () => {
-        let qId = 1;
-        const ans = await axios.post(`localhost:3600/api/questionnaire/mixQuestionnaire/1`, 
+        let id = questionnaireDetails.id;
+        const ans = await axios.post(`http://localhost:3600/api/questionnaire/mixQuestionnaire/${id}`, 
         {
             amount:2
         });
