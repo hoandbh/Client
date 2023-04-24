@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Logout from './pages/Logout';
 import Statistic from './pages/Statistic';
+import Courses from './pages/Admin/Courses';
 
 function App() {
   return <>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/questionnaires" element={<QuestionnairesList/>}/>
           <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
           <Route path="/statistic" element={<Statistic/>}/>          
+          <Route path="/courses" element={<Courses/>}/>          
         </Routes>
       </Router>  
     </AuthContextProvider>

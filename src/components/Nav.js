@@ -8,6 +8,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListIcon from '@mui/icons-material/List';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import SchoolIcon from '@mui/icons-material/School';
 
 import { Button} from '@mui/material';
 
@@ -32,6 +33,9 @@ const AdminNav = () => {
   return <>
       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
         Logout
+      </Button>
+      <Button component={NavLink} to="/courses" startIcon={<SchoolIcon  />}>
+        Courses
       </Button>
       {/**/}
   </>
