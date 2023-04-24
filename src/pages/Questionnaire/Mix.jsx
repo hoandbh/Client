@@ -24,6 +24,15 @@ const MixQuestionnaire = () => {
 
     }
 
+    const handleMixButton = async () => {
+        let qId = 1;
+        const ans = await axios.post(`localhost:3600/api/questionnaire/mixQuestionnaire/1`, 
+        {
+            amount:2
+        });
+        console.log(ans);
+    }
+
     useEffect(() => {
         fetchData();
     }, [])
@@ -44,16 +53,16 @@ const MixQuestionnaire = () => {
             <h3>Finish And Mix
             </h3>
             <TextField
-          id="outlined-number"
-          label="Number of Versions"
-          type="number"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <br/><br/>
-        <Fab variant="extended" color='primary'>
-            Complete And Create Versions
+                id="outlined-number"
+                label="Number of Versions"
+                type="number"
+                InputLabelProps={{
+                    shrink: true,
+                }}
+            />
+            <br /><br />
+            <Fab variant="extended" color='primary' onClick={handleMixButton }>
+                Complete And Create Versions
             </Fab>
         </Card>
 
