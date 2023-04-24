@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { ListItem, List, Paper, Fab } from '@mui/material';
+import { ListItem, List, Paper, Fab,Box } from '@mui/material';
 import { AuthContext } from '../../../context/authContext'
 import LinkIcon from '@mui/icons-material/Link';
 import { useNavigate } from "react-router-dom";
@@ -26,13 +26,19 @@ const QuestionnaireCard = ({ questionnaire }) => {
   return <>
     <Paper
       sx={{
+        display:"flex", 
+        justifyContent:"space-between",
+        color:"red", 
+        width:"100vh",
         p: 2,
-        maxWidth: 1000,//500,
         flexGrow: 1,
         fontFamily: 'Open Sans, sans-serif',
         backgroundColor: (theme) =>
-          theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-      }}
+          theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+        }}
+    >
+
+    <Box
     >
       {
         `Questionnaire number: ${questionnaire.id}.
@@ -47,18 +53,19 @@ const QuestionnaireCard = ({ questionnaire }) => {
       <IconButton onClick={openEdit}>
         <EditIcon/> Edit Test 
       </IconButton> */}
+      </Box>
+      <Box>
+        <Fab variant="extended" onClick={openEdit}>
+          <EditIcon /> 
+        </Fab>
+        <Fab variant="extended" onClick={openFile}>
+          <LinkIcon />
+        </Fab>
 
-      {/* <div style="float:left;"> */}
-      <Fab variant="extended" onClick={openEdit}>
-        <EditIcon /> Edit Test
-      </Fab>
-      <Fab variant="extended" onClick={openFile}>
-        <LinkIcon />Open Test File
-      </Fab>
+      </Box> 
+    </Paper> 
 
 
-      {/* </div> */}
-    </Paper>
   </>
 }
 
@@ -85,9 +92,11 @@ const QuestionnairesList = () => {
     {
       questionnaires &&
       <List>
-        {questionnaires.map(q => <ListItem >
+        {questionnaires.map(q => 
+        <ListItem fullWidth>
           <QuestionnaireCard questionnaire={q} />
-        </ListItem>)}
+        </ListItem>
+       )}
       </List>
     }
   </>

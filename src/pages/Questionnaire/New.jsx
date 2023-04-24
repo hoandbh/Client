@@ -42,7 +42,6 @@ const NewQuestionnaire = () => {
   };
 
   return <>
-
     <form onSubmit={handleSubmit}>
       <br />
       <FormControl fullWidth>
