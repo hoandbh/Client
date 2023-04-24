@@ -50,7 +50,7 @@ export default function Register() {
       permission: data.get('permission')
     };
     try {
-      await register(userDetails);
+      await register(userDetails);  
       navigate('/login');
     } catch (error) {
       setError(error?.response?.data?.message);
@@ -132,12 +132,6 @@ export default function Register() {
                   <MenuItem value={2}>Admin</MenuItem>
                 </Select>
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid> */}
             </Grid>
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Sign Up
