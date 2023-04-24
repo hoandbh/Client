@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 
 import IconButton from '@mui/material/IconButton';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-
-
+// import './a.css'
+import '../../Style/sst.css'
 const Questionnaire = () => {
 
   const { id } = useParams();
@@ -74,11 +74,11 @@ const Questionnaire = () => {
         />
       </DialogContent>
       <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleAddPart} autoFocus>
-            add
-          </Button>
-        </DialogActions>
+        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleAddPart} autoFocus>
+          add
+        </Button>
+      </DialogActions>
     </Dialog>
     <br />
     <div style={{ textAlign: "center" }}>
@@ -122,6 +122,11 @@ const Questionnaire = () => {
         <Divider>
           <Button variant="contained" onClick={addPart} color='error'>+  add part</Button>
         </Divider>
+        {/* <a href='#' class="stt" title="scroll to top" > ^ </a> */}
+        <div class="container-top">
+          <a href="#" class="top" title="scroll to top"></a>
+        </div>
+
       </>
     }
 

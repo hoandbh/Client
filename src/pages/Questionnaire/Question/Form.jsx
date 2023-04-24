@@ -34,6 +34,7 @@ const QuestionForm = ({ options }) => {
             <DialogContent>
               {/* question */}
               <Field
+                required
                 as={TextField}
                 margin="dense"
                 label="question"
