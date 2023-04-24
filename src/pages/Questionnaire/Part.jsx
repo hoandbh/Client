@@ -59,9 +59,15 @@ const Part = ({part}) => {
     setOpen(false);
   };
   
+  // const initialValues = {
+  //   questionContent: 'Write the question here...',
+  //   correctAnswer: 'Write the correct answer here...',
+  //   incorrectAnswers: [],
+  // };
+  
   const initialValues = {
-    questionContent: 'Write the question here...',
-    correctAnswer: 'Write the correct answer here...',
+    questionContent: '',
+    correctAnswer: '',
     incorrectAnswers: [],
   };
   
