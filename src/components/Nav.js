@@ -1,165 +1,61 @@
-// import { NavLink } from "react-router-dom"
-// import { useState, useContext, useEffect } from 'react'
-// import { AuthContext } from "../context/authContext"
-// import HomeIcon from '@mui/icons-material/Home';
-// import LockIcon from '@mui/icons-material/Lock';
-// import PersonAddIcon from '@mui/icons-material/Person';
-// import AddBoxIcon from '@mui/icons-material/AddBox';
-// import ListIcon from '@mui/icons-material/List';
-// import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-// import BarChartIcon from '@mui/icons-material/BarChart';
-// import SchoolIcon from '@mui/icons-material/School';
-
-// import { Button} from '@mui/material';
-
-// const TeacherNav = () => {
-//   return <>
-//       <Button component={NavLink} to="/questionnaire/new" startIcon={<AddBoxIcon />}>
-//         New Questionnaire
-//       </Button>
-//       <Button component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
-//         questionnaires
-//       </Button>
-//       <Button component={NavLink} to="/statistic" startIcon={<BarChartIcon />}>
-//         statistic
-//       </Button>
-//       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
-//         Logout
-//       </Button>
-//   </>
-// }
-
-// const AdminNav = () => {
-//   return <>
-//       <Button component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
-//         Logout
-//       </Button>
-//       <Button component={NavLink} to="/courses" startIcon={<SchoolIcon  />}>
-//         Courses
-//       </Button>
-//       {/**/}
-//   </>
-// }
-
-// const UnidentifiedUserNav = () => {
-//   return <>
-//       <Button component={NavLink} to="/login" startIcon={<LockIcon />}>
-//         Login
-//       </Button>
-//       <Button component={NavLink} to="/register" startIcon={<PersonAddIcon />}>
-//         Register
-//       </Button>
-//   </>
-// }
-
-
-
-// const Nav = () => {
-//   const {currentUser} = useContext(AuthContext);
-//   const [permission, setPermission] = useState(currentUser?.permission || 0);
-
-//   useEffect(() => {
-//   },[permission])
-
-//   useEffect(() => {
-//     setPermission(currentUser?.permission || 0);
-//   },[currentUser])
-
-
-//   return (
-//     <> 
-//       <nav>
-//         <Button component={NavLink} to="/" startIcon={<HomeIcon />}>
-//           Home
-//         </Button>
-//         {
-//           (() => {
-//             switch (permission) {
-//               case 1:
-//                 return <TeacherNav />
-//               case 2:
-//                 return <AdminNav />
-//               default:
-//                 return <UnidentifiedUserNav />     
-//             }
-//           })()
-//         }
-//       </nav>
-//     </>
-//    );
-// }
-// export default Nav
-
-
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { useState, useContext, useEffect } from 'react'
-import { AuthContext } from "../context/authContext"
-import HomeIcon from '@mui/icons-material/Home';
+
+import { Button, Tooltip, Menu, Toolbar, Box, AppBar, Typography, IconButton, MenuItem } from '@mui/material';
+
+import AddIcon from '@mui/icons-material/Add';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonAddIcon from '@mui/icons-material/Person';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListIcon from '@mui/icons-material/List';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SchoolIcon from '@mui/icons-material/School';
-
-import { Button } from '@mui/material';
-
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import Switch from '@mui/material/Switch';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormGroup from '@mui/material/FormGroup';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
 
-import { Avatar } from '@mui/material';
+import { AuthContext } from "../context/authContext"
 
 
-
+const Tab = ({ path, icon, text }) => {
+  return (
+    <Button style={{ color: 'white' }} component={NavLink} to={path} startIcon={icon}>
+      <Typography textAlign="center" sx={{ fontFamily: 'monospace' }}>{text}</Typography>
+    </Button>
+  )
+}
 
 const TeacherNav = () => {
   return <>
-    <Button style={{ color: 'white' }} component={NavLink} to="/questionnaire/new" startIcon={<AddBoxIcon />}>
-      New Questionnaire
-    </Button>
-    <Button style={{ color: 'white' }} component={NavLink} to="/questionnaires" startIcon={<ListIcon />}>
-      questionnaires
-    </Button>
-    <Button style={{ color: 'white' }} component={NavLink} to="/statistic" startIcon={<BarChartIcon />}>
-      statistic
-    </Button>
+    <Tab path='/questionnaires' icon={<ListIcon />} text='questionnaires' />
+    <Tab path='/questionnaire/new' icon={<AddIcon />} text='create questionnaire' />
+    <Tab path='/statistic' icon={<BarChartIcon />} text='statistic' />
+    <Tab path='/courses' icon={<SchoolIcon />} text='Courses' />
+
   </>
 }
 
 const AdminNav = () => {
   return <>
-    <Button style={{ color: 'white' }} component={NavLink} to="/courses" startIcon={<SchoolIcon />}>
-      Courses
-    </Button>
+    <Tab path='/courses' icon={<SchoolIcon />} text='Courses' />
   </>
 }
 
 const UnidentifiedUserNav = () => {
   return <>
-    <Button style={{ color: 'white' }} component={NavLink} to="/login" startIcon={<LockIcon />}>
-      Login
-    </Button>
-    <Button style={{ color: 'white' }} component={NavLink} to="/register" startIcon={<PersonAddIcon />}>
-      Register
-    </Button>
+    <Tab path='/login' icon={<LockIcon />} text='Login' />
+    <Tab path='/register' icon={<PersonAddIcon />} text='Register' />
   </>
 }
 
 
 const Nav = () => {
 
-  const [auth, setAuth] = useState(true);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   const { currentUser } = useContext(AuthContext);
   const [permission, setPermission] = useState(currentUser?.permission || 0);
@@ -169,14 +65,20 @@ const Nav = () => {
 
   useEffect(() => {
     setPermission(currentUser?.permission || 0);
-    //console.log(currentUser)
   }, [currentUser])
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    navigate('/logout');
+  }
 
   return (
     <>
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', 'justifyContent': 'space-between' }}>
           <Box>
+            <Tab path='/' icon={<HomeIcon />} text='home' />
             {
               (() => {
                 switch (permission) {
@@ -191,7 +93,7 @@ const Nav = () => {
             }
           </Box>
 
-          {currentUser && <Box>
+          {/* {currentUser && <Box>
             <IconButton
               color="inherit"
             >
@@ -202,7 +104,36 @@ const Nav = () => {
               Logout
             </Button>
           </Box>
+          } */}
+
+          {currentUser && <Box >
+            <Tooltip>
+              <IconButton onClick={handleOpenUserMenu}>
+                <AccountCircle style={{ fontSize: 40, color: 'white' }} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">{'logout'}</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
           }
+
         </Toolbar>
       </AppBar>
     </>

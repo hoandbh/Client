@@ -11,7 +11,7 @@ const QuestionForm = ({ options }) => {
       options.handleSave(values);
     }
   };
-  
+
   const styles = {
     container: {
       display: 'flex',
@@ -24,7 +24,7 @@ const QuestionForm = ({ options }) => {
       display: 'inline-block',
     },
   };
-  
+
   return (
     <Formik initialValues={options.initialValues} >
       {formik => (
@@ -116,3 +116,4 @@ const QuestionForm = ({ options }) => {
 }
 
 export default QuestionForm;
+
