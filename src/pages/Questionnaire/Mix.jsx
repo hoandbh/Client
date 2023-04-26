@@ -17,7 +17,7 @@ const MixQuestionnaire = () => {
   const { id } = useParams();
 
   const [questionnaireDetails, setQuestionnaireDetails] = useState({});
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   // const [show, setShow] = useState(false);
 
 
@@ -40,27 +40,36 @@ const MixQuestionnaire = () => {
   return <>
 
     <Paper sx={{ '& > :not(style)': { m: 'auto' } }}>
-
       <h1> Test Mixing </h1>
       <br />
       <Fab variant="extended">
         <ContentPasteSearchIcon sx={{ mr: 1 }} />
         View File Of Master Questionnaire
       </Fab>
-
     </Paper>
 
     <Card>
       <h3>Finish And Mix
       </h3>
       <TextField
+        sx={{width:200}}
         id="outlined-number"
         label="Number of Versions"
         type="number"
-        onBlur={e => setAmount(e.target.value)}
-
+        onChange={e => {
+          const enteredValue = e.target.value;
+          if (!enteredValue || (enteredValue >= 0 && enteredValue <= 100) ) {
+            setAmount(enteredValue);
+          }
+        }}
+        value={amount}
+        InputProps={{
+          inputProps: {
+            min: 0,
+            max: 100
+          }
+        }} 
       />
-      {/* {show && <CircularProgress />} */}
       <br /><br />
       <Fab variant="extended" color='primary' onClick={handleMixButton}>
         Complete And Create Versions
