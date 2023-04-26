@@ -28,14 +28,9 @@ const MixQuestionnaire = () => {
 
     }
 
-    const handleMixButton = async () => {
-        const ans = await axios.post(`http://localhost:3600/api/questionnaire/mixQuestionnaire/${id}`,
-            {
-                amount: amount
-            });
-        console.log(ans);
-        navigate(`/versions/${id}`);
-        
+    const handleMixButton = async () => {  
+        const ans = await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`,{amount});
+        navigate(`/versions/${id}`);        
     }
 
     useEffect(() => {
