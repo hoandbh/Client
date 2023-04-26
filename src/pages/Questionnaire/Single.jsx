@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Part from './Part';
-import { Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle, Box } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import IconButton from '@mui/material/IconButton';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
@@ -21,12 +21,12 @@ const Questionnaire = () => {
 
 
   const fetchData = async () => {
-    const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/full/${id}`);
+    const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}/full`);
     console.log(questionnaire.name);
     console.log(questionnaire);
 
     setQuestionnaire(questionnaire);
-    setPartsNum(questionnaire.parts_in_questionnaire.length);
+    setPartsNum(questionnaire.parts.length);
   }
 
   useEffect(() => {
@@ -56,6 +56,13 @@ const Questionnaire = () => {
     setOpen(false);
     setPartHeadline('');
   }
+
+  const navigate = useNavigate();
+  
+  const finish = () => {
+    navigate(`/questionnaire/complete/${id}`);
+  }
+
 
   return <>
     <Dialog
@@ -95,9 +102,9 @@ const Questionnaire = () => {
     </div>
 
 
-    {questionnaire && questionnaire.parts_in_questionnaire &&
+    {questionnaire && questionnaire.parts &&
       <ul>
-        {questionnaire.parts_in_questionnaire.map((part, i) => <Part key={i.toString()} part={part} />)}
+        {questionnaire.parts.map((part, i) => <Part key={i.toString()} part={part} />)}
       </ul>
     }
     {isAdding ?
@@ -127,7 +134,9 @@ const Questionnaire = () => {
         <div class="container-top">
           <a href="#" class="top" title="scroll to top"></a>
         </div>
-
+        <Box sx={{textAlign:'center'}}>
+          <Button variant="contained" onClick={finish} color='error'>finish and mix</Button>
+        </Box>
       </>
     }
 
