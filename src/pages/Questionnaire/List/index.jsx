@@ -12,58 +12,58 @@ const QuestionnaireCard = ({ questionnaire }) => {
 
 
   const openEdit = () => {
-    navigate(`/questionnaire/${questionnaire.id}`);
+  navigate(`/questionnaire/${questionnaire.id}`);
   }
 
   const openFile = () => {
-    navigate(`/questionnaire/complete/${questionnaire.id}`);
+  navigate(`/questionnaire/complete/${questionnaire.id}`);
 
   }
   useEffect(() => {
-    console.log(questionnaire);
+  console.log(questionnaire);
   }, [])
 
   return <>
-    <Paper
-      sx={{
-        display:"flex", 
-        justifyContent:"space-between",
-        color:"red", 
-        width:"100vh",
-        p: 2,
-        flexGrow: 1,
-        fontFamily: 'Open Sans, sans-serif',
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
-        }}
-    >
+  <Paper
+    sx={{
+    display:"flex", 
+    justifyContent:"space-between",
+    color:"red", 
+    width:"100vh",
+    p: 2,
+    flexGrow: 1,
+    fontFamily: 'Open Sans, sans-serif',
+    backgroundColor: (theme) =>
+      theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+    }}
+  >
 
-    <Box
-    >
-      {
-        `Questionnaire number: ${questionnaire.id}.
-        Teacher: ${questionnaire.owner}.
-        Date: ${new Date(questionnaire.date).toLocaleDateString()}.
-        `
-      }
-      {/* 
-      <IconButton onClick={openFile}>
-        <LinkIcon/>Open Test File
-      </IconButton>
-      <IconButton onClick={openEdit}>
-        <EditIcon/> Edit Test 
-      </IconButton> */}
-      </Box>
-      <Box>
-        <Fab variant="extended" onClick={openEdit}>
-          <EditIcon /> 
-        </Fab>
-        <Fab variant="extended" onClick={openFile}>
-          <LinkIcon />
-        </Fab>
+  <Box
+  >
+    {
+    `Questionnaire number: ${questionnaire.id}.
+    Teacher: ${questionnaire.owner}.
+    Date: ${new Date(questionnaire.date).toLocaleDateString()}.
+    `
+    }
+    {/* 
+    <IconButton onClick={openFile}>
+    <LinkIcon/>Open Test File
+    </IconButton>
+    <IconButton onClick={openEdit}>
+    <EditIcon/> Edit Test 
+    </IconButton> */}
+    </Box>
+    <Box>
+    <Fab variant="extended" onClick={openEdit}>
+      <EditIcon /> 
+    </Fab>
+    <Fab variant="extended" onClick={openFile}>
+      <LinkIcon />
+    </Fab>
 
-      </Box> 
-    </Paper> 
+    </Box> 
+  </Paper> 
 
 
   </>
@@ -76,29 +76,29 @@ const QuestionnairesList = () => {
   const [questionnaires, setQuestionnaires] = useState([]);
 
   useEffect(() => {
-    setCurrentUserId(currentUser?.id);
+  setCurrentUserId(currentUser?.id);
   }, [currentUser])
 
   const fetchData = async () => {
-    const { data } = await axios.get(`http://localhost:3600/api/questionnaire?owner=${currentUserId}`);
-    setQuestionnaires(data);
+  const { data } = await axios.get(`http://localhost:3600/api/questionnaire?owner=${currentUserId}`);
+  setQuestionnaires(data);
   }
 
   useEffect(() => {
-    fetchData();
+  fetchData();
   }, [])
 
   return <>
-    {
-      questionnaires &&
-      <List>
-        {questionnaires.map(q => 
-        <ListItem fullWidth>
-          <QuestionnaireCard questionnaire={q} />
-        </ListItem>
-       )}
-      </List>
-    }
+  {
+    questionnaires &&
+    <List>
+    {questionnaires.map(q => 
+    <ListItem fullWidth>
+      <QuestionnaireCard questionnaire={q} />
+    </ListItem>
+     )}
+    </List>
+  }
   </>
 }
 

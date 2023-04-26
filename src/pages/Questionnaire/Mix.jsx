@@ -12,64 +12,65 @@ import CircularProgress from '@mui/material/CircularProgress';
 //FileOpenIcon
 const MixQuestionnaire = () => {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const { id } = useParams();
+  const { id } = useParams();
 
-    const [questionnaireDetails, setQuestionnaireDetails] = useState({});
-    const [amount, setAmount] = useState(0);
-    // const [show, setShow] = useState(false);
-
-
-    const fetchData = async () => {
-        const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}`);
-        setQuestionnaireDetails(questionnaire);
-        console.log(questionnaire)
-
-    }
-
-    const handleMixButton = async () => {  
-        const ans = await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`,{amount});
-        navigate(`/versions/${id}`);        
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, [])
-
-    return <>
-
-        <Paper sx={{ '& > :not(style)': { m: 'auto' } }}>
-
-            <h1> Test Mixing </h1><br />
-            <Fab variant="extended">
-                <ContentPasteSearchIcon sx={{ mr: 1 }} />
-                View File Of Master Questionnaire
-            </Fab>
-
-        </Paper>
-
-        <Card>
-            <h3>Finish And Mix
-            </h3>
-            <TextField
-                id="outlined-number"
-                label="Number of Versions"
-                type="number"
-                onBlur={e => setAmount(e.target.value)}
-
-            />
-            {/* {show && <CircularProgress />} */}
-            <br /><br />
-            <Fab variant="extended" color='primary' onClick={handleMixButton}>
-                Complete And Create Versions
-            </Fab>
-        </Card>
+  const [questionnaireDetails, setQuestionnaireDetails] = useState({});
+  const [amount, setAmount] = useState(0);
+  // const [show, setShow] = useState(false);
 
 
+  const fetchData = async () => {
+    const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}`);
+    setQuestionnaireDetails(questionnaire);
+    console.log(questionnaire)
+
+  }
+
+  const handleMixButton = async () => {
+    const ans = await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`, { amount });
+    navigate(`/versions/${id}`);
+  }
+  
+  useEffect(() => {
+    fetchData();
+  }, [])
+
+  return <>
+
+    <Paper sx={{ '& > :not(style)': { m: 'auto' } }}>
+
+      <h1> Test Mixing </h1>
+      <br />
+      <Fab variant="extended">
+        <ContentPasteSearchIcon sx={{ mr: 1 }} />
+        View File Of Master Questionnaire
+      </Fab>
+
+    </Paper>
+
+    <Card>
+      <h3>Finish And Mix
+      </h3>
+      <TextField
+        id="outlined-number"
+        label="Number of Versions"
+        type="number"
+        onBlur={e => setAmount(e.target.value)}
+
+      />
+      {/* {show && <CircularProgress />} */}
+      <br /><br />
+      <Fab variant="extended" color='primary' onClick={handleMixButton}>
+        Complete And Create Versions
+      </Fab>
+    </Card>
 
 
-    </>
+
+
+  </>
 }
 
 

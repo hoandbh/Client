@@ -16,54 +16,54 @@ const Logout = () => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+  setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+  setOpen(false);
   };
 
   const handleSubmission = () => {
-    handleLogout();
-    setOpen(false);
+  handleLogout();
+  setOpen(false);
   };
 
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    await logout();
+    navigate('/');
+  } catch (error) {
+    console.log(error);
+  }
   };
 
   return (
-    <>
-      <br/>
-      <br/>
-      <br/>
-      <Button variant="contained" onClick={handleClickOpen}>Logout</Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Confirmation"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Are you sure you want to logout?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmission} autoFocus>
-            logout
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </>
+  <>
+    <br/>
+    <br/>
+    <br/>
+    <Button variant="contained" onClick={handleClickOpen}>Logout</Button>
+    <Dialog
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+    >
+    <DialogTitle id="alert-dialog-title">{"Confirmation"}</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+      Are you sure you want to logout?
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={handleClose}>Cancel</Button>
+      <Button onClick={handleSubmission} autoFocus>
+      logout
+      </Button>
+    </DialogActions>
+    </Dialog>
+  </>
   );
 }
 

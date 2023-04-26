@@ -15,30 +15,30 @@ import Personal_area from './pages/Personal_area'
 
 function App() {
   return (
-    <div className="App">  
-    <Router>
-    <ButtonAppBar/>
-     <Routes>
-     <Route path='/' element={<Home />} />
-    <Route path='/login' element={<Login />} />
-    <Route path='/register' element={<Register />} />
+  <div className="App">  
+  <Router>
+  <ButtonAppBar/>
+   <Routes>
+   <Route path='/' element={<Home />} />
+  <Route path='/login' element={<Login />} />
+  <Route path='/register' element={<Register />} />
 
 
-    <Route path='/PlanTrip' element={<Planning_a_trip />} />
-    <Route path='/Personal_area' element={<Personal_area/>} />
-    <Route path='/secrtery' element={<Secrtery/>} />
+  <Route path='/PlanTrip' element={<Planning_a_trip />} />
+  <Route path='/Personal_area' element={<Personal_area/>} />
+  <Route path='/secrtery' element={<Secrtery/>} />
 
-    <Route path='*' element={<h1> 404 Page not found</h1>} />
-    
-    {/* <Route path='/ConstrainsA' element={<ConstrainsA />} /> */}
-    {/* <Route path='/FinallTrip' element={<FinallTrip />} /> */}
-    </Routes>
-    </Router>
+  <Route path='*' element={<h1> 404 Page not found</h1>} />
   
-    </div>
-    );
-    
-    //    <Route path='/plan-trip' element={<PlanTrip/>} />
+  {/* <Route path='/ConstrainsA' element={<ConstrainsA />} /> */}
+  {/* <Route path='/FinallTrip' element={<FinallTrip />} /> */}
+  </Routes>
+  </Router>
+  
+  </div>
+  );
+  
+  //  <Route path='/plan-trip' element={<PlanTrip/>} />
 
  
 }

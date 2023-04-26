@@ -5,52 +5,52 @@ import { Button, Box, TextField , ListItem, List} from '@mui/material';
 
 const showQstnrDetails = (props) => {
 
-    // const qstnr = props.qstnr;
-    var dateOnly = props.date.split('T')[0];
-    return <>
-        <p>Questionnaire number {props.id_questionnaire},  </p>
-        <p>Teacher: {props.owner}  </p>
-        <p>date: {dateOnly}  </p>
-        <p>term: {props.term}  </p>
+  // const qstnr = props.qstnr;
+  var dateOnly = props.date.split('T')[0];
+  return <>
+    <p>Questionnaire number {props.id_questionnaire},  </p>
+    <p>Teacher: {props.owner}  </p>
+    <p>date: {dateOnly}  </p>
+    <p>term: {props.term}  </p>
 
-    </>
+  </>
 }
 
 const Many = () => {
 
-    const [qst, setQst] = useState([]);
-    // const [qsntrByOwner, setQstnrByOwner] = useState([]);
+  const [qst, setQst] = useState([]);
+  // const [qsntrByOwner, setQstnrByOwner] = useState([]);
 
-    const showQuestionnaires = async () => {
-        const { data: d } = await axios.get('http://localhost:3600/api/questionnaire/owner/131');
-        const qstInfo = d.map(qst => showQstnrDetails(qst));
-        setQst(qstInfo);
-    }
-    const showAllQuestionnaires = async () => {
-        const { data: d } = await axios.get('http://localhost:3600/api/questionnaire');
-        const qstInfo = d.map(qst => showQstnrDetails(qst));
-        setQst(qstInfo);
-    }
+  const showQuestionnaires = async () => {
+    const { data: d } = await axios.get('http://localhost:3600/api/questionnaire/owner/131');
+    const qstInfo = d.map(qst => showQstnrDetails(qst));
+    setQst(qstInfo);
+  }
+  const showAllQuestionnaires = async () => {
+    const { data: d } = await axios.get('http://localhost:3600/api/questionnaire');
+    const qstInfo = d.map(qst => showQstnrDetails(qst));
+    setQst(qstInfo);
+  }
 
 
-    useEffect(() => {
-        showQuestionnaires();
-    }, [])
+  useEffect(() => {
+    showQuestionnaires();
+  }, [])
 
-    return <>
-        many component
+  return <>
+    many component
 
-        <button onClick={showAllQuestionnaires}>See All</button><br /><br />
-        {/* {qst &&
-            <ul>
-                {qst.map(q => <li>{q}</li>)}
-            </ul>
-        } */}
-        {qst &&
-            <List>
-                {qst.map(q => <ListItem >{q}</ListItem>)}
-            </List>}
-    </>
+    <button onClick={showAllQuestionnaires}>See All</button><br /><br />
+    {/* {qst &&
+      <ul>
+        {qst.map(q => <li>{q}</li>)}
+      </ul>
+    } */}
+    {qst &&
+      <List>
+        {qst.map(q => <ListItem >{q}</ListItem>)}
+      </List>}
+  </>
 }
 
 export default Many;

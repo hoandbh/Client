@@ -4,11 +4,11 @@ import { useParams } from 'react-router-dom';
 
 const VersionsPdf = () => {
 
-    const { Qid } = useParams();
+  const { Qid } = useParams();
 
-    return (
-        <div> Hellow Hello {Qid}</div>
-    )
+  return (
+    <div> Hellow Hello {Qid}</div>
+  )
 }
 
 export default VersionsPdf;

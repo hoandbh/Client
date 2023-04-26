@@ -7,31 +7,31 @@ const Teacher = () => {
 
 
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const changeToMessages =  () => {
-        navigate('/messages')        
-    }
+  const changeToMessages =  () => {
+    navigate('/messages')    
+  }
 
-    return <>
-        <Paper >
-            <p onClick={
-                ()=>{
-                    
-                    console.log("make this pass to a different component")
-                }
-            }>
-                צפיה במטלות
-            </p>
+  return <>
+    <Paper >
+      <p onClick={
+        ()=>{
+          
+          console.log("make this pass to a different component")
+        }
+      }>
+        צפיה במטלות
+      </p>
 
 
-        </Paper>
-        <Paper>
-            <p>
-                מבחני תלמידות
-            </p>
-        </Paper>
-    </>
+    </Paper>
+    <Paper>
+      <p>
+        מבחני תלמידות
+      </p>
+    </Paper>
+  </>
 }
 
 export default Teacher;

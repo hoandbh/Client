@@ -15,25 +15,25 @@ import VersionsPdf from "./pages/Versions/ForQuestionnaire";
 
 function App() {
   return <>
-    <AuthContextProvider>
-      <Router>
-        <Nav/>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/logout" element={<Logout/>} />
-          <Route path="/nav" element={<Nav/>} />          
-          <Route path="/questionnaire/new" element={<NewQustionnire />} />
-          <Route path="/questionnaire/:id" element={<Questionnaire />} />
-          <Route path="/questionnaires" element={<QuestionnairesList/>}/>
-          <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
-          <Route path="/statistic" element={<Statistic/>}/>          
-          <Route path="/courses" element={<Courses/>}/>   
-          <Route path = "/versions/:Qid" element = {<VersionsPdf/>} />       
-        </Routes>
-      </Router>  
-    </AuthContextProvider>
+  <AuthContextProvider>
+    <Router>
+    <Nav/>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login/>} />
+      <Route path="/logout" element={<Logout/>} />
+      <Route path="/nav" element={<Nav/>} />      
+      <Route path="/questionnaire/new" element={<NewQustionnire />} />
+      <Route path="/questionnaire/:id" element={<Questionnaire />} />
+      <Route path="/questionnaires" element={<QuestionnairesList/>}/>
+      <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
+      <Route path="/statistic" element={<Statistic/>}/>      
+      <Route path="/courses" element={<Courses/>}/>   
+      <Route path = "/versions/:Qid" element = {<VersionsPdf/>} />     
+    </Routes>
+    </Router>  
+  </AuthContextProvider>
   </>
 
 }

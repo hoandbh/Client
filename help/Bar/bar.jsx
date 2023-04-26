@@ -10,25 +10,25 @@ import { useNavigate } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
   }));
 
 
   const ButtonAppBar = () =>{
-    const classes = useStyles();
-    const navigate = useNavigate();
+  const classes = useStyles();
+  const navigate = useNavigate();
 
-    const login = () =>{
-        navigate()
-    }
+  const login = () =>{
+    navigate()
+  }
 
   }
 

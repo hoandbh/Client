@@ -13,109 +13,109 @@ const Courses = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    fetchCourses();
+  fetchCourses();
   }, [])
 
   const fetchCourses = async () => {
-    const { data } = await axios.get(`http://localhost:3600/api/course`);
-    setCourses(data);
+  const { data } = await axios.get(`http://localhost:3600/api/course`);
+  setCourses(data);
   }
 
   const addCourse = () => {
-    setOpen(true);
+  setOpen(true);
   }
 
   const handledeleteCourse = async (id) => {
-    await axios.delete(`http://localhost:3600/api/course/${id}`);
-    //setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
-    fetchCourses();
+  await axios.delete(`http://localhost:3600/api/course/${id}`);
+  //setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
+  fetchCourses();
   }
 
   const handleAddCourse = async (values) => {
-    await axios.post(`http://localhost:3600/api/course`, {
-      name: values.courseName
-    });
-    setOpen(false);
-    fetchCourses();
+  await axios.post(`http://localhost:3600/api/course`, {
+    name: values.courseName
+  });
+  setOpen(false);
+  fetchCourses();
   }
 
   const handleClose = () => {
-    setOpen(false);
+  setOpen(false);
   }
 
   return <>
-    <Dialog
-      open={open}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <Formik initialValues={{ courseName: '' }}>
-        {formik => (
-          <form
-            onKeyDown={e => { if (e.key === 'Enter') handleAddCourse(formik.values) }}
-          >
-            <DialogTitle id="alert-dialog-title">{"Type the course name"}</DialogTitle>
-            <DialogContent>
-              <Field
-                as={TextField}
-                margin="dense"
-                label={`Course name`}
-                type="text"
-                fullWidth
-                value={formik.values.courseName}
-                name="courseName"
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} >Cancel</Button>
-              <Button
-                onClick={() => handleAddCourse(formik.values)}
-                autoFocus
-              >
-                add
-              </Button>
-            </DialogActions>
-          </form>
-        )}
-      </Formik>
-    </Dialog>
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', margin: 'auto' }}>
-      {
-        courses?.length > 0 &&
-        courses.map(c => (
-          <Paper
-            sx={{
-              p: 2,
-              margin: 'auto',
-              maxWidth: 500,
-              flexGrow: 1,
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-            }}
-          >
-            <ListItemText secondary={c.name} />
-            <IconButton>
-              <DeleteIcon onClick={() => handledeleteCourse(c.id)} />
-            </IconButton>
-          </Paper>
-        ))
-
-      }
-      <Paper
-        sx={{
-          p: 2,
-          margin: 'auto',
-          maxWidth: 500,
-          flexGrow: 1,
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        }}
+  <Dialog
+    open={open}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >
+    <Formik initialValues={{ courseName: '' }}>
+    {formik => (
+      <form
+      onKeyDown={e => { if (e.key === 'Enter') handleAddCourse(formik.values) }}
       >
-        <ListItemButton onClick={addCourse}>
-          <ListItemText secondary="add course" />
-        </ListItemButton>
+      <DialogTitle id="alert-dialog-title">{"Type the course name"}</DialogTitle>
+      <DialogContent>
+        <Field
+        as={TextField}
+        margin="dense"
+        label={`Course name`}
+        type="text"
+        fullWidth
+        value={formik.values.courseName}
+        name="courseName"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} >Cancel</Button>
+        <Button
+        onClick={() => handleAddCourse(formik.values)}
+        autoFocus
+        >
+        add
+        </Button>
+      </DialogActions>
+      </form>
+    )}
+    </Formik>
+  </Dialog>
+  <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', margin: 'auto' }}>
+    {
+    courses?.length > 0 &&
+    courses.map(c => (
+      <Paper
+      sx={{
+        p: 2,
+        margin: 'auto',
+        maxWidth: 500,
+        flexGrow: 1,
+        backgroundColor: (theme) =>
+        theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+      }}
+      >
+      <ListItemText secondary={c.name} />
+      <IconButton>
+        <DeleteIcon onClick={() => handledeleteCourse(c.id)} />
+      </IconButton>
       </Paper>
-    </List>
+    ))
+
+    }
+    <Paper
+    sx={{
+      p: 2,
+      margin: 'auto',
+      maxWidth: 500,
+      flexGrow: 1,
+      backgroundColor: (theme) =>
+      theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    }}
+    >
+    <ListItemButton onClick={addCourse}>
+      <ListItemText secondary="add course" />
+    </ListItemButton>
+    </Paper>
+  </List>
 
 
   </>

@@ -17,32 +17,32 @@ import { AuthContext } from "../context/authContext"
 
 const Tab = ({ path, icon, text }) => {
   return (
-    <Button style={{ color: 'white' }} component={NavLink} to={path} startIcon={icon}>
-      <Typography textAlign="center" sx={{ fontFamily: 'monospace' }}>{text}</Typography>
-    </Button>
+  <Button style={{ color: 'white' }} component={NavLink} to={path} startIcon={icon}>
+    <Typography textAlign="center" sx={{ fontFamily: 'monospace' }}>{text}</Typography>
+  </Button>
   )
 }
 
 const TeacherNav = () => {
   return <>
-    <Tab path='/questionnaires' icon={<ListIcon />} text='questionnaires' />
-    <Tab path='/questionnaire/new' icon={<AddIcon />} text='create questionnaire' />
-    <Tab path='/statistic' icon={<BarChartIcon />} text='statistic' />
-    <Tab path='/courses' icon={<SchoolIcon />} text='Courses' />
+  <Tab path='/questionnaires' icon={<ListIcon />} text='questionnaires' />
+  <Tab path='/questionnaire/new' icon={<AddIcon />} text='create questionnaire' />
+  <Tab path='/statistic' icon={<BarChartIcon />} text='statistic' />
+  <Tab path='/courses' icon={<SchoolIcon />} text='Courses' />
 
   </>
 }
 
 const AdminNav = () => {
   return <>
-    <Tab path='/courses' icon={<SchoolIcon />} text='Courses' />
+  <Tab path='/courses' icon={<SchoolIcon />} text='Courses' />
   </>
 }
 
 const UnidentifiedUserNav = () => {
   return <>
-    <Tab path='/login' icon={<LockIcon />} text='Login' />
-    <Tab path='/register' icon={<PersonAddIcon />} text='Register' />
+  <Tab path='/login' icon={<LockIcon />} text='Login' />
+  <Tab path='/register' icon={<PersonAddIcon />} text='Register' />
   </>
 }
 
@@ -51,10 +51,10 @@ const Nav = () => {
 
   const [anchorElUser, setAnchorElUser] = useState(null);
   const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
+  setAnchorElUser(event.currentTarget);
   };
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  setAnchorElUser(null);
   };
 
   const { currentUser } = useContext(AuthContext);
@@ -64,79 +64,79 @@ const Nav = () => {
   }, [permission])
 
   useEffect(() => {
-    setPermission(currentUser?.permission || 0);
+  setPermission(currentUser?.permission || 0);
   }, [currentUser])
 
   const navigate = useNavigate();
   const handleLogout = () => {
-    handleCloseUserMenu();
-    navigate('/logout');
+  handleCloseUserMenu();
+  navigate('/logout');
   }
 
   return (
-    <>
-      <AppBar position="static">
-        <Toolbar sx={{ display: 'flex', 'justifyContent': 'space-between' }}>
-          <Box>
-            <Tab path='/' icon={<HomeIcon />} text='home' />
-            {
-              (() => {
-                switch (permission) {
-                  case 1:
-                    return <TeacherNav />
-                  case 2:
-                    return <AdminNav />
-                  default:
-                    return <UnidentifiedUserNav />
-                }
-              })()
-            }
-          </Box>
+  <>
+    <AppBar position="static">
+    <Toolbar sx={{ display: 'flex', 'justifyContent': 'space-between' }}>
+      <Box>
+      <Tab path='/' icon={<HomeIcon />} text='home' />
+      {
+        (() => {
+        switch (permission) {
+          case 1:
+          return <TeacherNav />
+          case 2:
+          return <AdminNav />
+          default:
+          return <UnidentifiedUserNav />
+        }
+        })()
+      }
+      </Box>
 
-          {/* {currentUser && <Box>
-            <IconButton
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-              
-            <Button style={{ color: 'white' }} component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
-              Logout
-            </Button>
-          </Box>
-          } */}
+      {/* {currentUser && <Box>
+      <IconButton
+        color="inherit"
+      >
+        <AccountCircle />
+      </IconButton>
+        
+      <Button style={{ color: 'white' }} component={NavLink} to="/logout" startIcon={<ExitToAppIcon />}>
+        Logout
+      </Button>
+      </Box>
+      } */}
 
-          {currentUser && <Box >
-            <Tooltip>
-              <IconButton onClick={handleOpenUserMenu}>
-                <AccountCircle style={{ fontSize: 40, color: 'white' }} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleLogout}>
-                <Typography textAlign="center">{'logout'}</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-          }
+      {currentUser && <Box >
+      <Tooltip>
+        <IconButton onClick={handleOpenUserMenu}>
+        <AccountCircle style={{ fontSize: 40, color: 'white' }} />
+        </IconButton>
+      </Tooltip>
+      <Menu
+        sx={{ mt: '45px' }}
+        anchorEl={anchorElUser}
+        anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+        }}
+        keepMounted
+        transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+        }}
+        open={Boolean(anchorElUser)}
+        onClose={handleCloseUserMenu}
+      >
+        <MenuItem onClick={handleLogout}>
+        <Typography textAlign="center">{'logout'}</Typography>
+        </MenuItem>
+      </Menu>
+      </Box>
+      }
 
-        </Toolbar>
-      </AppBar>
-    </>
+    </Toolbar>
+    </AppBar>
+  </>
   );
 }
 export default Nav
