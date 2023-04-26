@@ -17,14 +17,14 @@ const Courses = () => {
   }, [])
 
   const fetchCourses = async () => {
-      const { data } = await axios.get(`http://localhost:3600/api/course`);
-      setCourses(data);
+    const { data } = await axios.get(`http://localhost:3600/api/course`);
+    setCourses(data);
   }
 
   const addCourse = () => {
     setOpen(true);
   }
-  
+
   const handledeleteCourse = async (id) => {
     await axios.delete(`http://localhost:3600/api/course/${id}`);
     //setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
@@ -51,7 +51,9 @@ const Courses = () => {
     >
       <Formik initialValues={{ courseName: '' }}>
         {formik => (
-          <form>
+          <form
+            onKeyDown={e => { if (e.key === 'Enter') handleAddCourse(formik.values) }}
+          >
             <DialogTitle id="alert-dialog-title">{"Type the course name"}</DialogTitle>
             <DialogContent>
               <Field
@@ -66,7 +68,10 @@ const Courses = () => {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose} >Cancel</Button>
-              <Button onClick={() => handleAddCourse(formik.values)} autoFocus >
+              <Button
+                onClick={() => handleAddCourse(formik.values)}
+                autoFocus
+              >
                 add
               </Button>
             </DialogActions>
@@ -90,7 +95,7 @@ const Courses = () => {
           >
             <ListItemText secondary={c.name} />
             <IconButton>
-              <DeleteIcon onClick={() => handledeleteCourse(c.id)}/>
+              <DeleteIcon onClick={() => handledeleteCourse(c.id)} />
             </IconButton>
           </Paper>
         ))

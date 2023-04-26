@@ -62,6 +62,7 @@ const Questionnaire = () => {
       open={open}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      onKeyDown={e => { if (e.key === 'Enter') handleAddPart() }}
     >
       <DialogTitle id="alert-dialog-title">{"Type the part name"}</DialogTitle>
       <DialogContent>
@@ -70,7 +71,7 @@ const Questionnaire = () => {
           label={`Part name`}
           type="text"
           fullWidth
-          onKeyDown={e => setPartHeadline(e.target.value)}
+          onChange={e => setPartHeadline(e.target.value)}
         />
       </DialogContent>
       <DialogActions>
