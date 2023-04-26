@@ -7,13 +7,18 @@ import axios from 'axios';
 import { Card, Fab, Paper, TextField } from '@mui/material';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import { spacing } from '@mui/system';
+import CircularProgress from '@mui/material/CircularProgress';
+
 //FileOpenIcon
 const MixQuestionnaire = () => {
 
+    const navigate = useNavigate();
 
     const { id } = useParams();
 
     const [questionnaireDetails, setQuestionnaireDetails] = useState({});
+    const [amount, setAmount] = useState(0);
+    // const [show, setShow] = useState(false);
 
 
     const fetchData = async () => {
@@ -24,12 +29,13 @@ const MixQuestionnaire = () => {
     }
 
     const handleMixButton = async () => {
-        let id = questionnaireDetails.id;
-        const ans = await axios.post(`http://localhost:3600/api/questionnaire/mixQuestionnaire/${id}`, 
-        {
-            amount:2
-        });
+        const ans = await axios.post(`http://localhost:3600/api/questionnaire/mixQuestionnaire/${id}`,
+            {
+                amount: amount
+            });
         console.log(ans);
+        navigate(`/versions/${id}`);
+        
     }
 
     useEffect(() => {
@@ -55,12 +61,12 @@ const MixQuestionnaire = () => {
                 id="outlined-number"
                 label="Number of Versions"
                 type="number"
-                InputLabelProps={{
-                    shrink: true,
-                }}
+                onBlur={e => setAmount(e.target.value)}
+
             />
+            {/* {show && <CircularProgress />} */}
             <br /><br />
-            <Fab variant="extended" color='primary' onClick={handleMixButton }>
+            <Fab variant="extended" color='primary' onClick={handleMixButton}>
                 Complete And Create Versions
             </Fab>
         </Card>
