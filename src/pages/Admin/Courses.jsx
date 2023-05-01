@@ -65,6 +65,10 @@ const Courses = () => {
         value={formik.values.courseName}
         name="courseName"
         />
+       <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label="Course Code"
+         helperText="Please enter numbers only"
+         />
+
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} >Cancel</Button>
