@@ -1,0 +1,7 @@
+https://pyimagesearch.com/2016/10/03/bubble-sheet-multiple-choice-scanner-and-test-grader-using-omr-python-and-opencv/
+
+https://github.com/Practical-CV/OMR-Scanner-and-Test-Grader-using-OpenCV
+
+https://github.com/Thraetaona/AIMER
+
+https://github.com/hmontero1205/pygrader
