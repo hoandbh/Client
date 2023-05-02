@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/authContext'
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import axios from 'axios';
-import { Card, Fab, Paper, TextField } from '@mui/material';
+import { Card, Fab, Paper, TextField, Grid } from '@mui/material';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import { spacing } from '@mui/system';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -27,38 +27,43 @@ const MixQuestionnaire = () => {
     console.log(questionnaire)
 
   }
+  const navBack = async () => {
+
+    navigate(`/questionnaire/${id}`);
+  }
 
   const handleMixButton = async () => {
     const ans = await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`, { amount });
     navigate(`/versions/${id}`);
   }
-  
+
   useEffect(() => {
     fetchData();
   }, [])
 
   return <>
 
-    <Paper sx={{ '& > :not(style)': { m: 'auto' } }}>
+    <Grid container
+      spacing={5}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+    >
       <h1> Test Mixing </h1>
       <br />
-      <Fab variant="extended">
-        <ContentPasteSearchIcon sx={{ mr: 1 }} />
-        View File Of Master Questionnaire
-      </Fab>
-    </Paper>
 
-    <Card>
+
       <h3>Finish And Mix
       </h3>
       <TextField
-        sx={{width:200}}
+        sx={{ width: 200 }}
         id="outlined-number"
         label="Number of Versions"
         type="number"
-        onChange={e => {
+        onBlur={e => {
           const enteredValue = e.target.value;
-          if (!enteredValue || (enteredValue >= 0 && enteredValue <= 100) ) {
+          if (!enteredValue || (enteredValue >= 0 && enteredValue <= 100)) {
             setAmount(enteredValue);
           }
         }}
@@ -68,13 +73,23 @@ const MixQuestionnaire = () => {
             min: 0,
             max: 100
           }
-        }} 
+        }}
       />
       <br /><br />
       <Fab variant="extended" color='primary' onClick={handleMixButton}>
         Complete And Create Versions
       </Fab>
-    </Card>
+
+      <Grid item>
+
+      </Grid>
+    </Grid>
+
+
+    <Fab variant="extended" onClick={navBack}>
+      <ContentPasteSearchIcon sx={{ mr: 1 }} />
+      Back to Editing Questionnaire
+    </Fab>
 
 
 
