@@ -12,6 +12,7 @@ import Logout from './pages/Logout';
 import Statistic from './pages/Statistic';
 import Courses from './pages/Admin/Courses';
 import VersionsPdf from "./pages/Versions/ForQuestionnaire";
+import Uploader from "./components/Uploader";
 
 function App() {
   return <>
@@ -31,6 +32,7 @@ function App() {
       <Route path="/statistic" element={<Statistic/>}/>      
       <Route path="/courses" element={<Courses/>}/>   
       <Route path = "/versions/:Qid" element = {<VersionsPdf/>} />     
+      <Route path = "/upload" element = {<Uploader/>} />     
     </Routes>
     </Router>  
   </AuthContextProvider>

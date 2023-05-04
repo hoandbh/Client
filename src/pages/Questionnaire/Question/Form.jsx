@@ -34,18 +34,14 @@ const QuestionForm = ({ options }) => {
       <DialogContent>
         {/* question */}
         <Field
-        required
         as={TextField}
         margin="dense"
         label="question"
         type="text"
         fullWidth
+        required
         value={formik.values.questionContent}
         name="questionContent"
-        // onFocus={event => {
-        //   const input = event.target;
-        //   input.setSelectionRange(0, input.value.length);
-        // }}
         />
         {/* correct answer */}
         <Divider sx={{ mt: 2, mb: 2 }} />
@@ -57,10 +53,6 @@ const QuestionForm = ({ options }) => {
         fullWidth
         value={formik.values.correctAnswer}
         name="correctAnswer" 
-        // onFocus={event => {
-        //   const input = event.target;
-        //   input.setSelectionRange(0, input.value.length);
-        // }}  
         />
         <Divider sx={{ mt: 2, mb: 2 }} />
         {/* incorrect answers */}
@@ -78,10 +70,6 @@ const QuestionForm = ({ options }) => {
               fullWidth
               name={`incorrectAnswers[${index}].content`}
               value={formik.values.incorrectAnswers[index].content}
-              // onFocus={event => {
-              //   const input = event.target;
-              //   input.setSelectionRange(0, input.value.length);
-              // }}
             />
             <IconButton
               aria-label="delete"
@@ -95,7 +83,6 @@ const QuestionForm = ({ options }) => {
             variant="contained"
             color="secondary"
             onClick={() => push('')}
-            //onClick={() => push({content:`Write the incorrect answer number ${formik.values.incorrectAnswers.length + 1} here...`})}
             sx={{ mt: 2 }}
           >
             Add incorrect answer
