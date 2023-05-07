@@ -23,9 +23,6 @@ const Questionnaire = () => {
 
   const fetchData = async () => {
     const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}/full`);
-    console.log(questionnaire.name);
-    console.log(questionnaire);
-
     setQuestionnaire(questionnaire);
     setPartsNum(questionnaire.parts.length);
   }

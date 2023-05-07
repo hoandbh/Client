@@ -19,10 +19,7 @@ const QuestionnaireCard = ({ questionnaire }) => {
     navigate(`/questionnaire/complete/${questionnaire.id}`);
 
   }
-  useEffect(() => {
-    console.log(questionnaire);
-  }, [])
-
+  
   return <>
     <Paper
       sx={{

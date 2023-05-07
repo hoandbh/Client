@@ -98,7 +98,7 @@ const Nav = () => {
 
           {currentUser && <Box >
             <Tooltip>
-              <IconButton onClick={handleOpenUserMenu}>
+              <IconButton onMouseOver={handleOpenUserMenu} onClick={handleOpenUserMenu}>
                 <AccountCircle style={{ fontSize: 40, color: 'white' }} />
               </IconButton>
             </Tooltip>
