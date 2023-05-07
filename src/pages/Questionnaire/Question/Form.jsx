@@ -1,8 +1,13 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Divider, IconButton } from '@mui/material';
 import { Formik , Field, FieldArray } from 'formik';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import { useState } from 'react';
+import Uploader from '../../../components/Uploader';
 
 const QuestionForm = ({ options }) => {
+
+  const [added, setAdded] = useState(false);
 
   const handleSaveFormik = (values) => {
   if (options.isEditing) {
@@ -11,6 +16,15 @@ const QuestionForm = ({ options }) => {
     options.handleSave(values);
   }
   };
+
+  const handleAddImage = () => {
+    console.log('handleAddImage')
+    setAdded(true);
+  }
+
+  const handleAddFile = (file) => {
+    console.log(file);
+  }
 
   const styles = {
   container: {
@@ -90,6 +104,14 @@ const QuestionForm = ({ options }) => {
           </>
         )}
         </FieldArray>      
+      </DialogContent>
+      <DialogContent>
+        {
+          added? 
+            <></>
+            :
+            <Uploader setFile={handleAddFile} onClick={handleAddImage}/>  
+        }           
       </DialogContent>
       <DialogActions>
         <Button onClick={options.handleCancel}>Cancel</Button>
