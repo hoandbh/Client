@@ -7,10 +7,15 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Formik, Field } from 'formik';
+import confirmDelete from '../../components/confirmDelete';
+
+
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [open, setOpen] = useState(false);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const [courseToDeleteId, setCourseToDeleteId] = useState([]);
 
   useEffect(() => {
     fetchCourses();
@@ -25,11 +30,13 @@ const Courses = () => {
     setOpen(true);
   }
 
-  const handledeleteCourse = async (id) => {
-    await axios.delete(`http://localhost:3600/api/course/${id}`);
+  const handledeleteCourse = async () => {
+
+    await axios.delete(`http://localhost:3600/api/course/${courseToDeleteId}`);
     //setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
     fetchCourses();
   }
+
 
   const handleAddCourse = async (values) => {
     await axios.post(`http://localhost:3600/api/course`, {
@@ -38,7 +45,7 @@ const Courses = () => {
 
     });
     setOpen(false);
-    
+
     fetchCourses();
   }
 
@@ -106,10 +113,12 @@ const Courses = () => {
                 theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
             }}
           >
-            <ListItemText secondary={c.name} />
-            <IconButton>
-              <DeleteIcon onClick={() => handledeleteCourse(c.id)} />
+            <ListItemText primary={c.name} />
+            <ListItemText secondary={c.code} />
+            <IconButton onClick={() => setConfirmDeleteOpen(true)}>
+              <DeleteIcon />
             </IconButton>
+
           </Paper>
         ))
 
@@ -137,3 +146,35 @@ const Courses = () => {
 }
 
 export default Courses;
+
+ 
+// <Dialog
+// open={confirmDeleteOpen}
+// // onClose={() => setConfirmDeleteOpen(false)}
+// // aria-labelledby='confirm-delete-dialog'
+// >
+// {/* <DialogTitle id='confirm-delete-dialog'>{"HHHIII"}</DialogTitle> */}
+// <DialogContent>{"Are you sure you want to erase this course?"}</DialogContent>
+// <DialogActions>
+//   <Button
+//     variant='contained'
+//     onClick={() => {
+//       setConfirmDeleteOpen(false);
+//       setCourseToDeleteId(c.id);
+//     }}
+//     color="secondary"
+//   >
+//     No
+//   </Button>
+//   <Button
+//     variant='contained'
+//     onClick={() => {
+//       setConfirmDeleteOpen(false);
+//       handledeleteCourse(c.id);
+//     }}
+//     // color='default'
+//   >
+//     Yes
+//   </Button>
+// </DialogActions> 
+// </Dialog>
