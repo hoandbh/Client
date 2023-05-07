@@ -7,15 +7,14 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Formik, Field } from 'formik';
-import confirmDelete from '../../components/confirmDelete';
-
+import ConfirmDialog from '../../components/confirmDelete';
 
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [open, setOpen] = useState(false);
-  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
-  const [courseToDeleteId, setCourseToDeleteId] = useState([]);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [courseToDeleteId, setCourseToDeleteId] = useState(0);
 
   useEffect(() => {
     fetchCourses();
@@ -30,9 +29,10 @@ const Courses = () => {
     setOpen(true);
   }
 
-  const handledeleteCourse = async () => {
+  const handledeleteCourse = async (id) => {
 
-    await axios.delete(`http://localhost:3600/api/course/${courseToDeleteId}`);
+    console.log('c.id');
+    await axios.delete(`http://localhost:3600/api/course/${id}`);
     //setCourses(prevCourses => prevCourses.filter(course => course.id !== id));
     fetchCourses();
   }
@@ -103,7 +103,7 @@ const Courses = () => {
       {
         courses?.length > 0 &&
         courses.map(c => (
-          <Paper
+          <Paper key={c.id}
             sx={{
               p: 2,
               margin: 'auto',
@@ -115,9 +115,26 @@ const Courses = () => {
           >
             <ListItemText primary={c.name} />
             <ListItemText secondary={c.code} />
-            <IconButton onClick={() => setConfirmDeleteOpen(true)}>
+            {/* <IconButton onClick={() => setConfirmDeleteOpen(true)}>
               <DeleteIcon />
-            </IconButton>
+            </IconButton> */}
+
+            <ListItemButton onClick={() => setConfirmOpen(true)}>
+              <DeleteIcon />
+
+            </ListItemButton>
+            <ListItemText value = {c.code}>
+              <ConfirmDialog
+                open={confirmOpen}
+                setOpen={setConfirmOpen}
+                cCode={this.value}
+                // cName={c.name}
+              // onConfirm = {}
+
+              >
+              </ConfirmDialog>
+            </ListItemText>
+
 
           </Paper>
         ))
@@ -140,6 +157,7 @@ const Courses = () => {
     </List>
 
 
+
   </>
 
 
@@ -147,34 +165,14 @@ const Courses = () => {
 
 export default Courses;
 
- 
-// <Dialog
-// open={confirmDeleteOpen}
-// // onClose={() => setConfirmDeleteOpen(false)}
-// // aria-labelledby='confirm-delete-dialog'
-// >
-// {/* <DialogTitle id='confirm-delete-dialog'>{"HHHIII"}</DialogTitle> */}
-// <DialogContent>{"Are you sure you want to erase this course?"}</DialogContent>
-// <DialogActions>
-//   <Button
-//     variant='contained'
-//     onClick={() => {
-//       setConfirmDeleteOpen(false);
-//       setCourseToDeleteId(c.id);
-//     }}
-//     color="secondary"
-//   >
-//     No
-//   </Button>
-//   <Button
-//     variant='contained'
-//     onClick={() => {
-//       setConfirmDeleteOpen(false);
-//       handledeleteCourse(c.id);
-//     }}
-//     // color='default'
-//   >
-//     Yes
-//   </Button>
-// </DialogActions> 
-// </Dialog>
+
+{/* <div>
+<ConfirmDialog
+  title="Delete Post?"
+  open={confirmOpen}
+  setOpen={setConfirmOpen}
+  onConfirm={handledeleteCourse}
+>
+  Are you sure you want to delete this post?
+</ConfirmDialog>
+</div> */}
