@@ -59,6 +59,7 @@ const QuestionCard = ({ question, onDelete }) => {
     questionContent: question?.content,
     correctAnswer: answers.filter(a => a.is_correct)?.[0]?.content,
     incorrectAnswers: answers && answers.filter(a => !a.is_correct) || [],
+    image: question?.image_path || ''
   }
 
 
@@ -91,15 +92,17 @@ const QuestionCard = ({ question, onDelete }) => {
               <Typography gutterBottom variant="subtitle1" component="div" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
                 {questionContent}
               </Typography>
-            </Grid>   
-            {question.image_path && <Grid item> 
-                {/* <img src={`http://localhost:3600/images/${question.image_path}`} alt="Uploaded Image" /> */}
+            </Grid> 
+
+            {question.image_path && 
+            <Grid item> 
                 <CardMedia
                   component="img"
                   src={`http://localhost:3600/images/${question.image_path}`}
                   alt="Uploaded Image"
                 />
             </Grid>}
+            
             <Grid item sx={{ mt: 1 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
 
