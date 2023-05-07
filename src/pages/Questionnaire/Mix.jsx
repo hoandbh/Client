@@ -24,8 +24,6 @@ const MixQuestionnaire = () => {
   const fetchData = async () => {
     const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}`);
     setQuestionnaireDetails(questionnaire);
-    console.log(questionnaire)
-
   }
   const navBack = async () => {
 

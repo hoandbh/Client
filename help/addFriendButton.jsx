@@ -5,7 +5,7 @@ import { useState, useContext } from 'react';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
-import { AuthContext } from '../context/authContext';
+import { AuthContext } from '../src/context/authContext';
 import Uploader from '../Uploader';
 import Webcam from "react-webcam";
 import Camera from './camera';
