@@ -120,10 +120,6 @@ const Courses = () => {
           >
             <ListItemText primary={c.name} />
             <ListItemText secondary={c.code} />
-            {/* <IconButton onClick={() => setConfirmDeleteOpen(true)}>
-              <DeleteIcon />
-            </IconButton> */}
-
             <ListItemButton onClick={() => openConfirmDialog(c)}>
               <DeleteIcon />
             </ListItemButton>
@@ -146,18 +142,17 @@ const Courses = () => {
         </ListItemButton>
       </Paper>
     </List>
+
+
     <ConfirmDialog
 
       open={confirmOpen}
       setOpen={setConfirmOpen}
       course={courseToDelete}
-      // cName={c.name}
-      onConfirm={handledeleteCourse(courseToDelete.id)}
+      onConfirm={handledeleteCourse}
 
     >
     </ConfirmDialog>
-
-
 
   </>
 
@@ -167,13 +162,4 @@ const Courses = () => {
 export default Courses;
 
 
-{/* <div>
-<ConfirmDialog
-  title="Delete Post?"
-  open={confirmOpen}
-  setOpen={setConfirmOpen}
-  onConfirm={handledeleteCourse}
->
-  Are you sure you want to delete this post?
-</ConfirmDialog>
-</div> */}
+
