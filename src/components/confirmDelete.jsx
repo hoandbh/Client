@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import React from 'react'
 const ConfirmDialog = (props) => {
-    const { title, cCode, open, setOpen, onConfirm, cName } = props;
+    const { title, cCode, open, setOpen, onConfirm, cName, course } = props;
     return (
         <Dialog
             open={open}
@@ -18,7 +18,7 @@ const ConfirmDialog = (props) => {
                     }}
                     color="secondary"
                 >
-                    No {cCode}
+                    No {course.id}
                 </Button>
                 <Button
                     variant='contained'

@@ -14,7 +14,7 @@ const Courses = () => {
   const [courses, setCourses] = useState([]);
   const [open, setOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [courseToDeleteId, setCourseToDeleteId] = useState(0);
+  const [courseToDelete, setCourseToDelete] = useState(0);
 
   useEffect(() => {
     fetchCourses();
@@ -51,6 +51,11 @@ const Courses = () => {
 
   const handleClose = () => {
     setOpen(false);
+  }
+
+  const openConfirmDialog = (c) => {
+    setConfirmOpen(true);
+    setCourseToDelete(c);
   }
 
   return <>
@@ -103,7 +108,7 @@ const Courses = () => {
       {
         courses?.length > 0 &&
         courses.map(c => (
-          <Paper key={c.id}
+          <Paper key={c.id} id={c.id}
             sx={{
               p: 2,
               margin: 'auto',
@@ -119,23 +124,9 @@ const Courses = () => {
               <DeleteIcon />
             </IconButton> */}
 
-            <ListItemButton onClick={() => setConfirmOpen(true)}>
+            <ListItemButton onClick={() => openConfirmDialog(c)}>
               <DeleteIcon />
-
             </ListItemButton>
-            <ListItemText value = {c.code}>
-              <ConfirmDialog
-                open={confirmOpen}
-                setOpen={setConfirmOpen}
-                cCode={this.value}
-                // cName={c.name}
-              // onConfirm = {}
-
-              >
-              </ConfirmDialog>
-            </ListItemText>
-
-
           </Paper>
         ))
 
@@ -155,6 +146,16 @@ const Courses = () => {
         </ListItemButton>
       </Paper>
     </List>
+    <ConfirmDialog
+
+      open={confirmOpen}
+      setOpen={setConfirmOpen}
+      course={courseToDelete}
+      // cName={c.name}
+      onConfirm={handledeleteCourse(courseToDelete.id)}
+
+    >
+    </ConfirmDialog>
 
 
 
