@@ -43,7 +43,10 @@ const Part = ({ part }) => {
         }
       );
     };
-    await axios.post(`http://localhost:3600/api/question/${qstId}/image`, values.file);
+    if(values.file){
+      await axios.post(`http://localhost:3600/api/question/${qstId}/image`, values.file);
+
+    }
     fetchQuestions();
   }
 
