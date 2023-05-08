@@ -18,12 +18,13 @@ const ConfirmDialog = (props) => {
                     }}
                     color="secondary"
                 >
-                    No {course.id}
-                </Button>
+                    No 
+                    </Button>
                 <Button
                     variant='contained'
                     onClick={() => {
                         setOpen(false);
+                        onConfirm(course.id)
                         // handledeleteCourse(c.id);
                     }}
                 >
