@@ -13,6 +13,8 @@ const QuestionCard = ({ question, onDelete }) => {
   const [questionContent, setQuestionContent] = useState(question?.content || '');
   const [correctAnswerContent, setCorrectAnswerContent] = useState('')
   const [incorrectAnswersContent, setIncorrectAnswersContent] = useState('')
+  const [image, setImage] = useState(question.image_path);
+
 
   const qstId = question.id;
 
@@ -38,6 +40,10 @@ const QuestionCard = ({ question, onDelete }) => {
         incorrectAnswers: arr
       }
     );
+    if (values.file) {
+      const {data} = await axios.post(`http://localhost:3600/api/question/${qstId}/image`, values.file);
+      setImage(data.name);
+    }
     setOpen(false);
     fetchData();
   }
@@ -92,17 +98,17 @@ const QuestionCard = ({ question, onDelete }) => {
               <Typography gutterBottom variant="subtitle1" component="div" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
                 {questionContent}
               </Typography>
-            </Grid> 
+            </Grid>
 
-            {question.image_path && 
-            <Grid item> 
+            { image &&
+              <Grid item>
                 <CardMedia
                   component="img"
-                  src={`http://localhost:3600/images/${question.image_path}`}
+                  src={`http://localhost:3600/images/${image}`}
                   alt="Uploaded Image"
                 />
-            </Grid>}
-            
+              </Grid>}
+
             <Grid item sx={{ mt: 1 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
 
