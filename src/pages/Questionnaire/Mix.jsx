@@ -1,37 +1,26 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { React, useContext, useEffect } from 'react';
-import { AuthContext } from '../../context/authContext'
-import Box from '@mui/material/Box';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Card, Fab, Paper, TextField, Grid } from '@mui/material';
+import { Fab, TextField, Grid } from '@mui/material';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
-import { spacing } from '@mui/system';
-import CircularProgress from '@mui/material/CircularProgress';
 
-//FileOpenIcon
 const MixQuestionnaire = () => {
-
   const navigate = useNavigate();
-
   const { id } = useParams();
-
   const [questionnaireDetails, setQuestionnaireDetails] = useState({});
   const [amount, setAmount] = useState();
-  // const [show, setShow] = useState(false);
-
 
   const fetchData = async () => {
     const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}`);
     setQuestionnaireDetails(questionnaire);
   }
+  
   const navBack = async () => {
-
     navigate(`/questionnaire/${id}`);
   }
 
   const handleMixButton = async () => {
-    const ans = await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`, { amount });
+    await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`, { amount });
     navigate(`/versions/${id}`);
   }
 
@@ -50,10 +39,8 @@ const MixQuestionnaire = () => {
     >
       <h1> Test Mixing </h1>
       <br />
+      <h3>Finish And Mix</h3>
 
-
-      <h3>Finish And Mix
-      </h3>
       <TextField
         sx={{ width: 200 }}
         id="outlined-number"
@@ -74,6 +61,7 @@ const MixQuestionnaire = () => {
         }}
       />
       <br /><br />
+
       <Fab variant="extended" color='primary' onClick={handleMixButton}>
         Complete And Create Versions
       </Fab>

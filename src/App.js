@@ -8,10 +8,9 @@ import { AuthContextProvider } from "./context/authContext";
 import Nav from "./components/Nav";
 import Login from './pages/Login';
 import Register from './pages/Register';
-// import Logout from './pages/Logout';
 import Statistic from './pages/Statistic';
 import Courses from './pages/Admin/Courses';
-import VersionsPdf from "./pages/Versions/ForQuestionnaire";
+import DownloadPdfs from "./pages/Versions/download";
 import Uploader from "./components/Uploader";
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login/>} />
-      {/* <Route path="/logout" element={<Logout/>} /> */}
       <Route path="/nav" element={<Nav/>} />      
       <Route path="/questionnaire/new" element={<NewQustionnire />} />
       <Route path="/questionnaire/:id" element={<Questionnaire />} />
@@ -31,7 +29,7 @@ function App() {
       <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
       <Route path="/statistic" element={<Statistic/>}/>      
       <Route path="/courses" element={<Courses/>}/>   
-      <Route path = "/versions/:Qid" element = {<VersionsPdf/>} />     
+      <Route path = "/versions/:Qid" element = {<DownloadPdfs/>} />     
       <Route path = "/upload" element = {<Uploader/>} />     
     </Routes>
     </Router>  

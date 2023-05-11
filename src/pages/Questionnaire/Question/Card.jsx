@@ -74,7 +74,8 @@ const QuestionCard = ({ question, onDelete }) => {
       sx={{
         p: 2,
         margin: 'auto',
-        maxWidth: 500,
+        maxWidth: 800,
+        width:'100%',
         flexGrow: 1,
         backgroundColor: (theme) =>
           theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -106,6 +107,7 @@ const QuestionCard = ({ question, onDelete }) => {
                   component="img"
                   src={`http://localhost:3600/images/${image}`}
                   alt="Uploaded Image"
+                  sx={{ width: '300px' }}
                 />
               </Grid>}
 
