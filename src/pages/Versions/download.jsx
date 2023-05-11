@@ -27,16 +27,9 @@ const DownloadPdfs = () => {
   return (
     <>
       <div> Files Paths {Qid}</div>
-      {/* {links &&
-  <List>
-  {links.map(l =><ListItemButton>{l}</ListItemButton>)}
-  </List>
-  } */}
-      {/* <a href="http://localhost:3600//images/1cebf305-f1ab-43c6-b2e3-7d9b58aba60c_myw3schoolsimage.jpg" download>
-        click to download
-        <img src="http://localhost:3600//images/1cebf305-f1ab-43c6-b2e3-7d9b58aba60c_myw3schoolsimage.jpg" alt="W3Schools" width="104" height="142" />
-      </a> */}
-      
+      <div>
+        <a href="http://localhost:3600/files/wow.docx" download="wow.docx">Download File</a>
+      </div>      
     </>
   )
 }
