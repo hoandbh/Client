@@ -3,7 +3,7 @@ import axios from "axios";
 import { Button, CircularProgress } from "@mui/material";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 
-const Uploader = ({ setFile }) => {
+const Uploader = ({ handleAddImage }) => {
 
   const [selectImage, setSelectImage] = useState();
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,7 @@ const Uploader = ({ setFile }) => {
         .post(`http://localhost:3600/api/question/${questionId}/image`, formData)
         .then(({ data }) => {
           if (data?.name) {
-            setFile(data.name);
+            handleAddImage(data.name);
           }
         })
         .catch((err) => {
@@ -42,9 +42,7 @@ const Uploader = ({ setFile }) => {
         .finally(() => {
           setIsLoading(false);
         });
-    } else {
-      setError("Please select an image to upload.");
-    }
+    } 
   };
 
   return (

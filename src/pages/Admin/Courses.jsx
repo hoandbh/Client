@@ -33,7 +33,8 @@ const Courses = () => {
 
   const handleAddCourse = async (values) => {
   await axios.post(`http://localhost:3600/api/course`, {
-    name: values.courseName
+    name: values.courseName,
+    code: values.courseCode
   });
   setOpen(false);
   fetchCourses();
@@ -65,10 +66,15 @@ const Courses = () => {
         value={formik.values.courseName}
         name="courseName"
         />
-       <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} label="Course Code"
-         helperText="Please enter numbers only"
-         />
-
+        <Field
+        as={TextField}
+        margin="dense"
+        label={`Course code`}
+        type="number"
+        fullWidth
+        value={formik.values.courseCode}
+        name="courseCode"
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} >Cancel</Button>

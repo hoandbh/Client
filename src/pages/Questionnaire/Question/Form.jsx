@@ -8,6 +8,7 @@ import Uploader from '../../../components/Uploader';
 const QuestionForm = ({ options }) => {
 
   const [added, setAdded] = useState(false);
+  const [image, setImage] = useState('');
 
   const handleSaveFormik = (values) => {
   if (options.isEditing) {
@@ -17,13 +18,11 @@ const QuestionForm = ({ options }) => {
   }
   };
 
-  const handleAddImage = () => {
-    console.log('handleAddImage')
+  const handleAddImage = (img) => {
+    console.log('handleAddImage');
+    console.log(img);
+    setImage(img);
     setAdded(true);
-  }
-
-  const handleAddFile = (file) => {
-    console.log(file);
   }
 
   const styles = {
@@ -108,9 +107,9 @@ const QuestionForm = ({ options }) => {
       <DialogContent>
         {
           added? 
-            <></>
+            <p>you added an image {image} to the question</p>
             :
-            <Uploader setFile={handleAddFile} onClick={handleAddImage}/>  
+            <Uploader handleAddImage={handleAddImage}/>  
         }           
       </DialogContent>
       <DialogActions>
