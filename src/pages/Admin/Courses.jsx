@@ -41,6 +41,7 @@ const Courses = () => {
   const handleAddCourse = async (values) => {
     await axios.post(`http://localhost:3600/api/course`, {
       name: values.courseName,
+    code: values.courseCode,
       code: values.courseCode
 
     });
