@@ -1,36 +1,101 @@
-import { useState } from "react"
-import axios from "axios"
-import { Button } from "@mui/material";
 
-const Uploader = ({ file, setFile, label }) => {
+import { Amplify } from 'aws-amplify'
 
-  const [image, setImage] = useState('');
+import { createContext, useContext, ReactNode } from 'react'
 
-  const handleAdd = async () => {
-    console.log(image);
-    try {
-      const picture = await axios.post(`http://localhost:3600/api/question/1/image`, image, { headers: { "Content-Type": "multipart/form-data" } })
-      console.log(picture);
-      const r = await picture.json();
-      console.log(r);
-      // const picture = await axios.post(`http://localhost:3600/images`, image, { headers: { 'Authorization': 'Bearer ' + token, "Content-Type": "multipart/form-data" } })
-    }
-    catch (err){
-      console.log(err);
-    }
+
+import SignIn from './SignIn'
+
+import Wrapper from './Wrapper'
+
+import awsConfig from './awsConfig'
+
+import useAuthState, { UserContextType } from './useAuthState'
+
+
+Amplify.configure(awsConfig)
+
+
+export enum Role {
+
+  Admin = 'ADMIN',
+
+  Billing = 'BILLING',
+
+  Therapy = 'THERAPY',
+
+  CaseManager = 'CASE_MANAGER',
+
+  BackendAdmin = 'BACKEND_ADMIN',
+
+  FacilityAdmin = 'FACILITY_ADMIN',
+
+  MDSCoordinator = 'MDS_COORDINATOR',
+
+  BenefitsProvider = 'BENEFITS_PROVIDER',
+
+  BusinessOfficeManager = 'BUSINESS_OFFICE_MANAGER'
+
+}
+
+
+export const UserContext = createContext < UserContextType | undefined > (undefined)
+
+
+export const useUser = () => useContext(UserContext)
+
+
+const AuthProvider = ({ children }: { children: ReactNode }) => {
+
+  const {
+
+    authState,
+
+    currentUser,
+
+    errorMessage,
+
+    successMessage,
+
+    setCurrentUser,
+
+    setErrorMessage
+
+  } = useAuthState()
+
+
+  if (authState === 'NO_USER') {
+
+    return (
+
+      <Wrapper>
+
+        {errorMessage && <div>{errorMessage}</div>}
+
+        {successMessage && <div>{successMessage}</div>}
+
+        <SignIn
+
+          setCurrentUser={setCurrentUser}
+
+          setErrorMessage={setErrorMessage}
+
+        />
+
+      </Wrapper>
+
+    )
+
   }
 
-  const onSelectFile = (e) => {
-    setImage(e.target.files[0])
-  }
 
   return (
-    <>
-      <label htmlFor="file"> {label ? label : "File"} </label>
-      <input accept="image/*" type="file" onChange={onSelectFile} name="file" />
-      <Button onClick={handleAdd}>add</Button>
-    </>
-  )
-};
 
-export default Uploader
+    <UserContext.Provider value={currentUser}>{children}</UserContext.Provider>
+
+  )
+
+}
+
+
+export default AuthProvider

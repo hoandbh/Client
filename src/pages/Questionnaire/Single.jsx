@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Part from './Part';
-import { Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle, Box, Switch, ToggleButtonGroup, ToggleButton, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { IconButton, Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle, Box, Switch, ToggleButtonGroup, ToggleButton, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import IconButton from '@mui/material/IconButton';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-// import './a.css'
-import '../../Style/sst.css'
+import '../../Style/sst.css';
+
 const Questionnaire = () => {
 
   const { id } = useParams();
@@ -23,9 +22,6 @@ const Questionnaire = () => {
 
   const fetchData = async () => {
     const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}/full`);
-    console.log(questionnaire.name);
-    console.log(questionnaire);
-
     setQuestionnaire(questionnaire);
     setPartsNum(questionnaire.parts.length);
   }
@@ -69,6 +65,9 @@ const Questionnaire = () => {
     navigate(`/questionnaire/complete/${id}`);
   }
 
+  const handleDeletePart = () => {
+    fetchData();
+  }
 
   return <>
     <Dialog
@@ -116,11 +115,10 @@ const Questionnaire = () => {
       </Typography>
     </div>
 
-
     {questionnaire && questionnaire.parts &&
-      <ul>
-        {questionnaire.parts.map((part, i) => <Part key={i.toString()} part={part} />)}
-      </ul>
+      <Box>
+        {questionnaire.parts.map((part, i) => <Part handleDeletePart={handleDeletePart} key={i.toString()} part={part} />)}
+      </Box>
     }
     {isAdding ?
       (

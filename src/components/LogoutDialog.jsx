@@ -8,7 +8,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const LogoutDialog = ({open, setOpen}) => {
+const LogoutDialog = ({ open, setOpen }) => {
 
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -23,12 +23,8 @@ const LogoutDialog = ({open, setOpen}) => {
   };
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
+    await logout();
+    navigate('/');
   };
 
   return (
