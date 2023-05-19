@@ -5,13 +5,16 @@ import QuestionCard from "./Question/Card";
 import QuestionForm from './Question/Form';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-const Part = ({ part, handleDeletePart }) => {
+const Part = ({ part, handlePartChange }) => {
 
   const [questions, setQuestions] = useState(part.questions);
   const [open, setOpen] = useState(false);
-  const [title, setTitle] = useState(part.headline);
+  const [isEditing, setIsEditing] = useState(false);
+  const [headline, setHeadline] = useState(part.headline);
 
+  
   const handleDeleteQuestion = () => {
     fetchQuestions();
   }
@@ -65,11 +68,22 @@ const Part = ({ part, handleDeletePart }) => {
     setOpen(false);
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = async(e) => {
     e.stopPropagation();
-    axios.delete(`http://localhost:3600/api/part/${part.id}`);
-    handleDeletePart();
+    await axios.delete(`http://localhost:3600/api/part/${part.id}`);
+    handlePartChange();
   }
+
+  const handleEdit = async (e) => {
+    e.stopPropagation();
+    setIsEditing(true);
+  };
+
+  const handleEditPart = async () => {
+    await axios.patch(`http://localhost:3600/api/part/${part.id}`,{headline:'new'});
+    handlePartChange();
+  }
+
 
   const initialValues = {
     questionContent: '',
@@ -88,7 +102,10 @@ const Part = ({ part, handleDeletePart }) => {
         <IconButton onClick={handleDelete}>
           <DeleteIcon />
         </IconButton>
-        <Typography>{title}</Typography>
+        <IconButton onClick={handleEdit}>
+          <EditIcon />
+        </IconButton>
+        {isEditing? <input ></input>:<Typography  variant='h5'>{headline}</Typography>}
         
       </AccordionSummary>
       <AccordionDetails>
@@ -146,10 +163,10 @@ const Part = ({ part, handleDeletePart }) => {
     {/* 
     <Divider textAlign="center" sx={{ mt: 2, mb: 2 }} >
       <TextField
-        value={title}
+        value={headline}
         color="primary"
         variant="outlined"
-        onChange={event => setTitle(event.target.value)}
+        onChange={event => setHeadline(event.target.value)}
         style={{ width: 400 }}
       //when to save the tilte in db??
       />

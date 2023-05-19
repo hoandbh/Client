@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import '../../Style/sst.css';
-
+   
 const Questionnaire = () => {
 
   const { id } = useParams();
@@ -65,8 +65,20 @@ const Questionnaire = () => {
     navigate(`/questionnaire/complete/${id}`);
   }
 
-  const handleDeletePart = () => {
+  const handlePartChange = () => {
     fetchData();
+  }
+
+  const randKey = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
   }
 
   return <>
@@ -117,7 +129,7 @@ const Questionnaire = () => {
 
     {questionnaire && questionnaire.parts &&
       <Box>
-        {questionnaire.parts.map((part, i) => <Part handleDeletePart={handleDeletePart} key={i.toString()} part={part} />)}
+        {questionnaire.parts.map((part, i) => <Part handlePartChange={handlePartChange} key={randKey(3)+part.headline} part={part} />)}
       </Box>
     }
     {isAdding ?
