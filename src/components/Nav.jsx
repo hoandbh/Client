@@ -30,7 +30,6 @@ const TeacherNav = () => {
     <Tab path='/questionnaire/new' icon={<AddIcon />} text='create questionnaire' />
     <Tab path='/statistic' icon={<BarChartIcon />} text='statistic' />
     <Tab path='/courses' icon={<SchoolIcon />} text='courses' />
-    <Tab path='/upload' icon={<AddIcon />} text='upload' />
   </>
 }
 
