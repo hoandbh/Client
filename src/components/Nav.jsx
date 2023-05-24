@@ -1,8 +1,9 @@
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { useState, useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 
-import { Button, Tooltip, Menu, Toolbar, Box, AppBar, Typography, IconButton, MenuItem } from '@mui/material';
-
+import { Button, Divider, Toolbar, Box, SvgIcon, Typography, IconButton, Menu, MenuItem } from '@mui/material';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonAddIcon from '@mui/icons-material/Person';
@@ -11,16 +12,63 @@ import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SchoolIcon from '@mui/icons-material/School';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 import { AuthContext } from "../context/authContext"
 import LogoutDialog from "./LogoutDialog";
 
+const Tab1 = ({ path, icon, text }) => {
+  return (
+    <Button style={{ color: 'gray' }} component={NavLink} to={path} startIcon={icon}>
+      <Typography textAlign="center" sx={{ fontFamily: 'monospace' }}>{text}</Typography>
+    </Button>
+  )
+}
 
 const Tab = ({ path, icon, text }) => {
   return (
-    <Button style={{ color: 'white' }} component={NavLink} to={path} startIcon={icon}>
-      <Typography textAlign="center" sx={{ fontFamily: 'monospace' }}>{text}</Typography>
+    // <Button
+    //   style={{ color: 'gray' }}
+    //   component={NavLink}
+    //   to={path}
+    // >
+    //   <Box
+    //     style={{ color: 'gray' }}
+    //     component="div"
+    //     border={1}
+    //     borderRadius={4}
+    //     p={1}
+    //   >
+    //     {icon}
+    //   </Box>
+    // </Button>
+    // <Button component={Link} to="/" color="inherit">Home</Button>
+    // <SvgIcon >
+    //   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    // </SvgIcon>
+    <Button
+      component={NavLink}
+      to={path}
+      sx={{
+        minWidth:'40px',
+        height:'40px',
+        margin: '2px',
+        //paddingLeft: '1px',
+        //paddingRight: '1px',
+        color: 'rgb(62, 80, 96)',
+        border: '1px solid rgb(224, 227, 231)',
+        borderRadius: '10px',
+        '&:hover': {
+          background: 'rgb(231, 235, 240)',
+          borderColor: 'rgb(205, 210, 215)',
+        },
+      }}
+    >
+      <SvgIcon >
+        {icon}
+      </SvgIcon>
     </Button>
+
   )
 }
 
@@ -59,12 +107,11 @@ const Nav = () => {
 
   const { currentUser } = useContext(AuthContext);
   const [permission, setPermission] = useState(currentUser?.permission || 0);
-
-  useEffect(() => {
-  }, [permission])
+  const [userName, setUserName] = useState('');
 
   useEffect(() => {
     setPermission(currentUser?.permission || 0);
+    setUserName(`${currentUser?.firstName} ${currentUser?.lastName}`);
   }, [currentUser])
 
   const [open, setOpen] = useState(false);
@@ -76,9 +123,21 @@ const Nav = () => {
 
   return (
     <>
-      <LogoutDialog open={open} setOpen={setOpen} />
-      <AppBar position="static">
-        <Toolbar sx={{ display: 'flex', 'justifyContent': 'space-between' }}>
+      <Box
+        sx={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 100,
+          marginTop: 0
+        }}>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            backgroundColor: '#ffffff',
+            position: 'sticky'
+          }}
+        >
           <Box>
             <Tab path='/' icon={<HomeIcon />} text='home' />
             {
@@ -95,38 +154,20 @@ const Nav = () => {
             }
           </Box>
 
-          {currentUser && <Box >
-            <Tooltip>
-              <IconButton onMouseOver={handleOpenUserMenu} onClick={handleOpenUserMenu}>
-                <AccountCircle style={{ fontSize: 40, color: 'white' }} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem onClick={handleLogout}>
-                <Typography textAlign="center">{'logout'}</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
+          {currentUser &&
+            <Box width={150}>
+              <AccountCircle style={{ fontSize: 35, color: 'gray', paddingTop: 5 }} onClick={handleLogout} />
+              <Typography variant="body2" color='gray'>
+                Hello, {userName}
+              </Typography>
+            </Box>
           }
-
         </Toolbar>
-      </AppBar>
+        <Divider></Divider>
+      </Box>
+      
+      <LogoutDialog open={open} setOpen={setOpen} />
     </>
   );
 }
 export default Nav
-

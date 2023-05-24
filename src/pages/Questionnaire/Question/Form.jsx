@@ -46,9 +46,6 @@ const QuestionForm = ({ options }) => {
       {formik => (
         <form>
           <Dialog open={options.open} PaperProps={{ style: { minWidth: '80%', minHeight: '80%' } }}>
-            <button onClick={()=>{
-              console.log(formik.values)
-            }}>click</button>
             <DialogTitle>{options.isEditing ? 'Edit question' : 'New question'}</DialogTitle>
             <DialogContent>
               {/* question */}

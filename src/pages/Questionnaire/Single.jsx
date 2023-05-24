@@ -154,11 +154,10 @@ const Questionnaire = () => {
       <>
         <Divider>
           <Button variant="contained" onClick={addPart} color='error'>+  add part</Button>
-
         </Divider>
-        {/* <a href='#' class="stt" title="scroll to top" > ^ </a> */}
-        <div class="container-top">
-          <a href="#" class="top" title="scroll to top"></a>
+
+        <div className="container-top">
+          <a href="#" className="top" title="scroll to top"></a>
         </div>
         <Box sx={{ textAlign: 'center' }}>
           <Button variant="contained" onClick={finish} color='error'>finish and mix</Button>
