@@ -8,23 +8,16 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const LogoutDialog = ({ open, setOpen }) => {
-
-  const { logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+const ConfirmationDialog = ({ open, setOpen, onConfirm, text, confirmText }) => {
+    
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleSubmission = () => {
-    handleLogout();
+    onConfirm();
     setOpen(false);
-  };
-
-  const handleLogout = async () => {
-    await logout();
-    navigate('/');
   };
 
   return (
@@ -38,13 +31,13 @@ const LogoutDialog = ({ open, setOpen }) => {
         <DialogTitle id="alert-dialog-title">{"Confirmation"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to logout?
+            {text}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmission} autoFocus>
-            Logout
+            {confirmText}
           </Button>
         </DialogActions>
       </Dialog>
@@ -52,4 +45,4 @@ const LogoutDialog = ({ open, setOpen }) => {
   );
 }
 
-export default LogoutDialog;
+export default ConfirmationDialog;

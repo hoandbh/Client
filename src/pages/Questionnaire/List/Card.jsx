@@ -1,20 +1,35 @@
-
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
 import LinkIcon from '@mui/icons-material/Link';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 import { Box, Paper, IconButton } from '@mui/material';
+import ConfirmationDialog from "../../../components/ConfirmationDialog";
 
 
-const QuestionnaireCard = ({ questionnaire }) => {
+const QuestionnaireCard = ({ questionnaire, onDelete }) => {
 
+  const id = questionnaire.id;
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const openEdit = () => {
-    navigate(`/questionnaire/${questionnaire.id}`);
+    navigate(`/questionnaire/${id}`);
   }
 
   const openFile = () => {
-    navigate(`/questionnaire/complete/${questionnaire.id}`);
+    navigate(`/questionnaire/complete/${id}`);
+  }
+
+  const openDelete = () =>{
+    setOpen(true);
+  }
+
+  const deleteQuestionnaire = async () =>{
+    await axios.delete(`http://localhost:3600/api/questionnaire/${id}`);
+    onDelete();
   }
 
   return <>
@@ -32,7 +47,7 @@ const QuestionnaireCard = ({ questionnaire }) => {
     >
       <Box>
         {
-          `Questionnaire number: ${questionnaire.id}.
+          `Questionnaire number: ${id}.
           Teacher: ${questionnaire.owner}.
           Date: ${new Date(questionnaire.date).toLocaleDateString()}.`
         }
@@ -44,9 +59,12 @@ const QuestionnaireCard = ({ questionnaire }) => {
         <IconButton onClick={openFile}>
           <LinkIcon />
         </IconButton>
+        <IconButton onClick={openDelete}>
+          <DeleteIcon />
+        </IconButton>
       </Box>
     </Paper>
-
+    <ConfirmationDialog open={open} setOpen={setOpen} onConfirm={deleteQuestionnaire} text='Are you sure you want to delete this questionnaire?' confirmText='Delete' />    
 
   </>
 }

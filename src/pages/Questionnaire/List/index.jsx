@@ -20,12 +20,17 @@ const QuestionnairesList = () => {
     setQuestionnaires(data);
   }
 
+  const onDelete = () => {
+    fetchData();
+  }
+  
+
   useEffect(() => {
     fetchData();
   }, [])
 
   useEffect(() => {
-    if (questionnaires){
+    if (questionnaires.length){
       setNoContent(false);
     }
     else {
@@ -44,7 +49,7 @@ const QuestionnairesList = () => {
       <List>
         {questionnaires.map(q =>
           <ListItem fullWidth>
-            <QuestionnaireCard questionnaire={q} />
+            <QuestionnaireCard questionnaire={q} onDelete={onDelete} />
           </ListItem>
         )}
       </List>

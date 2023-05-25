@@ -52,40 +52,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { Chip } from '@mui/material';
+import { Button } from '@mui/material';
 
 const DownloadPdfs = () => {
 
   const { qId } = useParams();
-  // const [links, setLinks] = useState([]);
-  // const [arr, setArr] = useState([]);
-
-  // useEffect(() => {
-  //   fetchVersions();
-  // }, [])
-
-  // useEffect(() => {
-  //   if (links) {
-  //     var x = '';
-  //     console.log(links)
-  //     const a = links.map((l) => {
-  //       if (l) {
-  //         x = l.split('./files/')[1];
-  //         console.log('x')
-  //         console.log(x)
-
-  //         return <><a href={`http://localhost:3600/files/readyVersions/${x}`} download={x}>Download File</a><br /></>
-  //       }
-
-  //     });
-  //     setArr(a);
-  //   }
-  // }, [links])
-
-  // const fetchVersions = async () => {
-  //   const { data } = await axios.get(`http://localhost:3600/api/downloads/versions/${qId}`);
-  //   setLinks(data);
-  // }
 
   const handleDownload = async () => {
     try { 
@@ -105,10 +76,15 @@ const DownloadPdfs = () => {
 
 return (
   <>
-    <div> questionnaire id {qId}</div>
-    <button onClick={handleDownload}>
-      Download Vesrsions
-    </button>
+    <br/> <br/>
+    <Button 
+    onClick={handleDownload}
+    sx={{
+      fontSize:'small'
+    }}
+    >
+      Download Vesrsions of questionnaire {qId}
+    </Button>
   </>
 )
 }
