@@ -12,6 +12,7 @@ import Statistic from './pages/Statistic';
 import Courses from './pages/Admin/Courses';
 import DownloadPdfs from "./pages/Versions/download";
 import Uploader from "./components/Uploader";
+import A from './components/A';
 
 function App() {
   return <>
@@ -29,8 +30,9 @@ function App() {
       <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
       <Route path="/statistic" element={<Statistic/>}/>      
       <Route path="/courses" element={<Courses/>}/>   
-      <Route path = "/versions/:Qid" element = {<DownloadPdfs/>} />     
-      <Route path = "/upload" element = {<Uploader/>} />     
+      <Route path = "/versions/:qId" element = {<DownloadPdfs/>} />     
+      <Route path = "/upload" element = {<Uploader/>} /> 
+      <Route path = "/a" element = {<A/>} />     
     </Routes>
     </Router>  
   </AuthContextProvider>

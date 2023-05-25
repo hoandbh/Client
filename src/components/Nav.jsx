@@ -50,8 +50,8 @@ const Tab = ({ path, icon, text }) => {
       component={NavLink}
       to={path}
       sx={{
-        minWidth:'40px',
-        height:'40px',
+        minWidth: '40px',
+        height: '40px',
         margin: '2px',
         //paddingLeft: '1px',
         //paddingRight: '1px',
@@ -120,7 +120,6 @@ const Nav = () => {
     handleCloseUserMenu();
     setOpen(true);
   }
-
   return (
     <>
       <Box
@@ -128,17 +127,27 @@ const Nav = () => {
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          marginTop: 0
+          marginTop: 0,
+          maxHeight: '70px',
+          height: '70px',
+          minHeight: '70px',
         }}>
         <Toolbar
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
             backgroundColor: '#ffffff',
-            position: 'sticky'
+            position: 'sticky',
+            maxHeight: '70px',
+            height: '70px',
+            minHeight: '70px',
           }}
         >
-          <Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}>
             <Tab path='/' icon={<HomeIcon />} text='home' />
             {
               (() => {
@@ -155,17 +164,22 @@ const Nav = () => {
           </Box>
 
           {currentUser &&
-            <Box width={150}>
+            <Box
+              //width={150}
+              // sx={{ 
+              //   display: 'flex' 
+              // }}
+            >
               <AccountCircle style={{ fontSize: 35, color: 'gray', paddingTop: 5 }} onClick={handleLogout} />
               <Typography variant="body2" color='gray'>
-                Hello, {userName}
+                {userName}
               </Typography>
             </Box>
           }
         </Toolbar>
         <Divider></Divider>
       </Box>
-      
+
       <LogoutDialog open={open} setOpen={setOpen} />
     </>
   );
