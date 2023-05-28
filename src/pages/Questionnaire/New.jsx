@@ -157,7 +157,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AuthContext } from '../../context/authContext';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Checkbox, FormControlLabel, Typography, CircularProgress } from '@mui/material';
+import { Paper, Button, FormControl, InputLabel, MenuItem, Select, TextField, Checkbox, FormControlLabel, Typography, CircularProgress } from '@mui/material';
 
 const NewQuestionnaire = () => {
   const [date, setDate] = useState('0001-01-01');
@@ -227,90 +227,102 @@ const NewQuestionnaire = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <br />
-        <Typography variant="body2" color="text.secondary">
-          {error}
-        </Typography>
-        <br />
-        <FormControl sx={{ width: '50%' }}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="date"
-              onChange={(newValue) => setDate(newValue)}
-              format="DD/MM/YYYY"
+      <Paper
+        sx={{
+          mt: 900,
+          margin: 'auto',
+          maxWidth: 800,
+          width: '100%',
+          textAlign: 'center'
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <br />
+          <Typography variant="body2" color="text.secondary">
+            {error}
+          </Typography>
+          <br />
+          <FormControl sx={{ width: '50%' }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="date"
+                onChange={(newValue) => setDate(newValue)}
+                format="DD/MM/YYYY"
+              />
+            </LocalizationProvider>
+          </FormControl>
+          <br />
+          <br />
+          <FormControl sx={{ width: '50%' }}>
+            <InputLabel id="term-select-label">Select Term</InputLabel>
+            <Select
+              labelId="term-select-label"
+              value={term}
+              label="Select Term "
+              onChange={(event) => {
+                setTerm(event.target.value);
+              }}
+            >
+              <MenuItem value={'A'}>term A</MenuItem>
+              <MenuItem value={'B'}>term B</MenuItem>
+              <MenuItem value={'C'}>term C</MenuItem>
+              <MenuItem value={'D'}>term D</MenuItem>
+              <MenuItem value={'E'}>special term</MenuItem>
+            </Select>
+          </FormControl>
+
+          <br />
+          <br />
+          <FormControl sx={{ width: '50%' }}>
+            <InputLabel id="course-select-label">Select Course</InputLabel>
+            <Select
+              labelId="course-select-label"
+              value={course}
+              label="Select Course "
+              onChange={(event) => {
+                setCourse(event.target.value);
+              }}
+            >
+              {courses?.length > 0 ? (
+                courses.map((c) => (
+                  <MenuItem key={c.id} value={c.id}>
+                    {c.name}
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem value={0}>no course, contact the technical support center</MenuItem>
+              )}
+            </Select>
+          </FormControl>
+
+          <br />
+          <br />
+          <FormControl sx={{ width: '50%' }}>
+            <TextField
+              value={name}
+              label="Description"
+              onChange={(event) => {
+                setName(event.target.value);
+              }}
             />
-          </LocalizationProvider>
-        </FormControl>
-        <br />
-        <br />
-        <FormControl sx={{ width: '50%' }}>
-          <InputLabel id="term-select-label">Select Term</InputLabel>
-          <Select
-            labelId="term-select-label"
-            value={term}
-            label="Select Term "
-            onChange={(event) => {
-              setTerm(event.target.value);
-            }}
-          >
-            <MenuItem value={'A'}>term A</MenuItem>
-            <MenuItem value={'B'}>term B</MenuItem>
-            <MenuItem value={'C'}>term C</MenuItem>
-            <MenuItem value={'D'}>term D</MenuItem>
-            <MenuItem value={'E'}>special term</MenuItem>
-          </Select>
-        </FormControl>
+          </FormControl>
+          <br />
+          <FormControl sx={{ width: '50%', color: 'gray', marginTop: '10px', marginBottom: '10px' }}>
+            <FormControlLabel
+              label="one part questionnaire"
+              control={<Checkbox checked={checked} onChange={handleCheckedChange} />}
+            />
+          </FormControl>
+          <br />
+          <FormControl sx={{ width: '50%' }} disabled={isLoading}>
+            <Button type="submit">
+              {isLoading ? <CircularProgress size={24} /> : 'Submit'}
+            </Button>
+          </FormControl>
+        </form>
 
-        <br />
-        <br />
-        <FormControl sx={{ width: '50%' }}>
-          <InputLabel id="course-select-label">Select Course</InputLabel>
-          <Select
-            labelId="course-select-label"
-            value={course}
-            label="Select Course "
-            onChange={(event) => {
-              setCourse(event.target.value);
-            }}
-          >
-            {courses?.length > 0 ? (
-              courses.map((c) => (
-                <MenuItem key={c.id} value={c.id}>
-                  {c.name}
-                </MenuItem>
-              ))
-            ) : (
-              <MenuItem value={0}>no course, contact the technical support center</MenuItem>
-            )}
-          </Select>
-        </FormControl>
+      </Paper>
 
-        <br />
-        <br />
-        <FormControl sx={{ width: '50%' }}>
-          <TextField
-            value={name}
-            label="Description"
-            onChange={(event) => {
-              setName(event.target.value);
-            }}
-          />
-        </FormControl>
-        <br /> 
-        <FormControl sx={{ width: '50%', color: 'gray', marginTop:'10px', marginBottom:'10px' }}>
-          <FormControlLabel
-            label="one part questionnaire"
-            control={<Checkbox checked={checked} onChange={handleCheckedChange} />}
-          />
-        </FormControl>
-        <br /> 
-        <FormControl sx={{ width: '50%' }} disabled={isLoading}>
-          <Button type="submit">
-            {isLoading ? <CircularProgress size={24} /> : 'Submit'}
-          </Button>
-        </FormControl>
-      </form>
     </>
   );
 };
