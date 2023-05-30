@@ -2,10 +2,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
-import LinkIcon from '@mui/icons-material/Link';
 import DeleteIcon from '@mui/icons-material/Delete';
+import LinkIcon from '@mui/icons-material/Link';
+import SmartButtonIcon from '@mui/icons-material/SmartButton';
 
-import { Box, Paper, IconButton } from '@mui/material';
+import { Box, Paper, IconButton, Typography } from '@mui/material';
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
 
 
@@ -23,11 +24,11 @@ const QuestionnaireCard = ({ questionnaire, onDelete }) => {
     navigate(`/questionnaire/complete/${id}`);
   }
 
-  const openDelete = () =>{
+  const openDelete = () => {
     setOpen(true);
   }
 
-  const deleteQuestionnaire = async () =>{
+  const deleteQuestionnaire = async () => {
     await axios.delete(`http://localhost:3600/api/questionnaire/${id}`);
     onDelete();
   }
@@ -36,35 +37,63 @@ const QuestionnaireCard = ({ questionnaire, onDelete }) => {
     <Paper
       sx={{
         display: "flex",
+        flexDirection: "column",
         justifyContent: "space-between",
-        width: "100vh",
         p: 2,
         flexGrow: 1,
-        fontFamily: 'Open Sans, sans-serif',
+        fontFamily: "Open Sans, sans-serif",
         backgroundColor: (theme) =>
-          theme.palette.mode === 'dark' ? '#1A2027' : '#fff'
+          theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
     >
       <Box>
-        {
-          `Questionnaire number: ${id}.
-          Teacher: ${questionnaire.owner}.
-          Date: ${new Date(questionnaire.date).toLocaleDateString()}.`
-        }
+        <Typography variant="body1">
+          {questionnaire.name}.
+        </Typography>
+        <Typography variant="body2">
+          Teacher: {questionnaire.owner}.
+        </Typography>
+        <Typography variant="body2">
+          Date: {new Date(questionnaire.date).toLocaleDateString()}.
+        </Typography>
       </Box>
       <Box>
-        <IconButton onClick={openEdit}>
-          <EditIcon />
-        </IconButton>
-        <IconButton onClick={openFile}>
-          <LinkIcon />
-        </IconButton>
-        <IconButton onClick={openDelete}>
-          <DeleteIcon />
-        </IconButton>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}>
+          <Box>
+            <IconButton onClick={openDelete}>
+              <DeleteIcon />
+            </IconButton>
+            <IconButton onClick={openEdit}>
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={openFile}>
+              <SmartButtonIcon />
+            </IconButton>
+
+          </Box>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+          >
+            <Box flexGrow={1} /> {/* This creates an empty space that pushes the text to the bottom */}
+            <Typography
+              sx={{
+                marginBottom: 0
+              }}
+              variant="caption"
+            >
+              code:{questionnaire.id}.
+            </Typography>
+          </Box>
+        </Box>
       </Box>
     </Paper>
-    <ConfirmationDialog open={open} setOpen={setOpen} onConfirm={deleteQuestionnaire} text='Are you sure you want to delete this questionnaire?' confirmText='Delete' />    
+    <ConfirmationDialog open={open} setOpen={setOpen} onConfirm={deleteQuestionnaire} text='Are you sure you want to delete this questionnaire?' confirmText='Delete' />
 
   </>
 }

@@ -229,10 +229,9 @@ const NewQuestionnaire = () => {
     <>
       <Paper
         sx={{
-          mt: 900,
-          margin: 'auto',
+          marginLeft: 'auto',
+          marginRight: 'auto',
           maxWidth: 800,
-          width: '100%',
           textAlign: 'center'
         }}
       >
@@ -254,8 +253,13 @@ const NewQuestionnaire = () => {
           <br />
           <br />
           <FormControl sx={{ width: '50%' }}>
-            <InputLabel id="term-select-label">Select Term</InputLabel>
+            <InputLabel
+              id="term-select-label"
+            >Select Term</InputLabel>
             <Select
+              sx={{
+                textAlign: 'left'
+              }}
               labelId="term-select-label"
               value={term}
               label="Select Term "
@@ -276,6 +280,9 @@ const NewQuestionnaire = () => {
           <FormControl sx={{ width: '50%' }}>
             <InputLabel id="course-select-label">Select Course</InputLabel>
             <Select
+              sx={{
+                textAlign: 'left'
+              }}
               labelId="course-select-label"
               value={course}
               label="Select Course "

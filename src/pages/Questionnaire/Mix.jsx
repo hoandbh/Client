@@ -62,9 +62,7 @@ const MixQuestionnaire = () => {
       <Button color='primary' onClick={handleMixButton}>
         Complete And Create Versions
       </Button>
-
       <Grid item>
-
       </Grid>
     </Grid>
 

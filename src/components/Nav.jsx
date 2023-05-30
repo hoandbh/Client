@@ -128,6 +128,7 @@ const Nav = () => {
           top: 0,
           zIndex: 100,
           marginTop: 0,
+          marginBottom: 4,
           maxHeight: '70px',
           height: '70px',
           minHeight: '70px',
@@ -165,10 +166,10 @@ const Nav = () => {
 
           {currentUser &&
             <Box
-              //width={150}
-              // sx={{ 
-              //   display: 'flex' 
-              // }}
+            //width={150}
+            // sx={{ 
+            //   display: 'flex' 
+            // }}
             >
               <AccountCircle style={{ fontSize: 35, color: 'gray', paddingTop: 5 }} onClick={handleLogout} />
               <Typography variant="body2" color='gray'>
