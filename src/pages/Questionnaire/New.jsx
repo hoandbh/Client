@@ -158,6 +158,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AuthContext } from '../../context/authContext';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Paper, Button, FormControl, InputLabel, MenuItem, Select, TextField, Checkbox, FormControlLabel, Typography, CircularProgress } from '@mui/material';
+import sendAuthenticatedRequest from '../../utils/api';
 
 const NewQuestionnaire = () => {
   const [date, setDate] = useState('0001-01-01');
@@ -203,17 +204,16 @@ const NewQuestionnaire = () => {
 
     setIsLoading(true);
 
+    const details = {
+      owner: currentUserId,
+      date,
+      term,
+      name,
+      course_id: course
+    };
+
     try {
-      const { data: newQuestionnaire } = await axios.post(
-        'http://localhost:3600/api/questionnaire/',
-        {
-          owner: currentUserId,
-          date,
-          term,
-          name,
-          course_id: course,//course === 0 ? undefined : 
-        }
-      );
+      const { data: newQuestionnaire }  = await sendAuthenticatedRequest('http://localhost:3600/api/questionnaire/','post',details);
       const id = newQuestionnaire.id;
       navigate(`/questionnaire/${id}`);
     }
