@@ -1,26 +1,212 @@
+// import { useEffect, useState } from "react";
+// import axios from "axios";
+// import Part from './Part';
+// import { IconButton, Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle, Box, Switch, ToggleButtonGroup, ToggleButton, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+// import { useParams, useNavigate } from 'react-router-dom';
+
+// import DoneAllIcon from '@mui/icons-material/DoneAll';
+// import '../../Style/sst.css';
+// import sendAuthenticatedRequest from '../../utils/api';
+
+// const Questionnaire = () => {
+
+//   const { id } = useParams();
+
+//   const [questionnaire, setQuestionnaire] = useState({});
+//   const [partsNum, setPartsNum] = useState(0);
+//   const [isAdding, setIsAdding] = useState(false);
+//   const [open, setOpen] = useState(false);
+//   const [mix, setMix] = useState(true);
+//   const [error, setError] = useState('');
+
+//   const [partHeadline, setPartHeadline] = useState('');
+
+
+//   const fetchData = async () => {
+//     try {
+//       const res = await sendAuthenticatedRequest(`http://localhost:3600/api/questionnaire/${id}/full`);
+//       const questionnaire = res.data;
+//       setQuestionnaire(questionnaire);
+//       setPartsNum(questionnaire.parts.length);
+//     } catch (error) {
+//       if (error.response && error.response.status === 403) {
+//         setError('Forbidden - Access Denied');
+//       } else {
+//         setError('Something went wrong. Please contact the technical support center.');
+//       }
+//     }
+
+//   }
+
+//   useEffect(() => {
+//     fetchData();
+//   }, [])
+//   const switchMix = (e) => {
+//     const toMix = e.currentTarget.value === 'true' ? true : false;
+//     setMix(toMix);
+//   }
+
+//   const addPart = async () => {
+//     setOpen(true)
+//   }
+
+//   const handleAddPart = async () => {
+//     await axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
+//       {
+//         headline: partHeadline,
+//         serial_number: partsNum + 1,
+//         mix: mix
+//       }
+//     )
+//     setIsAdding(false);
+//     setPartHeadline('');
+//     fetchData();
+//     setOpen(false);
+//   }
+
+//   const handleClose = () => {
+//     setOpen(false);
+//     setPartHeadline('');
+//   }
+
+//   const navigate = useNavigate();
+
+//   const finish = () => {
+//     navigate(`/questionnaire/complete/${id}`);
+//   }
+
+//   const handlePartChange = () => {
+//     fetchData();
+//   }
+
+//   const randKey = (length) => {
+//     let result = '';
+//     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+//     const charactersLength = characters.length;
+//     let counter = 0;
+//     while (counter < length) {
+//       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//       counter += 1;
+//     }
+//     return result;
+//   }
+
+//   return (<>
+//     {error.length > 0 ?
+//       <Typography variant="body2" color="text.secondary">
+//         {error}
+//       </Typography>
+//       :
+//       <>
+//         <Dialog
+//           open={open}
+//           aria-labelledby="alert-dialog-title"
+//           aria-describedby="alert-dialog-description"
+//           onKeyDown={e => { if (e.key === 'Enter') handleAddPart() }}
+//         >
+//           <DialogTitle id="alert-dialog-title">{"Type the part name"}</DialogTitle>
+//           <DialogContent>
+//             <TextField
+//               margin="dense"
+//               label={`Part name`}
+//               type="text"
+//               fullWidth
+//               onChange={e => setPartHeadline(e.target.value)}
+//             />
+
+//             <RadioGroup
+//               value={mix}
+//               onChange={switchMix}
+
+//             >
+//               <FormControlLabel value='true' label='Mix Questions and Answers' control={<Radio />} />
+//               <FormControlLabel value='false' label='Mix Only Answers' control={<Radio />} />
+//             </RadioGroup>
+//           </DialogContent>
+//           <DialogActions>
+//             <Button onClick={handleClose}>Cancel</Button>
+//             <Button onClick={handleAddPart} autoFocus>
+//               add
+//             </Button>
+//           </DialogActions>
+//         </Dialog>
+//         <br />
+//         <div style={{ textAlign: "center" }}>
+//           <Typography variant="h4" gutterBottom>
+//             {questionnaire?.name}
+//           </Typography>
+//           <Typography variant="h4" gutterBottom>
+//             questionnaire in {questionnaire?.course?.name}
+//           </Typography>
+//           <Typography variant="h5" gutterBottom>
+//             {questionnaire && <p>exam date :{new Date(questionnaire.date).toLocaleDateString()}</p>}
+//           </Typography>
+//         </div>
+
+//         {questionnaire && questionnaire.parts &&
+//           <Box>
+//             {questionnaire.parts.map((part, i) => <Part handlePartChange={handlePartChange} key={randKey(3) + part.headline} part={part} />)}
+//           </Box>
+//         }
+//         {isAdding ?
+//           (
+//             <>
+//               <Divider>
+//                 <TextField
+//                   label='part head line'
+//                   onChange={e => setPartHeadline(e.target.value)}
+//                   onKeyDown={e => { if (e.key === 'Enter') handleAddPart() }}
+//                   style={{ width: 500 }}
+//                   onBlur={handleAddPart}
+//                 />
+//                 <IconButton onClick={handleAddPart}>
+//                   <DoneAllIcon />
+//                 </IconButton>
+//               </Divider>
+//             </>
+
+//           )
+//           :
+//           <>
+//             <Divider>
+//               <Button variant="contained" onClick={addPart} color='error'>+  add part</Button>
+//             </Divider>
+
+//             <div className="container-top">
+//               <a href="#" className="top" title="scroll to top"></a>
+//             </div>
+//             <Box sx={{ textAlign: 'center' }}>
+//               <Button variant="contained" onClick={finish} color='error'>finish and mix</Button>
+//             </Box>
+//           </>
+//         }
+
+//       </>
+
+//     }
+//   </>)
+// }
+
+// export default Questionnaire;
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Part from './Part';
-import { IconButton, Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle, Box, Switch, ToggleButtonGroup, ToggleButton, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import Part from './Part/Card';
+import { IconButton, Fab, Button, Typography, TextField, Divider, Dialog, DialogActions, DialogContent, DialogTitle, Box, Switch, ToggleButtonGroup, ToggleButton, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import DoneAllIcon from '@mui/icons-material/DoneAll';
-import '../../Style/sst.css';
 import sendAuthenticatedRequest from '../../utils/api';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import PartForm from "./Part/Form";
+
 
 const Questionnaire = () => {
-
   const { id } = useParams();
 
   const [questionnaire, setQuestionnaire] = useState({});
   const [partsNum, setPartsNum] = useState(0);
-  const [isAdding, setIsAdding] = useState(false);
   const [open, setOpen] = useState(false);
-  const [mix, setMix] = useState(true);
   const [error, setError] = useState('');
-
-  const [partHeadline, setPartHeadline] = useState('');
-
 
   const fetchData = async () => {
     try {
@@ -35,38 +221,29 @@ const Questionnaire = () => {
         setError('Something went wrong. Please contact the technical support center.');
       }
     }
-
   }
 
   useEffect(() => {
     fetchData();
   }, [])
-  const switchMix = (e) => {
-    const toMix = e.currentTarget.value === 'true' ? true : false;
-    setMix(toMix);
+
+  const addPart = () => {
+    setOpen(true);
   }
 
-  const addPart = async () => {
-    setOpen(true)
-  }
+  const handleAddPart = async (headline, mix) => {
+    await axios.post(`http://localhost:3600/api/questionnaire/${id}/part`, {
+      headline,
+      serial_number: partsNum + 1,
+      mix 
+    });
 
-  const handleAddPart = async () => {
-    await axios.post(`http://localhost:3600/api/questionnaire/${id}/part`,
-      {
-        headline: partHeadline,
-        serial_number: partsNum + 1,
-        mix: mix
-      }
-    )
-    setIsAdding(false);
-    setPartHeadline('');
     fetchData();
     setOpen(false);
   }
 
   const handleClose = () => {
     setOpen(false);
-    setPartHeadline('');
   }
 
   const navigate = useNavigate();
@@ -91,100 +268,70 @@ const Questionnaire = () => {
     return result;
   }
 
-  return (<>
-    {error.length > 0 ?
-      <Typography variant="body2" color="text.secondary">
-        {error}
-      </Typography>
-      :
-      <>
-        <Dialog
-          open={open}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          onKeyDown={e => { if (e.key === 'Enter') handleAddPart() }}
-        >
-          <DialogTitle id="alert-dialog-title">{"Type the part name"}</DialogTitle>
-          <DialogContent>
-            <TextField
-              margin="dense"
-              label={`Part name`}
-              type="text"
-              fullWidth
-              onChange={e => setPartHeadline(e.target.value)}
-            />
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
-            <RadioGroup
-              value={mix}
-              onChange={switchMix}
-
-            >
-              <FormControlLabel value='true' label='Mix Questions and Answers' control={<Radio />} />
-              <FormControlLabel value='false' label='Mix Only Answers' control={<Radio />} />
-            </RadioGroup>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleAddPart} autoFocus>
-              add
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <br />
-        <div style={{ textAlign: "center" }}>
-          <Typography variant="h4" gutterBottom>
-            {questionnaire?.name}
-          </Typography>
-          <Typography variant="h4" gutterBottom>
-            questionnaire in {questionnaire?.course?.name}
-          </Typography>
-          <Typography variant="h5" gutterBottom>
-            {questionnaire && <p>exam date :{new Date(questionnaire.date).toLocaleDateString()}</p>}
-          </Typography>
-        </div>
-
-        {questionnaire && questionnaire.parts &&
-          <Box>
-            {questionnaire.parts.map((part, i) => <Part handlePartChange={handlePartChange} key={randKey(3) + part.headline} part={part} />)}
+  return (
+    <>
+      {error.length > 0 ? (
+        <Typography variant="body2" color="text.secondary">
+          {error}
+        </Typography>
+      ) : (
+        <>
+          <PartForm
+            open={open}
+            handleAddPart={handleAddPart}
+            handleClose={handleClose}
+          />
+          <Box sx={{ textAlign: 'center', mt: 2 }}>
+            <Typography variant="h4" gutterBottom>
+              {questionnaire?.name}
+            </Typography>
+            <Typography variant="h5" gutterBottom>
+              {`Questionnaire in ${questionnaire?.course?.name}`}
+            </Typography>
+            <Typography variant="h5" gutterBottom>
+              {questionnaire && <p>exam date: {new Date(questionnaire.date).toLocaleDateString()}</p>}
+            </Typography>
           </Box>
-        }
-        {isAdding ?
-          (
-            <>
-              <Divider>
-                <TextField
-                  label='part head line'
-                  onChange={e => setPartHeadline(e.target.value)}
-                  onKeyDown={e => { if (e.key === 'Enter') handleAddPart() }}
-                  style={{ width: 500 }}
-                  onBlur={handleAddPart}
-                />
-                <IconButton onClick={handleAddPart}>
-                  <DoneAllIcon />
-                </IconButton>
-              </Divider>
-            </>
 
-          )
-          :
-          <>
-            <Divider>
-              <Button variant="contained" onClick={addPart} color='error'>+  add part</Button>
-            </Divider>
-
-            <div className="container-top">
-              <a href="#" className="top" title="scroll to top"></a>
-            </div>
-            <Box sx={{ textAlign: 'center' }}>
-              <Button variant="contained" onClick={finish} color='error'>finish and mix</Button>
+          {questionnaire && questionnaire.parts && (
+            <Box>
+              {questionnaire.parts.map((part, i) => (
+                <Part handlePartChange={handlePartChange} key={randKey(3) + part.headline} part={part} />
+              ))}
             </Box>
-          </>
-        }
+          )}
 
-      </>
+          <Divider>
+            <Button variant="contained" onClick={addPart} color='error'>+  add part</Button>
+          </Divider>
 
-    }
-  </>)
+          <Fab
+            color="primary"
+            aria-label="Scroll to top"
+            onClick={handleScrollToTop}
+            sx={{
+              position: 'fixed',
+              bottom: '16px',
+              right: '16px',
+              //zIndex: 9999,
+            }}
+          >
+            <KeyboardArrowUpIcon />
+          </Fab>
+          <Box sx={{ textAlign: 'center', mt: 2 }}>
+            <Button variant="contained" onClick={finish} color='error'>finish and mix</Button>
+          </Box>
+        </>
+      )}
+    </>
+  );
 }
 
 export default Questionnaire;

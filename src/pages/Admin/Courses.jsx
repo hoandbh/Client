@@ -53,6 +53,7 @@ const Courses = () => {
 
   }
 
+  
   const handleClose = () => {
     setOpen(false);
   }
