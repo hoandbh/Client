@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { Paper, ListItemText, ListItemButton, Dialog, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import sendAuthenticatedRequest from '../../utils/api';
 import ConfirmationDialog from '../../components/ConfirmationDialog';
 
 const CourseCard = ({ course, onDelete }) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handledeleteCourse = async () => {
-    await axios.delete(`http://localhost:3600/api/course/${course.id}`);
+
+    await sendAuthenticatedRequest(`http://localhost:3600/api/course/${course.id}`, 'DELETE');
     onDelete();
   }
 

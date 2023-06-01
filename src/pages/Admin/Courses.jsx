@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { List, Paper, ListItemText, ListItemButton, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button, Typography } from '@mui/material';
 import { Formik, Field } from 'formik';
 import CourseCard from './CourseCard';
+import sendAuthenticatedRequest from '../../utils/api';
 
 
 const Courses = () => {
@@ -15,7 +15,7 @@ const Courses = () => {
   }, [])
 
   const fetchCourses = async () => {
-    const { data } = await axios.get(`http://localhost:3600/api/course`);
+    const { data } = await sendAuthenticatedRequest(`http://localhost:3600/api/course`,'GET');
     setCourses(data);
   }
 
@@ -33,14 +33,16 @@ const Courses = () => {
       setError('Please fill all the required fields.');
       return;
     }
+    const data = {
+      name: values.courseName,
+      code: values.courseCode,
+      code: values.courseCode
+
+    };
     //   setIsLoading(true);
     try {
-      await axios.post(`http://localhost:3600/api/course`, {
-        name: values.courseName,
-        code: values.courseCode,
-        code: values.courseCode
 
-      });
+      await sendAuthenticatedRequest(`http://localhost:3600/api/course`, 'POST', data);
       setOpen(false);
       fetchCourses();
     }
@@ -53,7 +55,7 @@ const Courses = () => {
 
   }
 
-  
+
   const handleClose = () => {
     setOpen(false);
   }
@@ -97,7 +99,7 @@ const Courses = () => {
             <DialogContent>
               <Typography variant="body2" color="text.secondary">
                 {error}
-              </Typography>              
+              </Typography>
               <Field
                 as={TextField}
                 margin="dense"
