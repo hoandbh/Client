@@ -58,6 +58,7 @@ const QuestionForm = ({ options }) => {
                 required
                 value={formik.values.questionContent}
                 name="questionContent"
+                dir="rtl" 
               />
               {/* correct answer */}
               <Divider sx={{ mt: 2, mb: 2 }} />
@@ -69,6 +70,7 @@ const QuestionForm = ({ options }) => {
                 fullWidth
                 value={formik.values.correctAnswer}
                 name="correctAnswer"
+                dir="rtl" 
               />
               <Divider sx={{ mt: 2, mb: 2 }} />
               {/* incorrect answers */}
@@ -86,6 +88,7 @@ const QuestionForm = ({ options }) => {
                           fullWidth
                           name={`incorrectAnswers[${index}]`}//.content
                           value={formik.values.incorrectAnswers[index]}//.content
+                          dir="rtl" 
                         />
                         <IconButton
                           aria-label="delete"
