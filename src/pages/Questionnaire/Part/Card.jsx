@@ -1,5 +1,3 @@
-
-import axios from 'axios';
 import { useState, useEffect } from "react";
 import { IconButton, Menu, MenuItem, ListItemIcon, Typography, AccordionDetails, AccordionSummary, Accordion, Button, List, ListItem, Input, InputAdornment, Paper } from '@mui/material';
 import QuestionCard from "../Question/Card";
@@ -10,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import sendAuthenticatedRequest from '../../../utils/api';
 
 
 const Part = ({ part, handlePartChange }) => {
@@ -28,7 +27,7 @@ const Part = ({ part, handlePartChange }) => {
 
   const fetchQuestions = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:3600/api/part/${part.id}/question`);
+      const { data } = await sendAuthenticatedRequest(`http://localhost:3600/api/part/${part.id}/question`, 'GET');
       setQuestions(data);
     } catch (error) {
       console.error('Error fetching questions:', error);
@@ -37,20 +36,21 @@ const Part = ({ part, handlePartChange }) => {
 
   const postNewQuestion = async (values) => {
     try {
-      const { data } = await axios.post(`http://localhost:3600/api/question`, {
+      const { data } = await sendAuthenticatedRequest(`http://localhost:3600/api/question`, 'POST', {
         content: values.questionContent,
         part_id: part.id
       });
 
       const qstId = data.id;
-      await axios.post(`http://localhost:3600/api/answer`, {
+
+      await sendAuthenticatedRequest(`http://localhost:3600/api/answer`, 'POST', {
         content: values.correctAnswer,
         is_correct: true,
         question_id: qstId
       });
 
       for (const answer of values.incorrectAnswers) {
-        await axios.post(`http://localhost:3600/api/answer`, {
+        await sendAuthenticatedRequest(`http://localhost:3600/api/answer`, 'POST', {
           content: answer,//.content,
           is_correct: false,
           question_id: qstId
@@ -60,7 +60,7 @@ const Part = ({ part, handlePartChange }) => {
       if (values.file) {
         const formData = new FormData();
         formData.append("file", values.file);
-        await axios.post(`http://localhost:3600/api/question/${qstId}/image`, formData);
+        await sendAuthenticatedRequest(`http://localhost:3600/api/question/${qstId}/image`, 'POST', formData);
       }
 
       fetchQuestions();
@@ -89,7 +89,7 @@ const Part = ({ part, handlePartChange }) => {
   const handleDelete = async (e) => {
     e.stopPropagation();
     try {
-      await axios.delete(`http://localhost:3600/api/part/${part.id}`);
+      await sendAuthenticatedRequest(`http://localhost:3600/api/part/${part.id}`, 'DELETE');
       handlePartChange();
     } catch (error) {
       console.error('Error deleting part:', error);
@@ -106,7 +106,8 @@ const Part = ({ part, handlePartChange }) => {
 
   const handleEditPart = async () => {
     try {
-      await axios.patch(`http://localhost:3600/api/part/${part.id}`, { headline: newHeadline });
+      // await axios.patch(`http://localhost:3600/api/part/${part.id}`, { headline: newHeadline });
+      await sendAuthenticatedRequest(`http://localhost:3600/api/part/${part.id}`, 'PATCH', { headline: newHeadline });
       handlePartChange();
     } catch (error) {
       console.error('Error editing part:', error);

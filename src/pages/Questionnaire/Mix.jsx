@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Button, TextField, Grid, CircularProgress, Typography } from '@mui/material';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import sendAuthenticatedRequest from '../../utils/api';
 
 const MixQuestionnaire = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ const MixQuestionnaire = () => {
   const [error, setError] = useState('');
 
   const fetchData = async () => {
-    const { data: questionnaire } = await axios.get(`http://localhost:3600/api/questionnaire/${id}`);
+    const { data: questionnaire } = await sendAuthenticatedRequest(`http://localhost:3600/api/questionnaire/${id}`,'GET');
     setQuestionnaireDetails(questionnaire);
   }
 
@@ -24,12 +24,12 @@ const MixQuestionnaire = () => {
   const handleMixButton = async () => {
     try {
       setError('');
-      if(!amount){
+      if (!amount) {
         setError('Fill the number of version.');
         return;
       }
       setIsLoading(true);
-      await axios.post(`http://localhost:3600/api/questionnaire/${id}/generate-versions`, { amount });
+      await sendAuthenticatedRequest(`http://localhost:3600/api/questionnaire/${id}/generate-versions`, 'POST',{ amount });
       navigate(`/versions/${id}`);
     }
     catch {
@@ -45,7 +45,11 @@ const MixQuestionnaire = () => {
   }, [])
 
   return <>
-    <Grid 
+    <Button onClick={navBack}>
+      <ContentPasteSearchIcon sx={{ mr: 1 }} />
+      Back to Editing Questionnaire
+    </Button>
+    <Grid
       container
       spacing={5}
       direction="column"
@@ -87,10 +91,7 @@ const MixQuestionnaire = () => {
       </Grid>
     </Grid>
 
-    <Button onClick={navBack}>
-      <ContentPasteSearchIcon sx={{ mr: 1 }} />
-      Back to Editing Questionnaire
-    </Button>
+
 
 
 

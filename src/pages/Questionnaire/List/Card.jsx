@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,6 +7,7 @@ import SmartButtonIcon from '@mui/icons-material/SmartButton';
 
 import { Box, Paper, IconButton, Typography } from '@mui/material';
 import ConfirmationDialog from "../../../components/ConfirmationDialog";
+import sendAuthenticatedRequest from "../../../utils/api";
 
 
 const QuestionnaireCard = ({ questionnaire, onDelete }) => {
@@ -29,7 +29,7 @@ const QuestionnaireCard = ({ questionnaire, onDelete }) => {
   }
 
   const deleteQuestionnaire = async () => {
-    await axios.delete(`http://localhost:3600/api/questionnaire/${id}`);
+    await sendAuthenticatedRequest(`http://localhost:3600/api/questionnaire/${id}`,'DELETE');
     onDelete();
   }
 

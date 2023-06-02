@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 import { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
-import { Button, Divider, Toolbar, Box, SvgIcon, Typography, IconButton, Menu, MenuItem } from '@mui/material';
+import { Button, Divider, Toolbar, Box, SvgIcon, Typography, Tooltip,IconButton, Menu, MenuItem } from '@mui/material';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AddIcon from '@mui/icons-material/Add';
 import LockIcon from '@mui/icons-material/Lock';
@@ -46,6 +46,8 @@ const Tab = ({ path, icon, text }) => {
     // <SvgIcon >
     //   <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
     // </SvgIcon>
+    <Tooltip title = {text}>
+
     <Button
       component={NavLink}
       to={path}
@@ -68,6 +70,8 @@ const Tab = ({ path, icon, text }) => {
         {icon}
       </SvgIcon>
     </Button>
+    </Tooltip>
+
 
   )
 }
