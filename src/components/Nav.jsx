@@ -13,6 +13,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import SchoolIcon from '@mui/icons-material/School';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import { AuthContext } from "../context/authContext"
 import LogoutDialog from "./LogoutDialog";
@@ -82,6 +83,7 @@ const TeacherNav = () => {
     <Tab path='/questionnaire/new' icon={<AddIcon />} text='create questionnaire' />
     <Tab path='/statistic' icon={<BarChartIcon />} text='statistic' />
     <Tab path='/courses' icon={<SchoolIcon />} text='courses' />
+    <Tab path='/check' icon={<CheckCircleIcon  />} text='check the questionnaire' />
   </>
 }
 

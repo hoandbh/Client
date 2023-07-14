@@ -42,7 +42,7 @@ const QuestionForm = ({ options }) => {
   };
 
   return (
-  <Formik key={JSON.stringify(options.initialValues)} initialValues={options.initialValues} >
+    <Formik key={JSON.stringify(options.initialValues)} initialValues={options.initialValues} >
       {formik => (
         <form>
           <Dialog open={options.open} PaperProps={{ style: { minWidth: '80%', minHeight: '80%' } }}>
@@ -58,7 +58,9 @@ const QuestionForm = ({ options }) => {
                 required
                 value={formik.values.questionContent}
                 name="questionContent"
-                dir="rtl" 
+                dir="rtl"
+                multiline // Enable multiline input
+                rows={4}
               />
               {/* correct answer */}
               <Divider sx={{ mt: 2, mb: 2 }} />
@@ -70,7 +72,7 @@ const QuestionForm = ({ options }) => {
                 fullWidth
                 value={formik.values.correctAnswer}
                 name="correctAnswer"
-                dir="rtl" 
+                dir="rtl"
               />
               <Divider sx={{ mt: 2, mb: 2 }} />
               {/* incorrect answers */}
@@ -88,7 +90,7 @@ const QuestionForm = ({ options }) => {
                           fullWidth
                           name={`incorrectAnswers[${index}]`}//.content
                           value={formik.values.incorrectAnswers[index]}//.content
-                          dir="rtl" 
+                          dir="rtl"
                         />
                         <IconButton
                           aria-label="delete"

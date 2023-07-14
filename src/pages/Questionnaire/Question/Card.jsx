@@ -136,7 +136,7 @@ const QuestionCard = ({ question, onDelete }) => {
       <Grid container spacing={2}>
         <Grid item xs={12} sm container>
           <Grid item xs container direction="column" spacing={2}>
-            <Grid item>
+            <Grid item textAlign="right">
               <Typography gutterBottom variant="subtitle1" component="div" sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
                 {questionContent}
               </Typography>
@@ -155,19 +155,19 @@ const QuestionCard = ({ question, onDelete }) => {
 
             <Grid item sx={{ mt: 1 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Grid item sx={{ mt: 0.1 }}>
+                <Grid item sx={{ mt: 0.1 }} textAlign="right">
                   <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
                     correct answer:
                   </Typography>
                 </Grid>
 
-                <Paper variant="outlined" sx={{ p: 1 }}>
+                <Paper variant="outlined" sx={{ p: 1, textAlign:"right" }}>
                   <Typography variant="body2" color="text.secondary">
                     {correctAnswerContent}
                   </Typography>
                 </Paper>
 
-                <Grid item sx={{ mt: 0.1 }}>
+                <Grid item sx={{ mt: 0.1, textAlign:"right" }}>
                   <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
                     incorrect answers:
                   </Typography>
@@ -175,7 +175,7 @@ const QuestionCard = ({ question, onDelete }) => {
 
                 {incorrectAnswersContent.length > 0 &&
                   incorrectAnswersContent.map((answer, index) => (
-                    <Paper key={index} variant="outlined" sx={{ p: 1 }}>
+                    <Paper key={index} variant="outlined" sx={{ p: 1, textAlign:"right" }}>
                       <Typography variant="body2" color="text.secondary">
                         {`${index + 1}. ${answer}`}
                       </Typography>

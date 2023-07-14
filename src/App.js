@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Statistic from './pages/Statistic';
 import Courses from './pages/Admin/Courses';
+import Checker from './pages/Check'
 import DownloadPdfs from "./pages/Versions/download";
 import Uploader from "./components/Uploader";
 import A from './components/A';
@@ -30,9 +31,10 @@ function App() {
       <Route path="questionnaire/complete/:id" element={<MixQuestionnaire/>}/>
       <Route path="/statistic" element={<Statistic/>}/>      
       <Route path="/courses" element={<Courses/>}/>   
-      <Route path = "/versions/:qId" element = {<DownloadPdfs/>} />     
-      <Route path = "/upload" element = {<Uploader/>} /> 
-      <Route path = "/a" element = {<A/>} />     
+      <Route path="/versions/:qId" element = {<DownloadPdfs/>} />     
+      <Route path="/upload" element = {<Uploader/>} /> 
+      <Route path="/check" element = {<Checker/>} /> 
+      <Route path="/a" element = {<A/>} />     
     </Routes>
     </Router>  
   </AuthContextProvider>
